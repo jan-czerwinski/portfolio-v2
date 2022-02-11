@@ -1,38 +1,38 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BufferGeometry, Euler, Material, Matrix4, Mesh, Vector3 } from 'three';
-import {
-  CubiesRefType,
-  reverseTurn,
-  turnArrayToString,
-  TurnType,
-} from './CubeUtils';
-import Cubie, { CubieProps } from './Cubie';
+import { CubiesRefType, reverseTurn, TurnType } from './CubeUtils';
+import Cubie, { CubieDrawFacesType } from './Cubie';
 
-const getInitialCubieProps = (): CubieProps[] => {
-  let initialCubieProps: CubieProps[] = [];
+const getInitialCubieProps = (): {
+  cubieDrawFaces: CubieDrawFacesType[];
+  targetPositions: Vector3[];
+} => {
+  const cubieDrawFaces: CubieDrawFacesType[] = [];
+  const targetPositions: Vector3[] = [];
   for (let x = -1; x <= 1; x++) {
     for (let y = -1; y <= 1; y++) {
       for (let z = -1; z <= 1; z++) {
-        if (!(x === 0 && y === 0 && z === 0))
-          initialCubieProps.push({
-            targetPosition: new Vector3(x, y, z),
-            drawFaces: {
-              up: y === 1,
-              down: y === -1,
-              left: x === -1,
-              right: x === 1,
-              front: z === 1,
-              back: z === -1,
-            },
+        if (!(x === 0 && y === 0 && z === 0)) {
+          cubieDrawFaces.push({
+            up: y === 1,
+            down: y === -1,
+            left: x === -1,
+            right: x === 1,
+            front: z === 1,
+            back: z === -1,
           });
+          targetPositions.push(new Vector3(x, y, z));
+        }
       }
     }
   }
-  initialCubieProps = initialCubieProps.map(({ targetPosition, drawFaces }) => {
-    const scaledPosition = targetPosition.multiplyScalar(4);
-    return { drawFaces, targetPosition: scaledPosition };
-  });
-  return initialCubieProps;
+  console.log(targetPositions);
+
+  // initialCubieProps = initialCubieProps.map(({ targetPosition, drawFaces }) => {
+  //   const scaledPosition = targetPosition.multiplyScalar(4);
+  //   return { drawFaces, targetPosition: scaledPosition };
+  // });
+  return { cubieDrawFaces, targetPositions };
 };
 
 type AxisType = 'x' | 'y' | 'z';
@@ -56,9 +56,8 @@ type matrixAndCubiesType = {
   cubieIdxsToTurn: number[];
 };
 const rotationMatrixFromTurn = (
-  rubiksCube: CubiesRefType,
+  rubiksCube: CubiesRefType, //TODO  TYPE should be Vector3[]
   turn: TurnType
-  // groupRef: MutableRefObject<Group>,
 ): matrixAndCubiesType => {
   let angle = Math.PI / 2;
 
@@ -104,21 +103,47 @@ const rotationMatrixFromTurn = (
       break;
   }
 
-  const matrix = new Matrix4();
   const eulerAngle = new Euler(0, 0, 0);
   eulerAngle[extractorAxis] = angle;
+  const matrix = new Matrix4();
   matrix.makeRotationFromEuler(eulerAngle);
 
   const cubieIdxsToTurn: number[] = [];
   for (let idx = 0; idx < rubiksCube.current.length; idx++) {
     const cubie = rubiksCube.current[idx];
     if (cubieExtractor(cubie, extractorAxis, extractorOffset)) {
-      console.log(idx);
+      rubiksCube.current[idx].applyMatrix4(matrix);
       cubieIdxsToTurn.push(idx);
     }
   }
 
   return { matrix, cubieIdxsToTurn };
+};
+
+/**
+ * @param {TurnType[]} prevCubeState array of turns describing the cube before any change
+ * @param {TurnType[]} cubeState array of turns describing the cube currently
+ * @returns {number} index of last turn that is equal from left of array
+ */
+const findIdxOfFirstDifferentTurn = (
+  prevCubeState: TurnType[],
+  cubeState: TurnType[]
+): number => {
+  for (
+    let idx = 0;
+    idx < Math.max(prevCubeState.length, cubeState.length);
+    idx++
+  ) {
+    const prevTurn = prevCubeState[idx];
+    const currTurn = cubeState[idx];
+    if (!prevTurn || !currTurn) return idx - 1;
+    if (
+      Object.entries(prevTurn).toString() !==
+      Object.entries(currTurn).toString()
+    )
+      return idx - 1;
+  }
+  return cubeState.length - 1;
 };
 
 const DIMENSION = 3;
@@ -128,54 +153,31 @@ type RubiksCubeProps = {
   cubeState: TurnType[];
 };
 const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
-  const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
-  const [allCubieProps, setAllCubieProps] = useState(getInitialCubieProps());
-  const groupRef = useRef<THREE.Group>(null!);
   const [prevCubeState, setPrevCubeState] = useState<TurnType[]>([]);
+  const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
+
+  const initialCubieProps = useMemo(getInitialCubieProps, []);
 
   useEffect(() => {
-    console.log(turnArrayToString(cubeState));
-    //TODO find previousCubeState and cubeState differences and apply them accordingly
-
-    const findIdxOfFirstDifferentTurn = (): {
-      lastEqualIdx: number;
-      diff: -1 | 1 | 0;
-    } => {
-      //prev < curr => 1 ; prev > curr => -1 ; prev = curr => 0
-      const diff =
-        prevCubeState.length < cubeState.length
-          ? 1
-          : prevCubeState.length === cubeState.length
-          ? 0
-          : -1;
-      for (
-        let idx = 0;
-        idx < Math.max(prevCubeState.length, cubeState.length);
-        idx++
-      ) {
-        const prevTurn = prevCubeState[idx];
-        const currTurn = cubeState[idx];
-        if (!prevTurn || !currTurn) return { lastEqualIdx: idx - 1, diff };
-        if (
-          Object.entries(prevTurn).toString() !==
-          Object.entries(currTurn).toString()
-        )
-          return { lastEqualIdx: idx - 1, diff };
-      }
-      return { lastEqualIdx: cubeState.length - 1, diff };
-    };
-
-    const { lastEqualIdx, diff } = findIdxOfFirstDifferentTurn();
+    const lastEqualTurnIdx = findIdxOfFirstDifferentTurn(
+      prevCubeState,
+      cubeState
+    );
 
     //so this finds only the turns that differ at some point
-    const currTurns = cubeState.slice(lastEqualIdx + 1, cubeState.length);
+    const currTurns = cubeState.slice(lastEqualTurnIdx + 1, cubeState.length);
     const prevTurns = prevCubeState.slice(
-      lastEqualIdx + 1,
+      lastEqualTurnIdx + 1,
       prevCubeState.length
     );
 
     // turns with both turn direction and order reversed
     const reversedTurns = prevTurns.reverse().map(reverseTurn);
+
+    // deep copy cubie cubie target positions array
+    // const newCubieTargetPositions = cubieTargetPositions.map((vec) =>
+    //   vec.clone()
+    // );
 
     // first the reversed turns get applied, then the current catch up
     const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
@@ -184,32 +186,37 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
         rubiksCube,
         turn
       );
+      // console.log('prev: ', newCubieTargetPositions);
+      console.log(rubiksCube.current[0].position);
+      rubiksCube.current[0].applyMatrix4(matrix);
 
-      const targetPositionArray = allCubieProps.map(
-        (cubieProp) => cubieProp.targetPosition
-      );
+      console.log(rubiksCube.current[0].position);
 
-      cubieIdxsToTurn.map((idx) => {
-        // const cubie = rubiksCube.current[idx];
-        targetPositionArray[idx].applyMatrix4(matrix);
-        targetPositionArray[idx].round();
-      });
-      console.log('reversedTurns: ', reversedTurns);
-      console.log('cubieIdxsToTurn: ', cubieIdxsToTurn);
+      // cubieIdxsToTurn.map((idx) => {
+      // rubiksCube.current[idx].applyMatrix4(matrix);
+
+      //this doesnt make sense
+      // newCubieTargetPositions[idx].applyMatrix4(matrix);
+      // newCubieTargetPositions[idx].round();
+      // });
     }
+
+    // console.log('curr: ', newCubieTargetPositions);
+
+    // setCubieTargetPositions(newCubieTargetPositions);
 
     setPrevCubeState(cubeState);
   }, [cubeState]);
 
   return (
-    <group ref={groupRef}>
-      {allCubieProps.map(({ targetPosition, drawFaces }, idx) => {
+    <group>
+      {[...Array(CUBIE_COUNT)].map((_, idx) => {
         return (
           <Cubie
-            targetPosition={targetPosition}
+            drawFaces={initialCubieProps.cubieDrawFaces[idx]}
+            targetPosition={initialCubieProps.targetPositions[idx]}
             key={idx}
-            drawFaces={drawFaces}
-            size={2}
+            size={0.9}
             passRef={(element: any) => (rubiksCube.current[idx] = element)}
           />
         );

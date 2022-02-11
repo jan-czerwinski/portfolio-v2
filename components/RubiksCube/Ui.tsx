@@ -6,14 +6,14 @@ type UiProps = {
   setCubeState: (turns: TurnType[]) => void;
 };
 
-export const Ui = (props: UiProps) => {
+const Ui = (props: UiProps) => {
   const [notationInput, setNotationInput] = useState('');
 
   return (
     <div className="z-10 flex items-center content-center justify-between text-gray-700 bg-blue-200 border-black">
       <div>cube state:</div>
       <input
-        className="w-24 m-4 w-96"
+        className="m-4 w-96"
         type="text"
         value={notationInput}
         onChange={(e) => {
@@ -34,3 +34,5 @@ export const Ui = (props: UiProps) => {
     </div>
   );
 };
+
+export default Ui;

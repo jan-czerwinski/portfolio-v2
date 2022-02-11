@@ -1,0 +1,8 @@
+Model Information:
+* title:	Thumb-Thumb
+* source:	https://sketchfab.com/3d-models/thumb-thumb-0841aadbfb3b4a6ea592705c4d6ef8ff
+* author:	Frugetto (https://sketchfab.com/Frugetto)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
