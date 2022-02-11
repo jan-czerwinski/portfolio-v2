@@ -17,9 +17,12 @@ const CameraControls = () => {
   //FIXME it works but gets highlited, probably issue with react-three-fiber and typescript
   const controls = useRef(null!);
 
+  //TODO figure out how to delete the ts-ignores
   useFrame(() => {
+    //@ts-ignore
     controls?.current?.update();
   });
+  //@ts-ignore
   return <orbitControls ref={controls} args={[camera, domElement]} />;
 };
 
