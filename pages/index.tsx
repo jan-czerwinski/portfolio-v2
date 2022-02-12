@@ -47,7 +47,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className="h-screen transform skew-y-3 bg-yellow-300 snap-start">
-        <Headline text="Thumb" />
+        <Headline text="rubiks cube" />
         <div className="grid transform -skew-y-3 place-content-center">
           <Link href="/rubiks" passHref>
             <button className="text-lg text-white border border-white rounded-md">
