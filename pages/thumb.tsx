@@ -6,77 +6,120 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import CameraControls from '../components/CameraControls';
 import ThumbGuy, { LocationType } from '../components/thumb/ThumbGuy';
+// generates cube of thumbguy
+//cool for testing performance
+// const cubeSize = 2;
+// const scale = 1;
+// for (let x = -cubeSize; x <= cubeSize; x++) {
+//   for (let y = -cubeSize; y <= cubeSize; y++) {
+//     for (let z = -cubeSize; z <= cubeSize; z++) {
+//       const scale = 0.3;
+//       thumbLocations.push({
+//         position: new Vector3(x, y, z),
+//         scale: new Vector3(scale, scale, scale),
+//         rotation: new Euler(0, Math.PI, 0),
+//       });
+//     }
+//   }
+// }
 
-// const ThumbLeftArm: LocationType = {
-//TODO Ta funkcja ma generować rotację dla lewej ręki -
-//TODO analogicznie ma być dla prawej, nóg i głowy
-//TODO rotacje całości, tak zeby mozna było przyczepić i zrobić fraktal
-// };
+const applyTransformation = (
+  original: LocationType,
+  transformation: LocationType
+): LocationType => {
+  //FIXME
+  //this is probably wrong
+  const newPosition = original.position.clone();
+  newPosition.add(transformation.position);
+  newPosition.multiply(original.scale);
 
-const generateThumbLocations = (): AllThumbLocationsType => {
-  const thumbLocations: AllThumbLocationsType = [];
+  const newScale = original.scale.clone();
+  newScale.multiply(transformation.scale);
 
-  //generates cube of thumbguy
-  //cool for testing performance
-  // const cubeSize = 2;
-  // const scale = 1;
-  // for (let x = -cubeSize; x <= cubeSize; x++) {
-  //   for (let y = -cubeSize; y <= cubeSize; y++) {
-  //     for (let z = -cubeSize; z <= cubeSize; z++) {
-  //       const scale = 0.3;
-  //       thumbLocations.push({
-  //         position: new Vector3(x, y, z),
-  //         scale: new Vector3(scale, scale, scale),
-  //         rotation: new Euler(0, Math.PI, 0),
-  //       });
-  //     }
-  //   }
-  // }
+  const newRotation = original.rotation.clone();
+  // newRotation.add(transformation.rotation);
 
+  return {
+    position: newPosition,
+    scale: newScale,
+    rotation: newRotation,
+  };
+};
+
+const getChildrenThumbs = (
+  originalThumbLocation: LocationType
+): LocationType[] => {
+  // children transformations from pos(0,0,0) scale(1,1,1) rotation(0,0,0)
+  const thumbChildren: LocationType[] = [];
   const transformations = {
+    //FIXME UNUSED
     head: {
       position: new Vector3(0, 4.2, 1.3),
       scale: new Vector3(1, 1, 1),
       rotation: new Euler(0.6, 0, Math.PI),
     } as LocationType,
+
     leftArm: {
-      position: new Vector3(-0.8, -1.4, -0.2),
-      scale: new Vector3(1, 1, 1),
-      rotation: new Euler(0, Math.PI / 2, 0),
+      position: new Vector3(-0.8, -0.45, -0.4),
+      scale: new Vector3(0.6, 0.6, 0.6),
+      rotation: new Euler(0.15, Math.PI / 2, 0),
     } as LocationType,
     rightArm: {
-      position: new Vector3(0.8, -1.4, -0.2),
-      scale: new Vector3(1, 1, 1),
-      rotation: new Euler(0, -Math.PI / 2, 0),
+      position: new Vector3(0.8, -0.45, -0.4),
+      scale: new Vector3(0.6, 0.6, 0.6),
+      rotation: new Euler(0.15, -Math.PI / 2, 0),
     } as LocationType,
+
     leftLeg: {
-      position: new Vector3(0.15, -2.2, 0),
-      scale: new Vector3(1, 1, 1),
-      rotation: new Euler(0, 0, 0),
+      position: new Vector3(-0.15, -1, 0.3),
+      scale: new Vector3(0.5, 0.5, 0.5),
+      rotation: new Euler(-0.3, -0.1, 0),
     } as LocationType,
     rightLeg: {
-      position: new Vector3(-0.15, -2.2, 0),
-      scale: new Vector3(1, 1, 1),
-      rotation: new Euler(0, 0, 0),
+      position: new Vector3(0.15, -1, 0.3),
+      scale: new Vector3(0.5, 0.5, 0.5),
+      rotation: new Euler(-0.3, 0.1, 0),
     } as LocationType,
   };
 
-  //base thumb guy
-  thumbLocations.push({
+  thumbChildren.push(
+    // applyTransformation(originalThumbLocation, transformations.head),
+    // applyTransformation(originalThumbLocation, transformations.leftArm),
+    applyTransformation(originalThumbLocation, transformations.rightArm)
+    // applyTransformation(originalThumbLocation, transformations.rightLeg),
+    // applyTransformation(originalThumbLocation, transformations.leftLeg)
+  );
+  return thumbChildren;
+};
+
+const generateThumbLocations = (): AllThumbLocationsType => {
+  const thumbLocations: AllThumbLocationsType = [];
+  //UNSCALED left leg
+  //    leftLeg: {
+  //   position: new Vector3(-0.15, -2.2, 0),
+  //   scale: new Vector3(1, 1, 1),
+  //   rotation: new Euler(0, 0, 0),
+  // } as LocationType,
+
+  const depth = 2;
+
+  //first iteration
+  const baseThumb = {
     position: new Vector3(0, 0, 0),
     scale: new Vector3(1, 1, 1),
     rotation: new Euler(0, 0, 0),
-  });
+  };
 
-  thumbLocations.push(
-    ...[
-      transformations.head,
-      transformations.leftArm,
-      transformations.rightArm,
-      transformations.rightLeg,
-      transformations.leftLeg,
-    ]
-  );
+  //rest of iteration
+  // for (let i = 1; i < depth; i++) {
+  const children = getChildrenThumbs(baseThumb);
+  thumbLocations.push(baseThumb, ...children);
+
+  //add children of each child
+  for (const child of children) {
+    thumbLocations.push(...getChildrenThumbs(child));
+  }
+  // }
 
   return thumbLocations;
 };
