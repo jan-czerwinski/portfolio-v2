@@ -1,7 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import React, { useMemo } from 'react';
 import { Object3D } from 'three/src/core/Object3D'; //Object3D types
 import { Euler, Vector3 } from 'three';
 
@@ -30,9 +27,7 @@ const ThumbGuy = (props: ThumbGuyProps) => {
     >
       <primitive name="Object_0" object={clonedModel} />
     </group>
-  ) : (
-    <Html>Loading...</Html>
-  );
+  ) : null;
 };
 
 export default ThumbGuy;
