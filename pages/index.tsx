@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 
 type HeadlineProps = { text: string };
 const Headline = ({ text }: HeadlineProps) => (
@@ -15,14 +16,44 @@ const Home: NextPage = () => {
       <div className="h-screen mt-10 transform skew-y-3 bg-green-300 snap-start">
         <Headline text="Maze" />
         <div className="grid transform -skew-y-3 place-content-center">
-          <div> hello </div>
+          <Link href="/maze" passHref>
+            <button className="text-lg text-white border border-white rounded-md">
+              maze here
+            </button>
+          </Link>
         </div>
       </div>
 
       <div className="h-screen transform skew-y-3 bg-blue-300 snap-start">
         <Headline text="Game of Life" />
         <div className="grid transform -skew-y-3 place-content-center">
-          <div> hello </div>
+          <Link href="/gameoflife" passHref>
+            <button className="text-lg text-white border border-white rounded-md">
+              game of life
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="h-screen transform skew-y-3 bg-purple-300 snap-start">
+        <Headline text="Thumb" />
+        <div className="grid transform -skew-y-3 place-content-center">
+          <Link href="/thumb" passHref>
+            <button className="text-lg text-white border border-white rounded-md">
+              weird thumb fractal thing
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="h-screen transform skew-y-3 bg-yellow-300 snap-start">
+        <Headline text="Thumb" />
+        <div className="grid transform -skew-y-3 place-content-center">
+          <Link href="/rubiks" passHref>
+            <button className="text-lg text-white border border-white rounded-md">
+              rubiks cube wip
+            </button>
+          </Link>
         </div>
       </div>
     </div>
