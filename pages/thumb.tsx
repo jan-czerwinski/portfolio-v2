@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Euler, Matrix4, Object3D, Vector3 } from 'three';
+
+import { Euler, Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import CameraControls from '../components/CameraControls';
@@ -14,21 +15,68 @@ import ThumbGuy, { LocationType } from '../components/thumb/ThumbGuy';
 
 const generateThumbLocations = (): AllThumbLocationsType => {
   const thumbLocations: AllThumbLocationsType = [];
-  const cubeSize = 2;
 
-  const scale = 1;
-  for (let x = -cubeSize; x <= cubeSize; x++) {
-    for (let y = -cubeSize; y <= cubeSize; y++) {
-      for (let z = -cubeSize; z <= cubeSize; z++) {
-        const scale = 0.3;
-        thumbLocations.push({
-          position: new Vector3(x, y, z),
-          scale: new Vector3(scale, scale, scale),
-          rotation: new Euler(0, Math.PI, 0),
-        });
-      }
-    }
-  }
+  //generates cube of thumbguy
+  //cool for testing performance
+  // const cubeSize = 2;
+  // const scale = 1;
+  // for (let x = -cubeSize; x <= cubeSize; x++) {
+  //   for (let y = -cubeSize; y <= cubeSize; y++) {
+  //     for (let z = -cubeSize; z <= cubeSize; z++) {
+  //       const scale = 0.3;
+  //       thumbLocations.push({
+  //         position: new Vector3(x, y, z),
+  //         scale: new Vector3(scale, scale, scale),
+  //         rotation: new Euler(0, Math.PI, 0),
+  //       });
+  //     }
+  //   }
+  // }
+
+  const transformations = {
+    head: {
+      position: new Vector3(0, 4.2, 1.3),
+      scale: new Vector3(1, 1, 1),
+      rotation: new Euler(0.6, 0, Math.PI),
+    } as LocationType,
+    leftArm: {
+      position: new Vector3(-0.8, -1.4, -0.2),
+      scale: new Vector3(1, 1, 1),
+      rotation: new Euler(0, Math.PI / 2, 0),
+    } as LocationType,
+    rightArm: {
+      position: new Vector3(0.8, -1.4, -0.2),
+      scale: new Vector3(1, 1, 1),
+      rotation: new Euler(0, -Math.PI / 2, 0),
+    } as LocationType,
+    leftLeg: {
+      position: new Vector3(0.15, -2.2, 0),
+      scale: new Vector3(1, 1, 1),
+      rotation: new Euler(0, 0, 0),
+    } as LocationType,
+    rightLeg: {
+      position: new Vector3(-0.15, -2.2, 0),
+      scale: new Vector3(1, 1, 1),
+      rotation: new Euler(0, 0, 0),
+    } as LocationType,
+  };
+
+  //base thumb guy
+  thumbLocations.push({
+    position: new Vector3(0, 0, 0),
+    scale: new Vector3(1, 1, 1),
+    rotation: new Euler(0, 0, 0),
+  });
+
+  thumbLocations.push(
+    ...[
+      transformations.head,
+      transformations.leftArm,
+      transformations.rightArm,
+      transformations.rightLeg,
+      transformations.leftLeg,
+    ]
+  );
 
   return thumbLocations;
 };
