@@ -8,20 +8,6 @@ import CameraControls from '../components/CameraControls';
 import ThumbGuy, { LocationType } from '../components/thumb/ThumbGuy';
 // generates cube of thumbguy
 //cool for testing performance
-// const cubeSize = 2;
-// const scale = 1;
-// for (let x = -cubeSize; x <= cubeSize; x++) {
-//   for (let y = -cubeSize; y <= cubeSize; y++) {
-//     for (let z = -cubeSize; z <= cubeSize; z++) {
-//       const scale = 0.3;
-//       thumbLocations.push({
-//         position: new Vector3(x, y, z),
-//         scale: new Vector3(scale, scale, scale),
-//         rotation: new Euler(0, Math.PI, 0),
-//       });
-//     }
-//   }
-// }
 
 const applyTransformation = (
   original: LocationType,
@@ -31,12 +17,12 @@ const applyTransformation = (
   //this is probably wrong
   const newPosition = original.position.clone();
   newPosition.add(transformation.position);
-  newPosition.multiply(original.scale);
+  // newPosition.multiply(original.scale);
 
   const newScale = original.scale.clone();
   newScale.multiply(transformation.scale);
 
-  const newRotation = original.rotation.clone();
+  const newRotation = transformation.rotation.clone();
   // newRotation.add(transformation.rotation);
 
   return {
@@ -83,12 +69,13 @@ const getChildrenThumbs = (
   };
 
   thumbChildren.push(
-    // applyTransformation(originalThumbLocation, transformations.head),
-    // applyTransformation(originalThumbLocation, transformations.leftArm),
-    applyTransformation(originalThumbLocation, transformations.rightArm)
-    // applyTransformation(originalThumbLocation, transformations.rightLeg),
-    // applyTransformation(originalThumbLocation, transformations.leftLeg)
+    applyTransformation(originalThumbLocation, transformations.head),
+    applyTransformation(originalThumbLocation, transformations.leftArm),
+    applyTransformation(originalThumbLocation, transformations.rightArm),
+    applyTransformation(originalThumbLocation, transformations.rightLeg),
+    applyTransformation(originalThumbLocation, transformations.leftLeg)
   );
+
   return thumbChildren;
 };
 
@@ -112,14 +99,34 @@ const generateThumbLocations = (): AllThumbLocationsType => {
 
   //rest of iteration
   // for (let i = 1; i < depth; i++) {
-  const children = getChildrenThumbs(baseThumb);
-  thumbLocations.push(baseThumb, ...children);
+  // const children = getChildrenThumbs(baseThumb);
+  // thumbLocations.push(baseThumb, ...children);
 
   //add children of each child
-  for (const child of children) {
-    thumbLocations.push(...getChildrenThumbs(child));
-  }
+  // for (const child of children) {
+  // thumbLocations.push(...getChildrenThumbs(child));
   // }
+  // }
+
+  const cubeSize = 3;
+  const scale = 1;
+  for (let x = -cubeSize; x <= cubeSize; x++) {
+    for (let y = -cubeSize; y <= cubeSize; y++) {
+      for (let z = -cubeSize; z <= cubeSize; z++) {
+        const scale = 0.3;
+        const rotationRandom = Math.random() * 2;
+        thumbLocations.push({
+          position: new Vector3(x, y, z),
+          scale: new Vector3(scale, scale, scale),
+          rotation: new Euler(
+            rotationRandom,
+            Math.PI + rotationRandom,
+            rotationRandom
+          ),
+        });
+      }
+    }
+  }
 
   return thumbLocations;
 };

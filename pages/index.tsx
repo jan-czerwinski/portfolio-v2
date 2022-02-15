@@ -8,7 +8,7 @@ const Headline = ({ text }: HeadlineProps) => (
 
 const Home: NextPage = () => {
   return (
-    <div className="h-screen overflow-y-scroll bg-pink-300 snap snap-y snap-mandatory">
+    <div className="h-screen overflow-y-scroll bg-teal-300 snap snap-y snap-mandatory">
       <div className="grid w-full h-screen transform place-content-center snap-start ">
         <h1 className="italic font-bold text-white text-7xl">Jan Czerwiński</h1>
       </div>
