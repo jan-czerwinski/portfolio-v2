@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Object3D } from 'three/src/core/Object3D'; //Object3D types
-import { Euler, Vector3 } from 'three';
+import { Quaternion, Vector3 } from 'three';
 
 //This model loading is based on Model.tsx file from this example:
 //https://github.dev/oslavdev/next-three-example
@@ -8,7 +8,7 @@ import { Euler, Vector3 } from 'three';
 export type LocationType = {
   position: Vector3;
   scale: Vector3;
-  rotation: Euler;
+  quaternion: Quaternion;
 };
 export type ThumbGuyProps = LocationType & {
   model: Object3D;
@@ -21,7 +21,7 @@ const ThumbGuy = (props: ThumbGuyProps) => {
   return clonedModel ? (
     <group
       position={props.position}
-      rotation={props.rotation}
+      quaternion={props.quaternion}
       scale={props.scale}
       dispose={null}
     >
