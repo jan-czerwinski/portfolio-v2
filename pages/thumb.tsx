@@ -11,15 +11,19 @@ const applyTransformation = (
   original: LocationType,
   transformation: LocationType
 ): LocationType => {
-  const position = original.position.clone();
-  position.add(transformation.position);
-  // position.multiply(original.scale);
+  const scale = original.scale.clone().multiply(transformation.scale);
 
-  const scale = original.scale.clone();
-  scale.multiply(transformation.scale);
+  const position = original.position
+    .clone()
+    .add(
+      transformation.position
+        .applyQuaternion(original.quaternion)
+        .multiply(original.scale)
+    );
 
-  const quaternion = transformation.quaternion.clone();
-  // newRotation.add(transformation.rotation);
+  const quaternion = original.quaternion
+    .clone()
+    .multiply(transformation.quaternion);
 
   return {
     position,
@@ -100,10 +104,8 @@ const generateThumbCube = (): LocationType[] => {
   return thumbLocations;
 };
 
-const generateThumbLocations = (): AllThumbLocationsType => {
-  const thumbLocations: AllThumbLocationsType = [];
-
-  const depth = 1;
+const generateThumbLocations = (): LocationType[] => {
+  const thumbLocations: LocationType[] = [];
 
   const baseThumb = {
     position: new Vector3(),
@@ -111,23 +113,30 @@ const generateThumbLocations = (): AllThumbLocationsType => {
     quaternion: new Quaternion(),
   };
 
-  // for (let i = 0; i < depth; i++) {
-  const children = getChildrenThumbs(baseThumb);
-  thumbLocations.push(baseThumb, ...children);
+  //thumbs that don't have any children
+  let leafThumbs: LocationType[] = [baseThumb];
 
+  const depth = 6;
+  for (let i = 0; i < depth; i++) {
+    thumbLocations.push(...leafThumbs);
+
+    const newLeafThumbs = [];
+    for (const thumb of leafThumbs) {
+      newLeafThumbs.push(...getChildrenThumbs(thumb));
+    }
+    leafThumbs = newLeafThumbs;
+  }
   // add children of each child
   // for (const child of children) {
-  //   thumbLocations.push(...getChildrenThumbs(child));
+  // thumbLocations.push(...getChildrenThumbs(child));
   // }
   // }
 
   return thumbLocations;
 };
 
-type AllThumbLocationsType = LocationType[];
-
 const Thumb = () => {
-  const [thumbLocations, setThumbLocations] = useState<AllThumbLocationsType>(
+  const [thumbLocations, setThumbLocations] = useState<LocationType[]>(
     generateThumbLocations()
   );
 
