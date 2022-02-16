@@ -1,5 +1,6 @@
 import { extend, useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
+import { Euler } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 extend({ OrbitControls });
@@ -12,7 +13,6 @@ const CameraControls = () => {
     camera,
     gl: { domElement },
   } = useThree();
-
   // Ref to the controls, so that we can update them on every frame using useFrame
   //FIXME it works but gets highlited, probably issue with react-three-fiber and typescript
   const controls = useRef(null!);
@@ -22,8 +22,10 @@ const CameraControls = () => {
     //@ts-ignore
     controls?.current?.update();
   });
-  //@ts-ignore
-  return <orbitControls ref={controls} args={[camera, domElement]} />;
+  return (
+    //@ts-ignore
+    <orbitControls ref={controls} args={[camera, domElement]} />
+  );
 };
 
 export default CameraControls;
