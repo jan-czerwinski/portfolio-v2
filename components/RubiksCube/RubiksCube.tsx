@@ -46,7 +46,6 @@ const cubieExtractor = (cubiePos: Vector3, axis: AxisType, offset: number) =>
  */
 
 type TransformationSideType = {
-  // matrixTransform: Matrix4;
   cubieIdxArray: number[];
   eulerRotation: Euler;
 };
@@ -54,7 +53,6 @@ const rotationMatrixFromTurn = (
   cubiesPosition: Vector3[],
   turn: TurnType
 ): TransformationSideType => {
-  // console.log('cubiesPosition: ', cubiesPosition);
   let angle = Math.PI / 2;
 
   if (turn.modifier === '2') {
@@ -101,8 +99,6 @@ const rotationMatrixFromTurn = (
 
   const eulerAngle = new Euler(0, 0, 0);
   eulerAngle[extractorAxis] = angle;
-  // const matrix = new Matrix4();
-  // matrix.makeRotationFromEuler(eulerAngle);
 
   const cubieIdxsToTurn: number[] = [];
   for (let idx = 0; idx < cubiesPosition.length; idx++) {
@@ -112,7 +108,6 @@ const rotationMatrixFromTurn = (
     }
   }
   return {
-    // matrixTransform: matrix,
     cubieIdxArray: cubieIdxsToTurn,
     eulerRotation: eulerAngle,
   };
@@ -146,34 +141,6 @@ const findIdxOfFirstDifferentTurn = (
 
 const DIMENSION = 3;
 const CUBIE_COUNT = 26; //TODO base on dimensions
-
-type transformationArrayType = Array<TransformationSideType>;
-type transformationQueueAction = {
-  type: 'removeFirst' | 'add';
-  toAdd?: transformationArrayType;
-};
-
-const transformationQueueReducer = (
-  state: transformationArrayType,
-  action: transformationQueueAction
-) => {
-  switch (action.type) {
-    case 'removeFirst':
-      state.splice(0, 1);
-      return state;
-    case 'add':
-      action.toAdd ??= [];
-      state.push(...action.toAdd);
-      console.log(
-        state.length,
-        state.map((e) => e.eulerRotation)
-      );
-
-      return state;
-    default:
-      throw new Error('invalid action type for transformationQueue reducer');
-  }
-};
 
 type turnQueueAction = {
   type: 'removeFirst' | 'add';
@@ -221,8 +188,6 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
     // turns with both turn direction and order reversed
     const reversedTurns = prevTurns.reverse().map(reverseTurn);
 
-    // const transformationsToAdd: transformationArrayType = [];
-
     // first the reversed turns get applied, then the current catch up
     const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
     dispatchTurnQueue({ type: 'add', toAdd: turnsToApply });
@@ -230,17 +195,6 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
     console.log('curr: ', currTurns, '  prev: ', prevTurns);
     console.log('toApply: ', turnsToApply);
     console.log('queue: ', turnQueue);
-    // for (const turn of turnsToApply) {
-    //   transformationsToAdd.push(
-    //     rotationMatrixFromTurn(
-    //       rubiksCube.current.map((cubie) => cubie.position),
-    //       turn
-    //     )
-    //   );
-    // }
-
-    //add the transformations to the end of the queue
-    // dispatchTransformationQueue({ type: 'add', toAdd: transformationsToAdd });
   }, [prevCubeState, cubeState]);
 
   const [transforming, setTransforming] = useState(false);
