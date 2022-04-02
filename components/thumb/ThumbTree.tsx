@@ -70,7 +70,7 @@ const getChildrenThumbs = (
   const thumbChildren: LocationType[] = [];
 
   thumbChildren.push(
-    // applyTransformation(originalThumbLocation, transformations.head),
+    applyTransformation(originalThumbLocation, transformations.head),
     applyTransformation(originalThumbLocation, transformations.leftArm),
     applyTransformation(originalThumbLocation, transformations.rightArm),
     applyTransformation(originalThumbLocation, transformations.rightLeg),
@@ -101,7 +101,7 @@ const generateThumbCube = (): LocationType[] => {
   return thumbLocations;
 };
 
-const generateThumbLocations = (): LocationType[] => {
+const generateThumbLocations = (depth: number): LocationType[] => {
   const thumbLocations: LocationType[] = [];
 
   const baseThumb = {
@@ -119,7 +119,6 @@ const generateThumbLocations = (): LocationType[] => {
   let leafThumbs: LocationType[] = [baseThumb, baseThumbRotated];
   thumbLocations.push(...leafThumbs);
 
-  const depth = 4;
   for (let i = 0; i < depth; i++) {
     const newLeafThumbs = [];
     for (const thumb of leafThumbs) {
@@ -134,7 +133,7 @@ const generateThumbLocations = (): LocationType[] => {
 
 const ThumbTree = () => {
   const [thumbLocations, setThumbLocations] = useState<LocationType[]>(
-    generateThumbLocations()
+    generateThumbLocations(2)
   );
 
   const [thumbModel, setThumbModel] = useState<Object3D>(null!);
@@ -149,6 +148,7 @@ const ThumbTree = () => {
       setThumbModel(nodes[0]);
     });
   }, []);
+
   return (
     <group rotation={[0, Math.PI, 0]}>
       {thumbLocations.map(({ position, scale, quaternion }, idx) => (
