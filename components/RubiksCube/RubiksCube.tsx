@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { BufferGeometry, Euler, Material, Matrix4, Mesh, Vector3 } from 'three';
-import { CubiesRefType, reverseTurn, TurnType } from './CubeUtils';
+import { useEffect, useMemo, useRef } from 'react';
+import { Euler, Matrix4, Vector3 } from 'three';
+import { usePrevious } from '../../utils/usePrevious';
+import { reverseTurn, TurnType } from './CubeUtils';
 import Cubie, { CubieDrawFacesType } from './Cubie';
 
 const getInitialCubieProps = (): {
@@ -26,26 +27,17 @@ const getInitialCubieProps = (): {
       }
     }
   }
-  console.log(targetPositions);
-
-  // initialCubieProps = initialCubieProps.map(({ targetPosition, drawFaces }) => {
-  //   const scaledPosition = targetPosition.multiplyScalar(4);
-  //   return { drawFaces, targetPosition: scaledPosition };
-  // });
   return { cubieDrawFaces, targetPositions };
 };
 
 type AxisType = 'x' | 'y' | 'z';
 /** extracts Cubies on given position on a certain axis
- * @param {Mesh<BufferGeometry, Material | Material[]>} cubie - mesh of a cubie
+ * @param {Vector3} cubiePos - vector3 position of cubie
  * @param {AxisType} axis - axis on which offset is set
  * @param {number} offset - offset from center
  */
-const cubieExtractor = (
-  cubie: Mesh<BufferGeometry, Material | Material[]>,
-  axis: AxisType,
-  offset: number
-) => cubie.position[axis] === offset;
+const cubieExtractor = (cubiePos: Vector3, axis: AxisType, offset: number) =>
+  cubiePos[axis] === offset;
 
 /** turns the rubiks cube based on cube notation
  * @param {CubiesRefType} rubiksCube - ref to the array of Cubies which make up the rubiks cube
@@ -56,9 +48,10 @@ type matrixAndCubiesType = {
   cubieIdxsToTurn: number[];
 };
 const rotationMatrixFromTurn = (
-  rubiksCube: CubiesRefType, //TODO  TYPE should be Vector3[]
+  cubiesPosition: Vector3[],
   turn: TurnType
 ): matrixAndCubiesType => {
+  console.log('cubiesPosition: ', cubiesPosition);
   let angle = Math.PI / 2;
 
   if (turn.modifier === '2') {
@@ -68,7 +61,7 @@ const rotationMatrixFromTurn = (
   }
 
   let extractorAxis: AxisType;
-  let extractorOffset = 4;
+  let extractorOffset = 1;
   switch (turn.direction) {
     case 'U':
       extractorAxis = 'y';
@@ -109,14 +102,12 @@ const rotationMatrixFromTurn = (
   matrix.makeRotationFromEuler(eulerAngle);
 
   const cubieIdxsToTurn: number[] = [];
-  for (let idx = 0; idx < rubiksCube.current.length; idx++) {
-    const cubie = rubiksCube.current[idx];
-    if (cubieExtractor(cubie, extractorAxis, extractorOffset)) {
-      rubiksCube.current[idx].applyMatrix4(matrix);
+  for (let idx = 0; idx < cubiesPosition.length; idx++) {
+    const cubiePos = cubiesPosition[idx];
+    if (cubieExtractor(cubiePos, extractorAxis, extractorOffset)) {
       cubieIdxsToTurn.push(idx);
     }
   }
-
   return { matrix, cubieIdxsToTurn };
 };
 
@@ -153,18 +144,18 @@ type RubiksCubeProps = {
   cubeState: TurnType[];
 };
 const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
-  const [prevCubeState, setPrevCubeState] = useState<TurnType[]>([]);
   const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
-
   const initialCubieProps = useMemo(getInitialCubieProps, []);
+  const prevCubeState = usePrevious(cubeState);
 
   useEffect(() => {
+    //find last equal turn (cube only reverses as many moves as it needs to)
     const lastEqualTurnIdx = findIdxOfFirstDifferentTurn(
       prevCubeState,
       cubeState
     );
 
-    //so this finds only the turns that differ at some point
+    //this finds only the turns that differ at some point
     const currTurns = cubeState.slice(lastEqualTurnIdx + 1, cubeState.length);
     const prevTurns = prevCubeState.slice(
       lastEqualTurnIdx + 1,
@@ -174,38 +165,18 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
     // turns with both turn direction and order reversed
     const reversedTurns = prevTurns.reverse().map(reverseTurn);
 
-    // deep copy cubie cubie target positions array
-    // const newCubieTargetPositions = cubieTargetPositions.map((vec) =>
-    //   vec.clone()
-    // );
-
     // first the reversed turns get applied, then the current catch up
     const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
     for (const turn of turnsToApply) {
       const { matrix, cubieIdxsToTurn } = rotationMatrixFromTurn(
-        rubiksCube,
+        rubiksCube.current.map((cubie) => cubie.position),
         turn
       );
-      // console.log('prev: ', newCubieTargetPositions);
-      console.log(rubiksCube.current[0].position);
-      rubiksCube.current[0].applyMatrix4(matrix);
-
-      console.log(rubiksCube.current[0].position);
-
-      // cubieIdxsToTurn.map((idx) => {
-      // rubiksCube.current[idx].applyMatrix4(matrix);
-
-      //this doesnt make sense
-      // newCubieTargetPositions[idx].applyMatrix4(matrix);
-      // newCubieTargetPositions[idx].round();
-      // });
+      for (const cubieIdxToTurn of cubieIdxsToTurn) {
+        rubiksCube.current[cubieIdxToTurn].applyMatrix4(matrix);
+        rubiksCube.current[cubieIdxToTurn].position.round();
+      }
     }
-
-    // console.log('curr: ', newCubieTargetPositions);
-
-    // setCubieTargetPositions(newCubieTargetPositions);
-
-    setPrevCubeState(cubeState);
   }, [cubeState]);
 
   return (
