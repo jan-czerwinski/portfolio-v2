@@ -6,7 +6,7 @@ import RubiksCube from '../components/RubiksCube/RubiksCube';
 import CameraControls from '../components/CameraControls';
 import Ui from '../components/RubiksCube/Ui';
 
-const Three = () => {
+const Rubiks = () => {
   const [cubeState, setCubeState] = useState<TurnType[]>([]);
 
   return (
@@ -25,4 +25,5 @@ const Three = () => {
     </div>
   );
 };
-export default Three;
+
+export default Rubiks;
