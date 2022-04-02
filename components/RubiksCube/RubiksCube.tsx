@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { Euler, Matrix4, Vector3 } from 'three';
 import { usePrevious } from '../../utils/usePrevious';
-import { reverseTurn, TurnType } from './CubeUtils';
+import { reverseTurn, turnArrayToString, TurnType } from './CubeUtils';
 import Cubie, { CubieDrawFacesType } from './Cubie';
 
 const getInitialCubieProps = (): {
@@ -150,69 +150,83 @@ type turnQueueAction = {
 const turnQueueReducer = (state: TurnType[], action: turnQueueAction) => {
   switch (action.type) {
     case 'removeFirst':
-      state.splice(0, 1);
-      return state;
+      return state.slice(1, state.length);
     case 'add':
       action.toAdd ??= [];
-      state.push(...action.toAdd);
-      return state;
+      return [...state, ...action.toAdd];
     default:
-      throw new Error('invalid action type for transformationQueue reducer');
+      throw new Error('invalid action type for turnQueue reducer');
   }
 };
 
 type RubiksCubeProps = {
   cubeState: TurnType[];
+  turnTime: number;
 };
-const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
-  const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
-  const initialCubieProps = useMemo(getInitialCubieProps, []);
+const RubiksCube = ({ turnTime, cubeState }: RubiksCubeProps) => {
   const prevCubeState = usePrevious(cubeState);
 
+  const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
+  const initialCubieProps = useMemo(getInitialCubieProps, []);
+
+  //turns queued for animation
   const [turnQueue, dispatchTurnQueue] = useReducer(turnQueueReducer, []);
 
-  useEffect(() => {
-    //find last equal turn (cube only reverses as many moves as it needs to)
-    const lastEqualTurnIdx = findIdxOfFirstDifferentTurn(
-      prevCubeState,
-      cubeState
-    );
-
-    //this finds only the turns that differ at some point
-    const currTurns = cubeState.slice(lastEqualTurnIdx + 1, cubeState.length);
-    const prevTurns = prevCubeState.slice(
-      lastEqualTurnIdx + 1,
-      prevCubeState.length
-    );
-
-    // turns with both turn direction and order reversed
-    const reversedTurns = prevTurns.reverse().map(reverseTurn);
-
-    // first the reversed turns get applied, then the current catch up
-    const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
-    dispatchTurnQueue({ type: 'add', toAdd: turnsToApply });
-
-    console.log('curr: ', currTurns, '  prev: ', prevTurns);
-    console.log('toApply: ', turnsToApply);
-    console.log('queue: ', turnQueue);
-  }, [prevCubeState, cubeState]);
-
+  //is animating
   const [transforming, setTransforming] = useState(false);
+
+  //fraction (from 0 to 1.0) of turn done
   const [transformationFraction, setTransformationFraction] =
     useState<number>(0);
-  const turnTime = 0.5; //turn time in seconds
 
+  //cubie position on last full turn
   const [cubiePositionAfterLastTurn, setCubiePositionAfterLastTurn] = useState<
     Vector3[]
   >([]);
+  useEffect(() => {
+    //set initial cubie position after ref loads
+    setCubiePositionAfterLastTurn(
+      rubiksCube.current.map((cubie) => cubie.position)
+    );
+  }, []);
+
+  useEffect(() => {
+    if (turnArrayToString(prevCubeState) !== turnArrayToString(cubeState)) {
+      //find last equal turn (cube only reverses as many moves as it needs to)
+      const lastEqualTurnIdx = findIdxOfFirstDifferentTurn(
+        prevCubeState,
+        cubeState
+      );
+
+      //this finds only the turns that differ at some point
+      const currTurns = cubeState.slice(lastEqualTurnIdx + 1, cubeState.length);
+      const prevTurns = prevCubeState.slice(
+        lastEqualTurnIdx + 1,
+        prevCubeState.length
+      );
+
+      // turns with both turn direction and order reversed
+      const reversedTurns = prevTurns.reverse().map(reverseTurn);
+
+      // first the reversed turns get applied, then the current catch up
+      const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
+      dispatchTurnQueue({ type: 'add', toAdd: turnsToApply });
+
+      console.log('curr: ', currTurns, '  prev: ', prevTurns);
+      console.log('toApply: ', turnsToApply);
+      console.log(
+        turnArrayToString(prevCubeState),
+        '|',
+        turnArrayToString(cubeState)
+      );
+    }
+  }, [prevCubeState, cubeState]);
 
   useFrame((state, delta) => {
-    if (transforming || turnQueue.length === 0) return;
+    console.log(turnQueue);
+    if (transforming || turnQueue.length === 0 || !rubiksCube.current[0])
+      return;
     setTransforming(true);
-    const currTransformationArray = rotationMatrixFromTurn(
-      cubiePositionAfterLastTurn,
-      turnQueue[0]
-    );
 
     //find what fraction of a turn do this frame
     let currTurnFraction = delta / turnTime;
@@ -227,7 +241,10 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
     setTransformationFraction(transformationFraction + currTurnFraction);
 
     //get current turn euler rotation
-    const { cubieIdxArray, eulerRotation } = currTransformationArray;
+    const { cubieIdxArray, eulerRotation } = rotationMatrixFromTurn(
+      cubiePositionAfterLastTurn,
+      turnQueue[0]
+    );
 
     //scale current euler rotation to fraction for frame
     const fractionEuler = new Euler();

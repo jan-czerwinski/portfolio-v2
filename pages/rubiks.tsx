@@ -1,14 +1,14 @@
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import { Ref, useRef, useState } from 'react';
+import { Ref, useEffect, useRef, useState } from 'react';
 import { TurnType } from '../components/RubiksCube/CubeUtils';
 
 import RubiksCube from '../components/RubiksCube/RubiksCube';
 import CameraControls from '../components/CameraControls';
-import Ui from '../components/RubiksCube/Ui';
+import RubiksUi from '../components/RubiksCube/RubiksUi';
 
 const Rubiks = () => {
   const [cubeState, setCubeState] = useState<TurnType[]>([]);
-
+  const [turnTime, setTurnTime] = useState(0.5);
   return (
     <div className="relative w-screen h-screen bg-purple-200">
       <div className="absolute w-screen h-screen">
@@ -16,11 +16,15 @@ const Rubiks = () => {
           <CameraControls />
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
-          <RubiksCube cubeState={cubeState} />
+          <RubiksCube cubeState={cubeState} turnTime={turnTime} />
         </Canvas>
       </div>
       <div className="absolute">
-        <Ui setCubeState={(turns: TurnType[]) => setCubeState(turns)} />
+        <RubiksUi
+          setCubeState={(turns: TurnType[]) => setCubeState(turns)}
+          turnTime={turnTime}
+          setTurnTime={setTurnTime}
+        />
       </div>
     </div>
   );
