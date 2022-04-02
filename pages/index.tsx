@@ -1,6 +1,10 @@
 import type { NextPage } from 'next';
 import ProjectSection from '../components/ui/ProjectSection';
 import LinkButton from '../components/ui/LinkButton';
+import Image from 'next/image';
+import TechIconList from '../components/ui/TechList';
+// import IconPython from 'react-devicon/python/original';
+// import IconAndroid from 'react-devicon/android/plain-wordmark';
 
 const Home: NextPage = () => {
   return (
@@ -42,6 +46,38 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor="bg-blue-300" title="game of life">
         <LinkButton text="game of life" href="/gameoflife" />
+      </ProjectSection>
+
+      <ProjectSection backgroundColor="bg-sky-300" title="hackathon bot">
+        <div className="box-border grid w-full grid-cols-2 grid-rows-3 px-16">
+          <div>
+            A bot that grabs the screen and plays an arkanoid like game using
+            fuzzy logic. It was one of the 3 tasks during a 24 hour hackathon.
+            We&apos;ve won 3rd place.
+          </div>
+          <div className="col-start-2 row-start-2">
+            <div className="w-[480px] h-[268px]">
+              <Image
+                src="/hackathon_bot.gif"
+                alt="bot playing arkanoid like game"
+                width={480}
+                height={268}
+              />
+            </div>
+
+            <TechIconList
+              technologies={[
+                'python',
+                'react',
+                'threejs',
+                'typescript',
+                'tailwindcss',
+                'opencv',
+                'flask',
+              ]}
+            />
+          </div>
+        </div>
       </ProjectSection>
     </div>
   );

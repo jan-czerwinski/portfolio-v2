@@ -75,6 +75,24 @@ export const getAllPossibleTurnsSet = (): Set<string> => {
   return turnSet;
 };
 
+export const getAllPossibleTurnTypesArray = (): TurnType[] => {
+  const turnArray: TurnType[] = [];
+  for (const direction of turnDirectionArray) {
+    for (const modifier of turnModifierArray) {
+      turnArray.push({ direction, modifier });
+    }
+  }
+
+  return turnArray;
+};
+
+export const getRandomTurn = () => {
+  const allPossibleTurns = getAllPossibleTurnTypesArray();
+  const randomTurn =
+    allPossibleTurns[Math.floor(Math.random() * allPossibleTurns.length)];
+  return randomTurn;
+};
+
 export const convertStringToTurnArray = (text: string): TurnType[] => {
   const output: TurnType[] = [];
 

@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { Euler, Matrix4, Vector3 } from 'three';
 import { usePrevious } from '../../utils/usePrevious';
 import { reverseTurn, TurnType } from './CubeUtils';
@@ -43,15 +44,17 @@ const cubieExtractor = (cubiePos: Vector3, axis: AxisType, offset: number) =>
  * @param {CubiesRefType} rubiksCube - ref to the array of Cubies which make up the rubiks cube
  * @param {TurnType} turn - turn in cube notation
  */
-type matrixAndCubiesType = {
-  matrix: Matrix4;
-  cubieIdxsToTurn: number[];
+
+type TransformationSideType = {
+  // matrixTransform: Matrix4;
+  cubieIdxArray: number[];
+  eulerRotation: Euler;
 };
 const rotationMatrixFromTurn = (
   cubiesPosition: Vector3[],
   turn: TurnType
-): matrixAndCubiesType => {
-  console.log('cubiesPosition: ', cubiesPosition);
+): TransformationSideType => {
+  // console.log('cubiesPosition: ', cubiesPosition);
   let angle = Math.PI / 2;
 
   if (turn.modifier === '2') {
@@ -98,8 +101,8 @@ const rotationMatrixFromTurn = (
 
   const eulerAngle = new Euler(0, 0, 0);
   eulerAngle[extractorAxis] = angle;
-  const matrix = new Matrix4();
-  matrix.makeRotationFromEuler(eulerAngle);
+  // const matrix = new Matrix4();
+  // matrix.makeRotationFromEuler(eulerAngle);
 
   const cubieIdxsToTurn: number[] = [];
   for (let idx = 0; idx < cubiesPosition.length; idx++) {
@@ -108,7 +111,11 @@ const rotationMatrixFromTurn = (
       cubieIdxsToTurn.push(idx);
     }
   }
-  return { matrix, cubieIdxsToTurn };
+  return {
+    // matrixTransform: matrix,
+    cubieIdxArray: cubieIdxsToTurn,
+    eulerRotation: eulerAngle,
+  };
 };
 
 /**
@@ -140,6 +147,53 @@ const findIdxOfFirstDifferentTurn = (
 const DIMENSION = 3;
 const CUBIE_COUNT = 26; //TODO base on dimensions
 
+type transformationArrayType = Array<TransformationSideType>;
+type transformationQueueAction = {
+  type: 'removeFirst' | 'add';
+  toAdd?: transformationArrayType;
+};
+
+const transformationQueueReducer = (
+  state: transformationArrayType,
+  action: transformationQueueAction
+) => {
+  switch (action.type) {
+    case 'removeFirst':
+      state.splice(0, 1);
+      return state;
+    case 'add':
+      action.toAdd ??= [];
+      state.push(...action.toAdd);
+      console.log(
+        state.length,
+        state.map((e) => e.eulerRotation)
+      );
+
+      return state;
+    default:
+      throw new Error('invalid action type for transformationQueue reducer');
+  }
+};
+
+type turnQueueAction = {
+  type: 'removeFirst' | 'add';
+  toAdd?: TurnType[];
+};
+
+const turnQueueReducer = (state: TurnType[], action: turnQueueAction) => {
+  switch (action.type) {
+    case 'removeFirst':
+      state.splice(0, 1);
+      return state;
+    case 'add':
+      action.toAdd ??= [];
+      state.push(...action.toAdd);
+      return state;
+    default:
+      throw new Error('invalid action type for transformationQueue reducer');
+  }
+};
+
 type RubiksCubeProps = {
   cubeState: TurnType[];
 };
@@ -147,6 +201,8 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
   const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
   const initialCubieProps = useMemo(getInitialCubieProps, []);
   const prevCubeState = usePrevious(cubeState);
+
+  const [turnQueue, dispatchTurnQueue] = useReducer(turnQueueReducer, []);
 
   useEffect(() => {
     //find last equal turn (cube only reverses as many moves as it needs to)
@@ -165,19 +221,88 @@ const RubiksCube = ({ cubeState }: RubiksCubeProps) => {
     // turns with both turn direction and order reversed
     const reversedTurns = prevTurns.reverse().map(reverseTurn);
 
+    // const transformationsToAdd: transformationArrayType = [];
+
     // first the reversed turns get applied, then the current catch up
     const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
-    for (const turn of turnsToApply) {
-      const { matrix, cubieIdxsToTurn } = rotationMatrixFromTurn(
-        rubiksCube.current.map((cubie) => cubie.position),
-        turn
-      );
-      for (const cubieIdxToTurn of cubieIdxsToTurn) {
-        rubiksCube.current[cubieIdxToTurn].applyMatrix4(matrix);
-        rubiksCube.current[cubieIdxToTurn].position.round();
-      }
+    dispatchTurnQueue({ type: 'add', toAdd: turnsToApply });
+
+    console.log('curr: ', currTurns, '  prev: ', prevTurns);
+    console.log('toApply: ', turnsToApply);
+    console.log('queue: ', turnQueue);
+    // for (const turn of turnsToApply) {
+    //   transformationsToAdd.push(
+    //     rotationMatrixFromTurn(
+    //       rubiksCube.current.map((cubie) => cubie.position),
+    //       turn
+    //     )
+    //   );
+    // }
+
+    //add the transformations to the end of the queue
+    // dispatchTransformationQueue({ type: 'add', toAdd: transformationsToAdd });
+  }, [prevCubeState, cubeState]);
+
+  const [transforming, setTransforming] = useState(false);
+  const [transformationFraction, setTransformationFraction] =
+    useState<number>(0);
+  const turnTime = 0.5; //turn time in seconds
+
+  const [cubiePositionAfterLastTurn, setCubiePositionAfterLastTurn] = useState<
+    Vector3[]
+  >([]);
+
+  useFrame((state, delta) => {
+    if (transforming || turnQueue.length === 0) return;
+    setTransforming(true);
+    const currTransformationArray = rotationMatrixFromTurn(
+      cubiePositionAfterLastTurn,
+      turnQueue[0]
+    );
+
+    //find what fraction of a turn do this frame
+    let currTurnFraction = delta / turnTime;
+
+    //make sure that fractions always add up to 1
+    if (currTurnFraction + transformationFraction > 1) {
+      const fractionLeft = 1 - transformationFraction;
+      currTurnFraction = fractionLeft;
     }
-  }, [cubeState]);
+
+    //set fraction (1 == full turn)
+    setTransformationFraction(transformationFraction + currTurnFraction);
+
+    //get current turn euler rotation
+    const { cubieIdxArray, eulerRotation } = currTransformationArray;
+
+    //scale current euler rotation to fraction for frame
+    const fractionEuler = new Euler();
+    fractionEuler.setFromVector3(
+      eulerRotation.toVector3().multiplyScalar(currTurnFraction)
+    );
+
+    const matrixTransform = new Matrix4();
+    matrixTransform.makeRotationFromEuler(fractionEuler);
+
+    // apply rotation
+    for (const cubieIdx of cubieIdxArray) {
+      rubiksCube.current[cubieIdx].applyMatrix4(matrixTransform);
+    }
+
+    //clean up after full turn
+    if (transformationFraction >= 0.999) {
+      dispatchTurnQueue({ type: 'removeFirst' });
+      setTransformationFraction(0);
+      for (const cubieIdx of cubieIdxArray) {
+        //round position to fix any inconsistencies during animation
+        rubiksCube.current[cubieIdx].position.round();
+      }
+      setCubiePositionAfterLastTurn(
+        rubiksCube.current.map((cubie) => cubie.position)
+      );
+    }
+    setTransforming(false);
+  });
 
   return (
     <group>
