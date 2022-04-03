@@ -31,22 +31,20 @@ const colors400 = [
   'bg-blue-400',
 ];
 
-const getShuffledColors = (colors: string[]) =>
-  [...colors].sort(() => (Math.random() > 0.5 ? 1 : -1));
-
 const Home: NextPage = () => {
   type SectionColorType = (shade: '300' | '400') => string;
   const [sectionColors, setSectionColors] = useState<SectionColorType[]>();
   useEffect(() => {
     const SECTION_COUNT = 20; //update if more than 50 project sections
     const output = [];
-    const firstColorShuffle = getShuffledColors(colors300).map(
-      (color300, idx) => {
-        const color400 = colors400[idx];
-        return (shade: '300' | '400') =>
-          shade === '300' ? color300 : color400;
-      }
-    );
+    let shuffledIdxs = Array(SECTION_COUNT)
+      .fill(null)
+      .map(() => Math.floor(Math.random() * colors400.length));
+    const firstColorShuffle = shuffledIdxs.map((idx) => {
+      // const color400 = colors400[idx];
+      return (shade: '300' | '400') =>
+        shade === '300' ? colors300[idx] : colors300[idx];
+    });
     while (output.length < SECTION_COUNT) output.push(...firstColorShuffle);
 
     setSectionColors(output);
