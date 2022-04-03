@@ -51,7 +51,11 @@ const RubiksUi = (props: RubiksUiProps) => {
       {/* <div className="flex items-center content-center justify-between"></div> */}
 
       <div>
-        <div>cube state:</div>
+        <div>input: </div>
+        <div className="text-md">
+          R R&apos; R2 L L&apos; L2 F F&apos; F2 B B&apos; B2 U U&apos; U2 D
+          D&apos; D2
+        </div>
         <input
           className="w-full bg-transparent border-2 border-white rounded-md"
           type="text"

@@ -1,14 +1,35 @@
 import type { NextPage } from 'next';
-import ProjectSection from '../components/ui/ProjectSection';
-import LinkButton from '../components/ui/LinkButton';
 import Image from 'next/image';
-import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
-import GitHubIcon from '../components/ui/GitHubIcon';
-import React from 'react';
-import ColumnSection from '../components/ui/ColumnSection';
+import React, { useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
+import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
+import ColumnSection from '../components/ui/ColumnSection';
+import GitHubIcon from '../components/ui/GitHubIcon';
+import LinkButton from '../components/ui/LinkButton';
+import ProjectSection from '../components/ui/ProjectSection';
 
+const colors = [
+  'bg-fuchsia-',
+  'bg-rose-',
+  'bg-orange-',
+  'bg-indigo-',
+  'bg-sky-',
+  'bg-purple-',
+];
+const getShuffledColors = (colors: string[]) =>
+  [...colors].sort(() => (Math.random() > 0.5 ? 1 : -1));
+
+const SECTION_COUNT = 50; //update if more than 50 project sections
 const Home: NextPage = () => {
+  const sectionColors = useMemo(() => {
+    const output = [];
+    const firstColorShuffle = getShuffledColors(colors).map((color) => {
+      return (shade: '300' | '400') => `${color}${shade}`;
+    });
+    while (output.length < SECTION_COUNT) output.push(...firstColorShuffle);
+    return output;
+  }, []);
+
   if (isMobile)
     return (
       <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
@@ -17,12 +38,16 @@ const Home: NextPage = () => {
     );
 
   return (
-    <div className="h-screen overflow-y-scroll text-white bg-indigo-300 snap snap-y snap-mandatory">
+    <div
+      className={`h-screen overflow-y-scroll text-white snap snap-y snap-mandatory ${sectionColors[0](
+        '300'
+      )}`}
+    >
       <div className="grid w-full h-screen place-content-center snap-start ">
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
       </div>
 
-      <ProjectSection backgroundColor="bg-fuchsia-300" title="rubik's">
+      <ProjectSection backgroundColor={sectionColors[1]('300')} title="rubik's">
         <ColumnSection
           columns="two"
           noFrameMedia={true}
@@ -36,7 +61,7 @@ const Home: NextPage = () => {
               <div className="flex justify-end w-full py-5 space-x-8">
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
-                  backgroundColor="bg-fuchsia-400"
+                  backgroundColor={sectionColors[1]('400')}
                   text="👉 check it out 👉"
                   href="/rubiks"
                 />
@@ -47,7 +72,7 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-rose-300" title="maze">
+      <ProjectSection backgroundColor={sectionColors[2]('300')} title="maze">
         <ColumnSection
           columns="two"
           copy={
@@ -59,7 +84,7 @@ const Home: NextPage = () => {
               <div className="flex justify-end w-full py-5 space-x-8">
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
-                  backgroundColor="bg-rose-400"
+                  backgroundColor={sectionColors[2]('400')}
                   text="🐂 maze solver 🐂"
                   href="/maze"
                 />
@@ -80,7 +105,10 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-sky-300" title="hackathon bot">
+      <ProjectSection
+        backgroundColor={sectionColors[3]('300')}
+        title="hackathon bot"
+      >
         <ColumnSection
           columns="one"
           noFrameMedia={true}
@@ -108,7 +136,7 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-purple-300" title="thumb">
+      <ProjectSection backgroundColor={sectionColors[4]('300')} title="thumb">
         <ColumnSection
           columns="one"
           noFrameMedia={true}
@@ -122,7 +150,7 @@ const Home: NextPage = () => {
               <div className="flex justify-center w-full py-5 space-x-8">
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
-                  backgroundColor="bg-purple-400"
+                  backgroundColor={sectionColors[4]('400')}
                   text="👎 weird thumb fractal thing 👍"
                   href="/thumb"
                 />
@@ -141,7 +169,10 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-orange-300" title="autolycus">
+      <ProjectSection
+        backgroundColor={sectionColors[5]('300')}
+        title="autolycus"
+      >
         <ColumnSection
           columns="two"
           copy={
@@ -169,7 +200,10 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-rose-300" title="word clock">
+      <ProjectSection
+        backgroundColor={sectionColors[6]('300')}
+        title="word clock"
+      >
         <ColumnSection
           columns="two"
           copy={
