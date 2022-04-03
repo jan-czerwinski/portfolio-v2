@@ -8,25 +8,30 @@ import GitHubIcon from '../components/ui/GitHubIcon';
 import LinkButton from '../components/ui/LinkButton';
 import ProjectSection from '../components/ui/ProjectSection';
 
+// from tailwind palette: https://tailwindcss.com/docs/customizing-colors
 const colors = [
-  'bg-fuchsia-',
-  'bg-rose-',
-  'bg-orange-',
-  'bg-indigo-',
-  'bg-sky-',
-  'bg-purple-',
+  'fuchsia',
+  'rose',
+  'orange',
+  'indigo',
+  'sky',
+  'purple',
+  'pink',
+  'blue',
 ];
+
 const getShuffledColors = (colors: string[]) =>
   [...colors].sort(() => (Math.random() > 0.5 ? 1 : -1));
 
-const SECTION_COUNT = 50; //update if more than 50 project sections
 const Home: NextPage = () => {
   const sectionColors = useMemo(() => {
+    const SECTION_COUNT = 20; //update if more than 50 project sections
     const output = [];
     const firstColorShuffle = getShuffledColors(colors).map((color) => {
-      return (shade: '300' | '400') => `${color}${shade}`;
+      return (shade: '300' | '400') => `bg-${color}-${shade}`;
     });
     while (output.length < SECTION_COUNT) output.push(...firstColorShuffle);
+    console.log(output.map((f) => f('300')));
     return output;
   }, []);
 
@@ -45,6 +50,9 @@ const Home: NextPage = () => {
     >
       <div className="grid w-full h-screen place-content-center snap-start ">
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
+        <h3 className="flex w-full ml-8">
+          refresh the page if you don&apos;t like the colors...
+        </h3>
       </div>
 
       <ProjectSection backgroundColor={sectionColors[1]('300')} title="rubik's">
@@ -212,7 +220,7 @@ const Home: NextPage = () => {
                 Word clock I designed and created. It&apos;s runing a nodejs
                 bluetooth server on a RaspberryPi. It can be controlled via a
                 python desktop app or a Xamarin Forms mobile app. It even has a
-                snake game mode!
+                snake gamemode!
               </div>
               <div className="flex justify-end p-2 ">
                 <GitHubIcon link="https://github.com/jan-czerwinski/clock" />
