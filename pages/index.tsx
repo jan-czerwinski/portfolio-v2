@@ -8,7 +8,8 @@ const Home: NextPage = () => {
   return (
     <div className="h-screen overflow-y-scroll text-white bg-teal-300 snap snap-y snap-mandatory">
       <div className="grid w-full h-screen place-content-center snap-start ">
-        <h1 className="text-4xl italic font-bold">Jan Czerwiński</h1>
+        <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
+        {/* <h2 className="w-full text-center">🔥 Full Stack Developer </h2> */}
       </div>
 
       <ProjectSection backgroundColor="bg-fuchsia-300" title="rubik's">
@@ -33,8 +34,8 @@ const Home: NextPage = () => {
         </div>
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-green-300" title="maze">
-        <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16">
+      <ProjectSection backgroundColor="bg-rose-300" title="maze">
+        <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16  bg-">
           <div className="self-center text-5xl">
             <div>
               Maze generator and solver. It uses randomized DFS to generate the
@@ -52,14 +53,22 @@ const Home: NextPage = () => {
       </ProjectSection>
 
       <ProjectSection backgroundColor="bg-purple-300" title="thumb">
-        <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16">
-          <div className="self-center text-5xl">
+        <div className="box-border w-full px-16">
+          <div className="flex justify-center">
+            <Image
+              src="/thumb_thumbs.jpeg"
+              alt="thumb thumb characters from spy kids movie"
+              width={500}
+              height={500}
+            />
+          </div>
+          <div className="self-center text-5xl px-80">
             <div>
               A fractal tree made from a 3d model of a thumb thumb - a creepy
               character from a kids show. It was made as a joke that ultimetly
               has taught me a lot about react optimization.
             </div>
-            <div className="flex justify-end w-full py-5">
+            <div className="flex justify-center w-full py-5">
               <LinkButton
                 backgroundColor="bg-blue-300"
                 text="👎 weird thumb fractal thing 👍"
@@ -82,7 +91,7 @@ const Home: NextPage = () => {
             <div className="flex justify-end w-full py-5">
               <LinkButton
                 backgroundColor="bg-blue-300"
-                text="game of life"
+                text="💖 game of life 💖"
                 href="/gameoflife"
               />
             </div>
@@ -112,27 +121,30 @@ const Home: NextPage = () => {
           </div>
         </div>
       </ProjectSection>
+
       <ProjectSection backgroundColor="bg-orange-300" title="autolycus">
-        <div className="box-border grid w-full px-16 place-content-center">
-          <div className="flex justify-center w-full jh-8">
-            <div className="w-[480px] h-[268px]">
-              <Image
-                src="/autolycus.gif"
-                alt="autolycus script running"
-                width={480}
-                height={268}
-              />
+        <div className="box-border grid items-center w-full grid-cols-2 px-16">
+          <div className="text-5xl text-center">
+            <div>
+              A python bot that scrapes reddit for images, reads text from them,
+              creates short videos and uploads them to youtube!
             </div>
           </div>
-          <div className="w-3/5 mx-auto text-5xl">
-            <div>
-              A python bot that scrapes reddit for images, reads text from them
-              and creates
-            </div>
+          <div className="flex justify-center jh-8">
+            <iframe
+              width="450"
+              height="800"
+              src="https://www.youtube.com/embed/E24PtI0u28E"
+              title="YouTube video player"
+              frameBorder="10"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </ProjectSection>
 
+      {/* 
       <ProjectSection
         backgroundColor="bg-pink-300"
         title="Thank you for visiting my page!"
@@ -143,7 +155,7 @@ const Home: NextPage = () => {
 
           <div>frog2</div>
         </div>
-      </ProjectSection>
+      </ProjectSection> */}
     </div>
   );
 };

@@ -36,7 +36,7 @@ const RubiksCubePreview = () => {
 
     // runs permutation in a loop
     const intervalTime = Math.round(
-      turnTime * permutationTArray.length * 1000 * 2 + 500
+      turnTime * permutationTArray.length * 1000 * 2 + 1000
     );
     const interval = setInterval(() => togglePermutation(), intervalTime);
 

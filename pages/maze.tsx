@@ -283,18 +283,17 @@ const Maze = () => {
   };
 
   return (
-    <div>
-      <div className="square-70">
-        <div
-          className="grid w-full h-full gap-0 bg-white place-items-stretch"
-          style={{
-            gridTemplateColumns: `repeat(${cols}, 1fr)`,
-            gridTemplateRows: `repeat(${rows}, 1fr)`,
-          }}
-        >
-          {map2D(maze, (cell, [x, y]) => (
-            <div
-              className={`
+    <div className="flex justify-between">
+      <div
+        className="h-[100vh] w-[100vh] grid w-full h-full gap-0 bg-white place-items-stretch"
+        style={{
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gridTemplateRows: `repeat(${rows}, 1fr)`,
+        }}
+      >
+        {map2D(maze, (cell, [x, y]) => (
+          <div
+            className={`
           border-black
           hover:bg-yellow-600
           text-center
@@ -303,30 +302,28 @@ const Maze = () => {
           ${cell.edges.right && 'border-r'} 
           ${cell.edges.left && 'border-l'} 
           ${getCellColor(cell.state, { x, y })}`}
-              style={{
-                opacity: active ? getOpacityFromDistance(cell.distance) : 1,
-              }}
-              key={`${x}-${y}`}
-              onClick={() => {
-                pickPathPoint({ x, y });
-                console.log(x, y);
-              }}
-            >
-              <div className="object-scale-down tracking-tighter">
-                {pathPoints.A && coordsEqual({ x, y }, pathPoints.A) && 'A'}
-                {pathPoints.B && coordsEqual({ x, y }, pathPoints.B) && 'B'}
-                {/* {cell.distance !== Infinity && cell.distance} */}
-              </div>
+            style={{
+              opacity: active ? getOpacityFromDistance(cell.distance) : 1,
+            }}
+            key={`${x}-${y}`}
+            onClick={() => {
+              pickPathPoint({ x, y });
+              console.log(x, y);
+            }}
+          >
+            <div className="object-scale-down tracking-tighter">
+              {pathPoints.A && coordsEqual({ x, y }, pathPoints.A) && 'A'}
+              {pathPoints.B && coordsEqual({ x, y }, pathPoints.B) && 'B'}
+              {/* {cell.distance !== Infinity && cell.distance} */}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
-      <div className="bg-purple-300">
-        <div className="flex items-center justify-between my-2 ">
+      <div className="bg-purple-300 ">
+        <div className="flex items-center justify-center my-2 ">
           <div className="mr-2 text-xl text-white">speed:</div>
           <input
-            dir="rtl"
             type="range"
             min={0}
             max={200}
