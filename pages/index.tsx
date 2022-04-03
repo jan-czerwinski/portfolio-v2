@@ -10,15 +10,25 @@ import LinkButton from '../components/ui/LinkButton';
 import ProjectSection from '../components/ui/ProjectSection';
 
 // from tailwind palette: https://tailwindcss.com/docs/customizing-colors
-const colors = [
-  'fuchsia',
-  'rose',
-  'orange',
-  'indigo',
-  'sky',
-  'purple',
-  'pink',
-  'blue',
+const colors300 = [
+  'bg-fuchsia-300',
+  'bg-rose-300',
+  'bg-orange-300',
+  'bg-indigo-300',
+  'bg-sky-300',
+  'bg-purple-300',
+  'bg-pink-300',
+  'bg-blue-300',
+];
+const colors400 = [
+  'bg-fuchsia-400',
+  'bg-rose-400',
+  'bg-orange-400',
+  'bg-indigo-400',
+  'bg-sky-400',
+  'bg-purple-400',
+  'bg-pink-400',
+  'bg-blue-400',
 ];
 
 const getShuffledColors = (colors: string[]) =>
@@ -30,9 +40,13 @@ const Home: NextPage = () => {
   useEffect(() => {
     const SECTION_COUNT = 20; //update if more than 50 project sections
     const output = [];
-    const firstColorShuffle = getShuffledColors(colors).map((color) => {
-      return (shade: '300' | '400') => `bg-${color}-${shade}`;
-    });
+    const firstColorShuffle = getShuffledColors(colors300).map(
+      (color300, idx) => {
+        const color400 = colors400[idx];
+        return (shade: '300' | '400') =>
+          shade === '300' ? color300 : color400;
+      }
+    );
     while (output.length < SECTION_COUNT) output.push(...firstColorShuffle);
 
     setSectionColors(output);
