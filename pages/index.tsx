@@ -63,7 +63,7 @@ const Home: NextPage = () => {
         )}`}
       >
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
-        <h3 className="flex w-full ml-8">
+        <h3 className="flex justify-end w-full mt-1">
           refresh the page if you don&apos;t like the colors...
         </h3>
       </div>
