@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useMemo } from 'react';
 import { isMobile } from 'react-device-detect';
 import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
@@ -70,7 +71,7 @@ const Home: NextPage = () => {
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
                   backgroundColor={sectionColors[1]('400')}
-                  text="👉 check it out 👉"
+                  text="👉 click me 👉"
                   href="/rubiks"
                 />
               </div>
@@ -93,22 +94,26 @@ const Home: NextPage = () => {
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
                   backgroundColor={sectionColors[2]('400')}
-                  text="🐂 maze solver 🐂"
+                  text="🐂 click me to see a maze 🐂"
                   href="/maze"
                 />
               </div>
             </>
           }
           media={
-            <video
-              className="border border-black"
-              width={400}
-              height={400}
-              src="/maze.mp4"
-              autoPlay={true}
-              loop
-              muted
-            ></video>
+            <Link href="/maze" passHref>
+              <a>
+                <video
+                  className="border border-black"
+                  width={400}
+                  height={400}
+                  src="/maze.mp4"
+                  autoPlay={true}
+                  loop
+                  muted
+                ></video>
+              </a>
+            </Link>
           }
         />
       </ProjectSection>
@@ -166,13 +171,17 @@ const Home: NextPage = () => {
             </>
           }
           media={
-            <Image
-              className=""
-              src="/thumb_thumbs.jpeg"
-              alt="thumb thumb characters from spy kids movie"
-              width={300}
-              height={300}
-            />
+            <Link href="/maze" passHref>
+              <a>
+                <Image
+                  className=""
+                  src="/thumb_thumbs.jpeg"
+                  alt="thumb thumb characters from spy kids movie"
+                  width={300}
+                  height={300}
+                />
+              </a>
+            </Link>
           }
         />
       </ProjectSection>
