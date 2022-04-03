@@ -42,7 +42,7 @@ const RubiksUi = (props: RubiksUiProps) => {
           type="range"
           value={props.turnTime}
           min={0.05}
-          max={2}
+          max={1}
           step={0.05}
           onChange={(e) => props.setTurnTime(parseFloat(e.target.value))}
         ></input>

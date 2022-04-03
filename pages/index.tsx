@@ -3,6 +3,7 @@ import ProjectSection from '../components/ui/ProjectSection';
 import LinkButton from '../components/ui/LinkButton';
 import Image from 'next/image';
 import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
+import GitHubIcon from '../components/ui/GitHubIcon';
 
 const Home: NextPage = () => {
   return (
@@ -20,7 +21,9 @@ const Home: NextPage = () => {
               You can preview different Rubik&apos;s cube algoritms by just
               pasting them into the input!
             </div>
-            <div className="flex justify-end w-full py-5">
+
+            <div className="flex justify-end w-full py-5 space-x-8">
+              <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
               <LinkButton
                 backgroundColor="bg-blue-300"
                 text="👉 check it out 👉"
@@ -35,13 +38,14 @@ const Home: NextPage = () => {
       </ProjectSection>
 
       <ProjectSection backgroundColor="bg-rose-300" title="maze">
-        <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16  bg-">
+        <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16 bg-">
           <div className="self-center text-5xl">
             <div>
               Maze generator and solver. It uses randomized DFS to generate the
               labirynth, and Dijkstra&apos;s algorithm to solve it.
             </div>
-            <div className="flex justify-end w-full py-5">
+            <div className="flex justify-end w-full py-5 space-x-8">
+              <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
               <LinkButton
                 backgroundColor="bg-blue-300"
                 text="🐂 maze solver 🐂"
@@ -54,21 +58,23 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor="bg-purple-300" title="thumb">
         <div className="box-border w-full px-16">
-          <div className="flex justify-center">
+          <div className="p-2 mx-auto mb-8 bg-white rounded-md w-fit">
             <Image
+              className=""
               src="/thumb_thumbs.jpeg"
               alt="thumb thumb characters from spy kids movie"
               width={500}
               height={500}
             />
           </div>
-          <div className="self-center text-5xl px-80">
+          <div className="w-[1000px] text-justify mx-auto text-4xl">
             <div>
               A fractal tree made from a 3d model of a thumb thumb - a creepy
               character from a kids show. It was made as a joke that ultimetly
               has taught me a lot about react optimization.
             </div>
-            <div className="flex justify-center w-full py-5">
+            <div className="flex justify-center w-full py-5 space-x-8">
+              <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
               <LinkButton
                 backgroundColor="bg-blue-300"
                 text="👎 weird thumb fractal thing 👍"
@@ -89,11 +95,14 @@ const Home: NextPage = () => {
             </q>
 
             <div className="flex justify-end w-full py-5">
-              <LinkButton
-                backgroundColor="bg-blue-300"
-                text="💖 game of life 💖"
-                href="/gameoflife"
-              />
+              <div className="flex justify-end p-2 space-x-8 ">
+                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
+                <LinkButton
+                  backgroundColor="bg-blue-300"
+                  text="💖 game of life 💖"
+                  href="/gameoflife"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -102,21 +111,24 @@ const Home: NextPage = () => {
       <ProjectSection backgroundColor="bg-sky-300" title="hackathon bot">
         <div className="box-border grid w-full px-16 place-content-center">
           <div className="flex justify-center w-full jh-8">
-            <div className="w-[480px] h-[268px]">
+            <div className="p-2 mb-8 bg-white rounded-md">
               <Image
                 src="/hackathon_bot.gif"
                 alt="👾 bot playing arkanoid like game 👾"
-                width={480}
-                height={268}
+                width={800}
+                height={436}
               />
             </div>
           </div>
-          <div className="w-3/5 mx-auto text-5xl">
+          <div className="w-[1000px] text-justify mx-auto text-4xl">
             <div>
               A bot that grabs the screen and plays an arkanoid-like game using
               a fuzzy logic algorithm we&apos;ve created. It was one of the 3
               tasks during a 24 hour Univeristy Of Technology hackathon.
               We&apos;ve won 3rd place.
+            </div>
+            <div className="flex justify-end p-2 ">
+              <GitHubIcon link="https://github.com/jan-czerwinski/hackathon-2022-bot" />
             </div>
           </div>
         </div>
@@ -129,6 +141,9 @@ const Home: NextPage = () => {
               A python bot that scrapes reddit for images, reads text from them,
               creates short videos and uploads them to youtube!
             </div>
+            <div className="flex justify-end p-2 ">
+              <GitHubIcon link="https://github.com/jan-czerwinski/autolycus" />
+            </div>
           </div>
           <div className="flex justify-center jh-8">
             <iframe
@@ -140,6 +155,30 @@ const Home: NextPage = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
+          </div>
+        </div>
+      </ProjectSection>
+
+      <ProjectSection backgroundColor="bg-rose-300" title="word clock">
+        <div className="box-border grid items-center w-full grid-cols-2 px-16">
+          <div className="text-5xl text-center">
+            <div>
+              Word clock I designed and created. It&apos;s runing a nodejs
+              bluetooth server on a RaspberryPi. It can be controlled via a
+              python desktop app or a Xamarin Forms mobile app. It even has a
+              snake game mode!
+            </div>
+            <div className="flex justify-end p-2 ">
+              <GitHubIcon link="https://github.com/jan-czerwinski/clock" />
+            </div>
+          </div>
+          <div className="flex justify-center jh-8">
+            <Image
+              src="/word_clock.png"
+              alt="word clock"
+              width={498}
+              height={526}
+            />
           </div>
         </div>
       </ProjectSection>

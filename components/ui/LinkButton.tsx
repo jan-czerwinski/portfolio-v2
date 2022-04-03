@@ -13,7 +13,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   return (
     <Link href={href} passHref>
       <button
-        className={`p-2 text-2xl transform rounded-sm -skew-x-12 border border-white ${backgroundColor}`}
+        className={`shadow-md p-2 text-2xl transform rounded-sm -skew-x-12 border border-white ${backgroundColor}`}
       >
         {text}
       </button>
