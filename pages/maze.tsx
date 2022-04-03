@@ -194,7 +194,6 @@ const Maze = () => {
           newMaze[currentCoords.y][currentCoords.x].distance + 1;
         const distanceToSet =
           neighbour.distance < newDistance ? neighbour.distance : newDistance;
-        // console.log(coords, newDistance);
         newMaze[coords.y][coords.x].distance = distanceToSet;
       }
       newMaze[currentCoords.y][currentCoords.x].visited = true;

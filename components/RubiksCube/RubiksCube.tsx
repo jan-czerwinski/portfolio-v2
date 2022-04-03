@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { Euler, Matrix4, Vector3 } from 'three';
+import { Euler, Matrix4, Object3D, Vector3 } from 'three';
 import { usePrevious } from '../../utils/usePrevious';
 import { reverseTurn, turnArrayToString, TurnType } from './CubeUtils';
 import Cubie, { CubieDrawFacesType } from './Cubie';
@@ -45,14 +45,14 @@ const cubieExtractor = (cubiePos: Vector3, axis: AxisType, offset: number) =>
  * @param {TurnType} turn - turn in cube notation
  */
 
-type TransformationSideType = {
+type TurnTransformationType = {
   cubieIdxArray: number[];
   eulerRotation: Euler;
 };
 const rotationMatrixFromTurn = (
   cubiesPosition: Vector3[],
   turn: TurnType
-): TransformationSideType => {
+): TurnTransformationType => {
   let angle = Math.PI / 2;
 
   if (turn.modifier === '2') {
@@ -162,8 +162,13 @@ const turnQueueReducer = (state: TurnType[], action: turnQueueAction) => {
 type RubiksCubeProps = {
   cubeState: TurnType[];
   turnTime: number;
+  dramaticRotation?: boolean;
 };
-const RubiksCube = ({ turnTime, cubeState }: RubiksCubeProps) => {
+const RubiksCube = ({
+  dramaticRotation,
+  turnTime,
+  cubeState,
+}: RubiksCubeProps) => {
   const prevCubeState = usePrevious(cubeState);
 
   const rubiksCube = useRef<THREE.Mesh[]>(Array(CUBIE_COUNT).fill(null!));
@@ -211,19 +216,10 @@ const RubiksCube = ({ turnTime, cubeState }: RubiksCubeProps) => {
       // first the reversed turns get applied, then the current catch up
       const turnsToApply: TurnType[] = [...reversedTurns, ...currTurns];
       dispatchTurnQueue({ type: 'add', toAdd: turnsToApply });
-
-      console.log('curr: ', currTurns, '  prev: ', prevTurns);
-      console.log('toApply: ', turnsToApply);
-      console.log(
-        turnArrayToString(prevCubeState),
-        '|',
-        turnArrayToString(cubeState)
-      );
     }
   }, [prevCubeState, cubeState]);
 
   useFrame((state, delta) => {
-    console.log(turnQueue);
     if (transforming || turnQueue.length === 0 || !rubiksCube.current[0])
       return;
     setTransforming(true);
@@ -275,8 +271,13 @@ const RubiksCube = ({ turnTime, cubeState }: RubiksCubeProps) => {
     setTransforming(false);
   });
 
+  useFrame((scene) => {
+    if (dramaticRotation)
+      scene.scene.rotateOnWorldAxis(new Vector3(0.3, 1, 0.2), 0.005);
+  });
   return (
     <group>
+      <mesh />
       {[...Array(CUBIE_COUNT)].map((_, idx) => {
         return (
           <Cubie
