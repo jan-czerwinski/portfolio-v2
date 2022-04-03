@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
 import ColumnSection from '../components/ui/ColumnSection';
@@ -25,21 +25,29 @@ const getShuffledColors = (colors: string[]) =>
   [...colors].sort(() => (Math.random() > 0.5 ? 1 : -1));
 
 const Home: NextPage = () => {
-  const sectionColors = useMemo(() => {
+  type SectionColorType = (shade: '300' | '400') => string;
+  const [sectionColors, setSectionColors] = useState<SectionColorType[]>();
+  useEffect(() => {
     const SECTION_COUNT = 20; //update if more than 50 project sections
     const output = [];
     const firstColorShuffle = getShuffledColors(colors).map((color) => {
       return (shade: '300' | '400') => `bg-${color}-${shade}`;
     });
     while (output.length < SECTION_COUNT) output.push(...firstColorShuffle);
-    console.log(output.map((f) => f('300')));
-    return output;
+
+    setSectionColors(output);
   }, []);
 
   if (isMobile)
     return (
       <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
         please view this page on desktop, it&apos;s not made for mobile devices
+      </div>
+    );
+  if (!sectionColors)
+    return (
+      <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
+        loading
       </div>
     );
 
@@ -49,7 +57,11 @@ const Home: NextPage = () => {
         '300'
       )}`}
     >
-      <div className="grid w-full h-screen place-content-center snap-start ">
+      <div
+        className={`grid w-full h-screen place-content-center snap-start sectionColors ${sectionColors[0](
+          '300'
+        )}`}
+      >
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
         <h3 className="flex w-full ml-8">
           refresh the page if you don&apos;t like the colors...
