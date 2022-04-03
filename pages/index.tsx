@@ -11,13 +11,13 @@ const Home: NextPage = () => {
         <h1 className="text-4xl italic font-bold">Jan Czerwiński</h1>
       </div>
 
-      <ProjectSection backgroundColor="bg-fuchsia-300" title="rubiks">
+      <ProjectSection backgroundColor="bg-fuchsia-300" title="rubik's">
         <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16">
           <div className="self-center text-5xl">
             <div>
               Rubiks cube simulation made in three.js with react-three-fiber.
               You can preview different Rubik&apos;s cube algoritms by just
-              pasting them in the input!
+              pasting them into the input!
             </div>
             <div className="flex justify-end w-full py-5">
               <LinkButton
@@ -56,14 +56,13 @@ const Home: NextPage = () => {
           <div className="self-center text-5xl">
             <div>
               A fractal tree made from a 3d model of a thumb thumb - a creepy
-              character from a kids show. It&apos;s a joke i couldn&apos;t
-              resist making that turned out to teach me quite a bit about react
-              optimization!
+              character from a kids show. It was made as a joke that ultimetly
+              has taught me a lot about react optimization.
             </div>
             <div className="flex justify-end w-full py-5">
               <LinkButton
                 backgroundColor="bg-blue-300"
-                text="weird thumb fractal thing"
+                text="👎 weird thumb fractal thing 👍"
                 href="/thumb"
               />
             </div>
@@ -74,7 +73,12 @@ const Home: NextPage = () => {
       <ProjectSection backgroundColor="bg-blue-300" title="game of life">
         <div className="box-border grid justify-center w-full grid-cols-2 grid-rows-1 px-16">
           <div className="self-center text-5xl">
-            <div>game of life conway something</div>
+            <q>
+              The greatest glory in living lies not in never falling, but in
+              rising every time we fall.
+              <br /> ~ Nelson Mandela
+            </q>
+
             <div className="flex justify-end w-full py-5">
               <LinkButton
                 backgroundColor="bg-blue-300"
@@ -92,7 +96,7 @@ const Home: NextPage = () => {
             <div className="w-[480px] h-[268px]">
               <Image
                 src="/hackathon_bot.gif"
-                alt="bot playing arkanoid like game"
+                alt="👾 bot playing arkanoid like game 👾"
                 width={480}
                 height={268}
               />
@@ -100,11 +104,44 @@ const Home: NextPage = () => {
           </div>
           <div className="w-3/5 mx-auto text-5xl">
             <div>
-              A bot that grabs the screen and plays an arkanoid like game using
-              fuzzy logic. It was one of the 3 tasks during a 24 hour hackathon.
+              A bot that grabs the screen and plays an arkanoid-like game using
+              a fuzzy logic algorithm we&apos;ve created. It was one of the 3
+              tasks during a 24 hour Univeristy Of Technology hackathon.
               We&apos;ve won 3rd place.
             </div>
           </div>
+        </div>
+      </ProjectSection>
+      <ProjectSection backgroundColor="bg-orange-300" title="autolycus">
+        <div className="box-border grid w-full px-16 place-content-center">
+          <div className="flex justify-center w-full jh-8">
+            <div className="w-[480px] h-[268px]">
+              <Image
+                src="/autolycus.gif"
+                alt="autolycus script running"
+                width={480}
+                height={268}
+              />
+            </div>
+          </div>
+          <div className="w-3/5 mx-auto text-5xl">
+            <div>
+              A python bot that scrapes reddit for images, reads text from them
+              and creates
+            </div>
+          </div>
+        </div>
+      </ProjectSection>
+
+      <ProjectSection
+        backgroundColor="bg-pink-300"
+        title="Thank you for visiting my page!"
+      >
+        <div className="grid items-center justify-center w-full grid-cols-3 text-center">
+          <div>frog1</div>
+          <div>Thank you for visiting my page!</div>
+
+          <div>frog2</div>
         </div>
       </ProjectSection>
     </div>
