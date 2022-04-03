@@ -89,8 +89,8 @@ const Home: NextPage = () => {
               className=""
               src="/thumb_thumbs.jpeg"
               alt="thumb thumb characters from spy kids movie"
-              width={500}
-              height={500}
+              width={300}
+              height={300}
             />
           }
         />
@@ -142,8 +142,8 @@ const Home: NextPage = () => {
             <Image
               src="/hackathon_bot.gif"
               alt="👾 bot playing arkanoid like game 👾"
-              width={800}
-              height={436}
+              width={600}
+              height={320}
             />
           }
         />
@@ -165,8 +165,8 @@ const Home: NextPage = () => {
           }
           media={
             <iframe
-              width="450"
-              height="800"
+              width="340"
+              height="600"
               src="https://www.youtube.com/embed/E24PtI0u28E"
               title="YouTube video player"
               frameBorder="10"
