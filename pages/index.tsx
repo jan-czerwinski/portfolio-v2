@@ -37,11 +37,17 @@ const Home: NextPage = () => {
   useEffect(() => {
     const SECTION_COUNT = 20; //update if more than 50 project sections
     const output = [];
-    let shuffledIdxs = Array(SECTION_COUNT)
-      .fill(null)
-      .map(() => Math.floor(Math.random() * colors400.length));
+    let shuffledIdxs = [Math.floor(Math.random() * colors400.length)];
+    for (let i = 0; i < SECTION_COUNT; i++) {
+      let last = shuffledIdxs.at(-1);
+      let next = Math.floor(Math.random() * colors400.length);
+      //make sure 2 neigbouring colors are always different
+      while (last === next) {
+        next = Math.floor(Math.random() * colors400.length);
+      }
+      shuffledIdxs.push(next);
+    }
     const firstColorShuffle = shuffledIdxs.map((idx) => {
-      // const color400 = colors400[idx];
       return (shade: '300' | '400') =>
         shade === '300' ? colors300[idx] : colors300[idx];
     });
