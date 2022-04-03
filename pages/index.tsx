@@ -6,8 +6,16 @@ import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
 import GitHubIcon from '../components/ui/GitHubIcon';
 import React from 'react';
 import ColumnSection from '../components/ui/ColumnSection';
+import { isMobile } from 'react-device-detect';
 
 const Home: NextPage = () => {
+  if (isMobile)
+    return (
+      <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
+        please view this page on desktop, it&apos;s not made for mobile devices
+      </div>
+    );
+
   return (
     <div className="h-screen overflow-y-scroll text-white bg-indigo-300 snap snap-y snap-mandatory">
       <div className="grid w-full h-screen place-content-center snap-start ">
