@@ -9,7 +9,7 @@ import ColumnSection from '../components/ui/ColumnSection';
 
 const Home: NextPage = () => {
   return (
-    <div className="h-screen overflow-y-scroll text-white bg-teal-300 snap snap-y snap-mandatory">
+    <div className="h-screen overflow-y-scroll text-white bg-indigo-300 snap snap-y snap-mandatory">
       <div className="grid w-full h-screen place-content-center snap-start ">
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
       </div>
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
               <div className="flex justify-end w-full py-5 space-x-8">
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
-                  backgroundColor="bg-blue-300"
+                  backgroundColor="bg-fuchsia-400"
                   text="👉 check it out 👉"
                   href="/rubiks"
                 />
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
               <div className="flex justify-end w-full py-5 space-x-8">
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
-                  backgroundColor="bg-blue-300"
+                  backgroundColor="bg-rose-400"
                   text="🐂 maze solver 🐂"
                   href="/maze"
                 />
@@ -63,6 +63,34 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
+      <ProjectSection backgroundColor="bg-sky-300" title="hackathon bot">
+        <ColumnSection
+          columns="one"
+          noFrameMedia={true}
+          copy={
+            <>
+              <div>
+                Python bot that grabs the screen using OpenCV, detects entities
+                and plays an arkanoid-like game using a fuzzy logic algorithm
+                we&apos;ve created. It was one of the 3 tasks during a 24 hour
+                Univeristy Of Technology hackathon - we&apos;ve won 3rd place.
+              </div>
+              <div className="flex justify-end p-2 ">
+                <GitHubIcon link="https://github.com/jan-czerwinski/hackathon-2022-bot" />
+              </div>
+            </>
+          }
+          media={
+            <Image
+              src="/hackathon_bot.gif"
+              alt="👾 bot playing arkanoid like game 👾"
+              width={600}
+              height={320}
+            />
+          }
+        />
+      </ProjectSection>
+
       <ProjectSection backgroundColor="bg-purple-300" title="thumb">
         <ColumnSection
           columns="one"
@@ -70,14 +98,14 @@ const Home: NextPage = () => {
           copy={
             <>
               <div>
-                A fractal tree made from a 3d model of a thumb thumb - a creepy
+                Fractal tree made from a 3d model of a thumb thumb - a creepy
                 character from a kids show. It was made as a joke that ultimetly
                 has taught me a lot about react optimization.
               </div>
               <div className="flex justify-center w-full py-5 space-x-8">
                 <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
                 <LinkButton
-                  backgroundColor="bg-blue-300"
+                  backgroundColor="bg-purple-400"
                   text="👎 weird thumb fractal thing 👍"
                   href="/thumb"
                 />
@@ -96,67 +124,14 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-blue-300" title="game of life">
-        <ColumnSection
-          columns="two"
-          noFrameMedia={true}
-          copy={
-            <>
-              <q>
-                The greatest glory in living lies not in never falling, but in
-                rising every time we fall.
-                <br /> ~ Nelson Mandela
-              </q>
-              <div className="flex justify-end w-full py-5 space-x-8">
-                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
-                <LinkButton
-                  backgroundColor="bg-blue-300"
-                  text="💖 game of life 💖"
-                  href="/gameoflife"
-                />
-              </div>
-            </>
-          }
-          media={<div>TODO add game of life preview</div>}
-        />
-      </ProjectSection>
-
-      <ProjectSection backgroundColor="bg-sky-300" title="hackathon bot">
-        <ColumnSection
-          columns="one"
-          noFrameMedia={true}
-          copy={
-            <>
-              <div>
-                A bot that grabs the screen and plays an arkanoid-like game
-                using a fuzzy logic algorithm we&apos;ve created. It was one of
-                the 3 tasks during a 24 hour Univeristy Of Technology hackathon.
-                We&apos;ve won 3rd place.
-              </div>
-              <div className="flex justify-end p-2 ">
-                <GitHubIcon link="https://github.com/jan-czerwinski/hackathon-2022-bot" />
-              </div>
-            </>
-          }
-          media={
-            <Image
-              src="/hackathon_bot.gif"
-              alt="👾 bot playing arkanoid like game 👾"
-              width={600}
-              height={320}
-            />
-          }
-        />
-      </ProjectSection>
-
       <ProjectSection backgroundColor="bg-orange-300" title="autolycus">
         <ColumnSection
           columns="two"
           copy={
             <>
               <div>
-                A python bot that scrapes reddit for images, reads text from
-                them, creates short videos and uploads them to youtube!
+                Python bot that scrapes reddit for images, reads text from them,
+                creates short videos and uploads them to youtube!
               </div>
               <div className="flex justify-end p-2 ">
                 <GitHubIcon link="https://github.com/jan-czerwinski/autolycus" />
@@ -201,6 +176,27 @@ const Home: NextPage = () => {
               height={526}
             />
           }
+        />
+      </ProjectSection>
+
+      <ProjectSection backgroundColor="bg-blue-300" title="game of life">
+        <ColumnSection
+          columns="two"
+          noFrameMedia={true}
+          copy={
+            <>
+              <div>React Game of Life implementation.</div>
+              <div className="flex justify-center w-full py-5 space-x-8">
+                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
+                <LinkButton
+                  backgroundColor="bg-blue-400"
+                  text="💖 game of life 💖"
+                  href="/gameoflife"
+                />
+              </div>
+            </>
+          }
+          media={<div>TODO add game of life preview</div>}
         />
       </ProjectSection>
 

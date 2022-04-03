@@ -23,7 +23,7 @@ const ColumnSection = ({
 
   return (
     <div className="box-border grid items-center w-full grid-cols-2 px-16">
-      <div className="text-4xl text-center">{copy}</div>
+      <div className="text-4xl text-center ">{copy}</div>
       <div className="flex justify-center">
         <div
           className={`p-2 rounded-md w-fit h-fit ${
