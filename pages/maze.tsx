@@ -264,16 +264,16 @@ const Maze = () => {
       (pathPoints.A && coordsEqual(coords, pathPoints.A)) ||
       (pathPoints.B && coordsEqual(coords, pathPoints.B))
     )
-      return 'bg-green-300';
+      return 'bg-sky-300';
 
     if (active && maze[coords.y][coords.x].distance !== Infinity)
-      return 'bg-blue-700';
+      return 'bg-rose-700';
 
     switch (cellState) {
       case 'active':
-        return 'bg-pink-300';
+        return 'bg-sky-300';
       case 'visited':
-        return 'bg-blue-400';
+        return 'bg-rose-300';
       case 'default':
         return 'bg-white';
       default:
@@ -283,9 +283,9 @@ const Maze = () => {
   };
 
   return (
-    <div className="flex justify-between">
+    <div className="flex">
       <div
-        className="h-[100vh] w-[100vh] grid w-full h-full gap-0 bg-white place-items-stretch"
+        className="h-[100vh] w-[100vh] grid gap-0 bg-white place-items-stretch"
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
@@ -320,35 +320,29 @@ const Maze = () => {
         ))}
       </div>
 
-      <div className="bg-purple-300 ">
-        <div className="flex items-center justify-center my-2 ">
-          <div className="mr-2 text-xl text-white">speed:</div>
+      <div className="bg-sky-300 w-[calc(100vw-100vh)] p-8 flex flex-col space-y-4">
+        <div className="flex items-center justify-between ">
+          <div className="text-xl text-white ">frame delay: {delay}ms</div>
           <input
             type="range"
             min={0}
             max={200}
             onChange={(e) => setDelay(parseInt(e.target.value))}
             value={delay}
-            className="w-full mx-auto "
+            className="w-72"
           />
-
-          {/* 
-          from previous implementation with reactSlider:
-          thumbClassName="w-5 h-5 transform -translate-y-2  bg-white rounded-full "
-          trackClassName="h-1 bg-white rounded-full"
-           */}
         </div>
 
         <div className="flex justify-between py-2">
           <button
-            className="text-xl text-white"
+            className="text-2xl text-white"
             disabled={active}
             onClick={() => generateMaze()}
           >
             generate
           </button>
           <button
-            className="text-xl text-white"
+            className="text-2xl text-white"
             disabled={active}
             onClick={() => solveMaze()}
           >

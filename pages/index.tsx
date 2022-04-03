@@ -42,7 +42,6 @@ const Home: NextPage = () => {
       <ProjectSection backgroundColor="bg-rose-300" title="maze">
         <ColumnSection
           columns="two"
-          noFrameMedia={true}
           copy={
             <>
               <div>
@@ -59,7 +58,17 @@ const Home: NextPage = () => {
               </div>
             </>
           }
-          media={<div>TODO add maze preview</div>}
+          media={
+            <video
+              className="border border-black"
+              width={400}
+              height={400}
+              src="/maze.mp4"
+              autoPlay={true}
+              loop
+              muted
+            ></video>
+          }
         />
       </ProjectSection>
 
