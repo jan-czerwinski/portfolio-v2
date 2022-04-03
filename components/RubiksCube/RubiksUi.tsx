@@ -7,38 +7,65 @@ type RubiksUiProps = {
   turnTime: number;
   setTurnTime: (time: number) => void;
 };
+type AlgorithmType = {
+  name: string;
+  algorithm: string;
+};
+const algorithms: AlgorithmType[] = [
+  {
+    name: 'T permutation',
+    algorithm: "R U R' U' R' F R2 U' R' U' R U R' F'",
+  },
+  {
+    name: 'Y permutation',
+    algorithm: "R' U' R U' L R U2 R' U' R U2 L' U R2 U R",
+  },
+  {
+    name: 'nice cross pattern',
+    algorithm: "D2 U' R B2 D' R' D' U L' R D R F2 D' L R2",
+  },
+  {
+    name: 'clear',
+    algorithm: '',
+  },
+];
 
 const RubiksUi = (props: RubiksUiProps) => {
   const [notationInput, setNotationInput] = useState('');
 
+  const sanitizeAndSetNotationInput = (value: string) => {
+    value = value.toUpperCase().replace(/\s+/g, ''); //delete whitespace
+
+    const validateInput = value.match(/[RLFBUD'2 ]/g);
+    if (validateInput !== null) value = validateInput.join('');
+
+    setNotationInput(value);
+
+    value = value.replaceAll(/['I]/g, 'i'); // example: RI => Ri, L' => Li
+    const cubeState = convertStringToTurnArray(value);
+    props.setCubeState(cubeState);
+  };
+
   return (
-    <div className="z-10 flex flex-col">
-      <div className="flex items-center content-center justify-between text-gray-700 bg-blue-200 border-black ">
+    <div className="z-10 flex flex-col px-4 space-y-8 text-2xl text-center text-white bg-fuchsia-400 w-96">
+      {/* <div className="flex items-center content-center justify-between"></div> */}
+
+      <div>
         <div>cube state:</div>
         <input
-          className="m-4 w-96"
+          className="w-full bg-transparent border-2 border-white rounded-md"
           type="text"
           value={notationInput}
           onChange={(e) => {
-            let value = e.target.value;
-
-            value = value.toUpperCase();
-
-            const validateInput = value.match(/[RLFBUD'2 ]/g);
-            if (validateInput !== null) value = validateInput.join('');
-
-            setNotationInput(value);
-
-            value = value.replaceAll(/['I]/g, 'i'); // example: RI => Ri, L' => Li
-            const cubeState = convertStringToTurnArray(value);
-            props.setCubeState(cubeState);
+            sanitizeAndSetNotationInput(e.target.value);
           }}
         />
       </div>
-      <div className="flex w-full justify-evenly">
-        <div className="w-2/5 text-center">turn time: {props.turnTime} s</div>
+
+      <div>
+        <div>turn time: {props.turnTime} s</div>
         <input
-          className="w-3/5"
+          className="w-full"
           type="range"
           value={props.turnTime}
           min={0.05}
@@ -47,6 +74,17 @@ const RubiksUi = (props: RubiksUiProps) => {
           onChange={(e) => props.setTurnTime(parseFloat(e.target.value))}
         ></input>
       </div>
+      <ul>
+        {algorithms.map(({ algorithm, name }, idx) => (
+          <button
+            className="w-full px-2"
+            key={idx}
+            onClick={() => sanitizeAndSetNotationInput(algorithm)}
+          >
+            {name}
+          </button>
+        ))}
+      </ul>
     </div>
   );
 };

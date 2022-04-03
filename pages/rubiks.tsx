@@ -8,10 +8,10 @@ import RubiksUi from '../components/RubiksCube/RubiksUi';
 
 const Rubiks = () => {
   const [cubeState, setCubeState] = useState<TurnType[]>([]);
-  const [turnTime, setTurnTime] = useState(0.5);
+  const [turnTime, setTurnTime] = useState(0.2);
 
   return (
-    <div className="relative w-screen h-screen bg-purple-200">
+    <div className="relative w-screen h-screen bg-fuchsia-300">
       <div className="absolute w-screen h-screen">
         <Canvas>
           <CameraControls />
