@@ -188,7 +188,7 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor="bg-blue-300" title="game of life">
+      {/* <ProjectSection backgroundColor="bg-blue-300" title="game of life">
         <ColumnSection
           columns="two"
           noFrameMedia={true}
@@ -207,7 +207,7 @@ const Home: NextPage = () => {
           }
           media={<div>TODO add game of life preview</div>}
         />
-      </ProjectSection>
+      </ProjectSection> */}
 
       {/* 
       <ProjectSection
