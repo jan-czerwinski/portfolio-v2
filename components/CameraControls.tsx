@@ -1,6 +1,6 @@
 import { extend, useFrame, useThree } from '@react-three/fiber';
-import { useRef } from 'react';
-import { Euler } from 'three';
+import { useEffect, useRef } from 'react';
+import { Euler, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 extend({ OrbitControls });
@@ -16,6 +16,10 @@ const CameraControls = () => {
   // Ref to the controls, so that we can update them on every frame using useFrame
   //FIXME it works but gets highlited, probably issue with react-three-fiber and typescript
   const controls = useRef(null!);
+
+  useEffect(() => {
+    camera.rotateOnWorldAxis(new Vector3(1, 0.5, 0), 4);
+  }, []);
 
   //TODO figure out how to delete the ts-ignores
   useFrame(() => {
