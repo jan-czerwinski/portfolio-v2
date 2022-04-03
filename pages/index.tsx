@@ -171,7 +171,7 @@ const Home: NextPage = () => {
             </>
           }
           media={
-            <Link href="/maze" passHref>
+            <Link href="/thumb" passHref>
               <a>
                 <Image
                   className=""
