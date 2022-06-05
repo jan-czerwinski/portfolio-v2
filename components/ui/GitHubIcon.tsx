@@ -2,13 +2,14 @@ import Image from 'next/image';
 
 type GitHubIconProps = {
   link: string;
+  color: '#000' | '#fff';
 };
-const GitHubIcon = ({ link }: GitHubIconProps) => {
+const GitHubIcon = ({ link, color }: GitHubIconProps) => {
   const size = 60;
   return (
     <a href={link}>
       <Image
-        className="invert"
+        className={color === '#fff' ? 'invert' : ''}
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
         alt="github icon"
         width={size}

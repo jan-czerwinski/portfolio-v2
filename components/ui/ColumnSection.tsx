@@ -1,7 +1,7 @@
 import {
   getBgAndTextColorStyle,
   getOpposingBgStyle,
-} from '../../utils/getOpposingColor';
+} from '../../utils/colorUtils';
 
 type ColumnSectionProps = {
   copy: JSX.Element;

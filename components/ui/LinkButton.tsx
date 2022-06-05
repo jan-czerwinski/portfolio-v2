@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getBgAndTextColorStyle } from '../../utils/getOpposingColor';
+import { getBgAndTextColorStyle } from '../../utils/colorUtils';
 
 type LinkButtonProps = {
   href: string;

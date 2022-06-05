@@ -1,7 +1,4 @@
-export const getOpposingColor = (bgColor: string) => {
-  if (!bgColor) {
-    return '';
-  }
+export const getContrastColor = (bgColor: string) => {
   return parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2
     ? '#000'
     : '#fff';
@@ -15,12 +12,12 @@ export const getBgAndTextColorStyle = (
 ) => {
   return {
     backgroundColor: bgColor,
-    color: getOpposingColor(bgColor),
-    borderColor: getOpposingColor(bgColor),
+    color: getContrastColor(bgColor),
+    borderColor: getContrastColor(bgColor),
   };
 };
 export const getOpposingBgStyle = (bgColor: string) => {
   return {
-    backgroundColor: getOpposingColor(bgColor),
+    backgroundColor: getContrastColor(bgColor),
   };
 };

@@ -9,7 +9,7 @@ import GitHubIcon from '../components/ui/GitHubIcon';
 import LinkButton from '../components/ui/LinkButton';
 import ProjectSection from '../components/ui/ProjectSection';
 import COLOR_PALLETES from 'nice-color-palettes';
-import { getBgAndTextColorStyle } from '../utils/getOpposingColor';
+import { getBgAndTextColorStyle, getContrastColor } from '../utils/colorUtils';
 
 const Home: NextPage = () => {
   const [sectionColors, setSectionColors] = useState<string[]>();
@@ -65,7 +65,10 @@ const Home: NextPage = () => {
                 pasting them into the input!
               </div>
               <div className="flex justify-end w-full py-5 space-x-8">
-                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
+                <GitHubIcon
+                  link="https://github.com/jan-czerwinski/portfolio-v2"
+                  color={getContrastColor(sectionColors[1])}
+                />
                 <LinkButton
                   backgroundColor={sectionColors[1]}
                   text="👉 click me 👉"
@@ -89,7 +92,10 @@ const Home: NextPage = () => {
                 the labirynth, and Dijkstra&apos;s algorithm to solve it.
               </div>
               <div className="flex justify-end w-full py-5 space-x-8">
-                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
+                <GitHubIcon
+                  link="https://github.com/jan-czerwinski/portfolio-v2"
+                  color={getContrastColor(sectionColors[2])}
+                />
                 <LinkButton
                   backgroundColor={sectionColors[2]}
                   text="🐂 click me to see a maze 🐂"
@@ -130,7 +136,10 @@ const Home: NextPage = () => {
                 Univeristy Of Technology hackathon - we&apos;ve won 3rd place.
               </div>
               <div className="flex justify-end p-2 ">
-                <GitHubIcon link="https://github.com/jan-czerwinski/hackathon-2022-bot" />
+                <GitHubIcon
+                  link="https://github.com/jan-czerwinski/hackathon-2022-bot"
+                  color={getContrastColor(sectionColors[2])}
+                />
               </div>
             </>
           }
@@ -158,7 +167,10 @@ const Home: NextPage = () => {
                 has taught me a lot about react optimization.
               </div>
               <div className="flex justify-center w-full py-5 space-x-8">
-                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
+                <GitHubIcon
+                  link="https://github.com/jan-czerwinski/portfolio-v2"
+                  color={getContrastColor(sectionColors[4])}
+                />
                 <LinkButton
                   backgroundColor={sectionColors[4]}
                   text="👎 weird thumb fractal thing 👍"
@@ -194,7 +206,10 @@ const Home: NextPage = () => {
                 creates short videos and uploads them to youtube!
               </div>
               <div className="flex justify-end p-2 ">
-                <GitHubIcon link="https://github.com/jan-czerwinski/autolycus" />
+                <GitHubIcon
+                  link="https://github.com/jan-czerwinski/autolycus"
+                  color={getContrastColor(sectionColors[5])}
+                />
               </div>
             </>
           }
@@ -225,7 +240,10 @@ const Home: NextPage = () => {
                 snake gamemode!
               </div>
               <div className="flex justify-end p-2 ">
-                <GitHubIcon link="https://github.com/jan-czerwinski/clock" />
+                <GitHubIcon
+                  link="https://github.com/jan-czerwinski/clock"
+                  color={getContrastColor(sectionColors[6])}
+                />
               </div>
             </>
           }
@@ -269,7 +287,7 @@ const Home: NextPage = () => {
             <>
               <div>React Game of Life implementation.</div>
               <div className="flex justify-center w-full py-5 space-x-8">
-                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2" />
+                <GitHubIcon link="https://github.com/jan-czerwinski/portfolio-v2"  />
                 <LinkButton
                   backgroundColor="bg-blue-400"
                   text="💖 game of life 💖"

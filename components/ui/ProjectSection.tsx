@@ -1,4 +1,4 @@
-import { getBgAndTextColorStyle } from '../../utils/getOpposingColor';
+import { getBgAndTextColorStyle } from '../../utils/colorUtils';
 
 type ProjectSectionProps = React.PropsWithChildren<{
   title: string;
