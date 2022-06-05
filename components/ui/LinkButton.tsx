@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getBgAndTextColorStyle } from '../../utils/getOpposingColor';
 
 type LinkButtonProps = {
   href: string;
@@ -13,7 +14,8 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   return (
     <Link href={href} passHref>
       <button
-        className={`shadow-md p-2 text-2xl transform rounded-sm -skew-x-12 border border-white ${backgroundColor}`}
+        className="p-2 text-2xl transform -skew-x-12 border-2 rounded-sm shadow-md"
+        style={getBgAndTextColorStyle(backgroundColor, true, true)}
       >
         {text}
       </button>

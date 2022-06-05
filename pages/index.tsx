@@ -9,28 +9,7 @@ import GitHubIcon from '../components/ui/GitHubIcon';
 import LinkButton from '../components/ui/LinkButton';
 import ProjectSection from '../components/ui/ProjectSection';
 import COLOR_PALLETES from 'nice-color-palettes';
-
-// from tailwind palette: https://tailwindcss.com/docs/customizing-colors
-// const colors300 = [
-//   'bg-fuchsia-300',
-//   'bg-rose-300',
-//   'bg-orange-300',
-//   'bg-indigo-300',
-//   'bg-sky-300',
-//   'bg-purple-300',
-//   'bg-pink-300',
-//   'bg-blue-300',
-// ];
-// const colors400 = [
-//   'bg-fuchsia-400',
-//   'bg-rose-400',
-//   'bg-orange-400',
-//   'bg-indigo-400',
-//   'bg-sky-400',
-//   'bg-purple-400',
-//   'bg-pink-400',
-//   'bg-blue-400',
-// ];
+import { getBgAndTextColorStyle } from '../utils/getOpposingColor';
 
 const Home: NextPage = () => {
   const sectionColors = useMemo<string[]>(() => {
@@ -43,9 +22,6 @@ const Home: NextPage = () => {
     console.log(aLotOfColors);
     return aLotOfColors;
   }, []);
-  // useEffect(() => {
-  //   console.log(sectionColors);
-  // }, [sectionColors]);
 
   if (isMobile)
     return (
@@ -53,21 +29,21 @@ const Home: NextPage = () => {
         please view this page on desktop, it&apos;s not made for mobile devices
       </div>
     );
-  if (!sectionColors)
-    return (
-      <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
-        loading
-      </div>
-    );
+  // if (!sectionColors)
+  //   return (
+  //     <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
+  //       loading
+  //     </div>
+  //   );
 
   return (
     <div
       className={`h-screen overflow-y-scroll text-white snap snap-y snap-mandatory`}
-      style={{ backgroundColor: sectionColors[0] }}
+      style={getBgAndTextColorStyle(sectionColors[0])}
     >
       <div
         className={`grid w-full h-screen place-content-center snap-start sectionColors`}
-        style={{ backgroundColor: sectionColors[0] }}
+        style={getBgAndTextColorStyle(sectionColors[0])}
       >
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
         <h3 className="flex justify-end w-full mt-1">
@@ -102,6 +78,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[2]} title="maze">
         <ColumnSection
+          backgroundColor={sectionColors[2]}
           columns="two"
           copy={
             <>
@@ -139,6 +116,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[3]} title="hackathon bot">
         <ColumnSection
+          backgroundColor={sectionColors[3]}
           columns="one"
           noFrameMedia={true}
           copy={
@@ -167,6 +145,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[4]} title="thumb">
         <ColumnSection
+          backgroundColor={sectionColors[4]}
           columns="one"
           noFrameMedia={true}
           copy={
@@ -204,6 +183,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[5]} title="autolycus">
         <ColumnSection
+          backgroundColor={sectionColors[5]}
           columns="two"
           copy={
             <>
@@ -232,6 +212,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[6]} title="word clock">
         <ColumnSection
+          backgroundColor={sectionColors[6]}
           columns="two"
           copy={
             <>
@@ -259,6 +240,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[7]} title="wasm smth">
         <ColumnSection
+          backgroundColor={sectionColors[7]}
           columns="two"
           copy={
             <>
