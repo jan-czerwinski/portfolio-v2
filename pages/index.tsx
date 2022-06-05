@@ -12,7 +12,8 @@ import COLOR_PALLETES from 'nice-color-palettes';
 import { getBgAndTextColorStyle } from '../utils/getOpposingColor';
 
 const Home: NextPage = () => {
-  const sectionColors = useMemo<string[]>(() => {
+  const [sectionColors, setSectionColors] = useState<string[]>();
+  useEffect(() => {
     let aLotOfColors: string[] = []; //array of a lot of colors so we dont run out - ugly, but works
     const randomColorPallete =
       COLOR_PALLETES[Math.floor(Math.random() * COLOR_PALLETES.length)];
@@ -20,7 +21,7 @@ const Home: NextPage = () => {
       aLotOfColors = [...aLotOfColors, ...randomColorPallete];
     }
     console.log(aLotOfColors);
-    return aLotOfColors;
+    setSectionColors(aLotOfColors);
   }, []);
 
   if (isMobile)
@@ -29,12 +30,12 @@ const Home: NextPage = () => {
         please view this page on desktop, it&apos;s not made for mobile devices
       </div>
     );
-  // if (!sectionColors)
-  //   return (
-  //     <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
-  //       loading
-  //     </div>
-  //   );
+  if (!sectionColors)
+    return (
+      <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
+        loading
+      </div>
+    );
 
   return (
     <div
@@ -53,6 +54,7 @@ const Home: NextPage = () => {
 
       <ProjectSection backgroundColor={sectionColors[1]} title="rubik's">
         <ColumnSection
+          backgroundColor={sectionColors[1]}
           columns="two"
           noFrameMedia={true}
           copy={
