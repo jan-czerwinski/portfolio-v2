@@ -5,7 +5,7 @@ import {
 
 type ColumnSectionProps = {
   copy: JSX.Element;
-  media: JSX.Element;
+  media?: JSX.Element;
   noFrameMedia?: boolean;
   columns: 'one' | 'two';
   backgroundColor: string;

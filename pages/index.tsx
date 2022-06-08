@@ -258,23 +258,19 @@ const Home: NextPage = () => {
         />
       </ProjectSection>
 
-      <ProjectSection backgroundColor={sectionColors[7]} title="wasm smth">
+      <ProjectSection backgroundColor={sectionColors[8]} title="fractal cool">
         <ColumnSection
-          backgroundColor={sectionColors[7]}
+          backgroundColor={sectionColors[8]}
           columns="two"
           copy={
             <>
-              <div>wasm go something idk yet</div>
-              <div className="flex justify-end p-2 "></div>
+              <div>click here for cool fractals:</div>
+              <LinkButton
+                backgroundColor={sectionColors[8]}
+                text="cool fractal big resolution"
+                href="/big_fractal"
+              />
             </>
-          }
-          media={
-            <Image
-              src="/word_clock.png"
-              alt="word clock"
-              width={20}
-              height={20}
-            />
           }
         />
       </ProjectSection>
