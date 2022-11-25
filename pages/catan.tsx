@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 import { useDrawing } from '../utils/useDrawing';
 
 const PersonState = {};
-const GameState = {
-  sheep: number,
+type GameState = {
+  sheep: number;
 };
 const Catan = () => {
   const { canvasRef } = useDrawing();

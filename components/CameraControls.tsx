@@ -19,7 +19,7 @@ const CameraControls = () => {
 
   useEffect(() => {
     camera.rotateOnWorldAxis(new Vector3(1, 0.5, 0), 4);
-  }, []);
+  }, [camera]);
 
   //TODO figure out how to delete the ts-ignores
   useFrame(() => {
