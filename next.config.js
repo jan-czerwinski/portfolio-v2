@@ -11,4 +11,9 @@ module.exports = {
   images: {
     domains: ['cdn.jsdelivr.net'],
   },
+  webpack(config) {
+    // config.output.webassemblyModuleFilename = 'static/wasm/[modulehash].wasm';
+    config.experiments = { asyncWebAssembly: true };
+    return config;
+  },
 };

@@ -25,6 +25,7 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^13.0.0",
     "@types/golang-wasm": "^1.15.0",
+    "@types/golang-wasm-exec": "^1.15.0",
     "@types/node": "17.0.13",
     "@types/react": "17.0.38",
     "@types/three": "^0.137.0",

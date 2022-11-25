@@ -841,6 +841,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/golang-wasm-exec@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@types/golang-wasm-exec/-/golang-wasm-exec-1.15.0.tgz#d0aafbb2b0dc07eaf45dfb83bfb6cdd5b2b3c55c"
+  integrity sha512-FrL97mp7WW8LqNinVkzTVKOIQKuYjQqgucnh41+1vRQ+bf1LT8uh++KRf9otZPXsa6H1p8ruIGz1BmCGttOL6Q==
+
 "@types/golang-wasm@^1.15.0":
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/@types/golang-wasm/-/golang-wasm-1.15.0.tgz#3cb7e8c3d46e96719ca8a74602893c0a0744983a"
