@@ -69,60 +69,76 @@ const RubiksUi = (props: RubiksUiProps) => {
   return (
     <div
       style={{ color: getContrastColor(props.color) }}
-      className="z-10 flex w-screen px-4 my-auto space-y-8 text-2xl text-center justify-evenly"
+      className="flex flex-col justify-between h-screen text-xl "
     >
-      <div className="mb-4 ">
-        <div className="my-2">all moves: </div>
-        <div className="grid grid-cols-6 gap-1 mb-2 place-content-center text-md">
-          {allTurns.map((turn, idx) => (
-            <button
-              key={idx}
-              className="rounded-md hover:outline"
-              onClick={
-                () => props.setCubeState((turns) => [...turns, turn])
-                // sanitizeAndSetNotationInput(`${notationInput} ${turn}`)
-              }
-            >
-              {`${turn.direction}${turn.modifier}`}
-            </button>
-          ))}
+      <div className="z-20 flex w-screen px-4 text-center justify-evenly">
+        <div className="w-full ">
+          <div className="my-2 font-semibold">all moves: </div>
+          <div className="grid grid-cols-6 gap-1 mb-2 place-content-center text-md">
+            {allTurns.map((turn, idx) => (
+              <button
+                key={idx}
+                className="rounded-md hover:outline"
+                onClick={
+                  () => props.setCubeState((turns) => [...turns, turn])
+                  // sanitizeAndSetNotationInput(`${notationInput} ${turn}`)
+                }
+              >
+                {`${turn.direction}${turn.modifier}`}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="w-full">
+          <div className="my-2 font-semibold">algorigthms:</div>
+          <div className="flex flex-col">
+            {algorithms.map(({ algorithm, name }, idx) => (
+              <button
+                className="px-2 "
+                key={idx}
+                onClick={() => sanitizeAndSetNotationInput(algorithm)}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="w-full">
+          <div className="my-2 font-semibold">
+            turn time: {props.turnTime} s
+          </div>
+          <input
+            className="w-full"
+            type="range"
+            value={props.turnTime}
+            min={0.05}
+            max={1}
+            step={0.05}
+            onChange={(e) => props.setTurnTime(parseFloat(e.target.value))}
+          ></input>
+        </div>
+      </div>
+
+      <div className="z-20 w-full px-8 py-2">
+        <div className="my-2 font-semibold ">
+          cube state in{' '}
+          <a
+            className="underline underline-offset-2"
+            href="https://en.wikipedia.org/wiki/Rubik%27s_Cube#Move_notation"
+          >
+            standard move notation:
+          </a>
         </div>
         <input
-          className="w-full bg-transparent border-2 border-white rounded-md"
+          className="w-full text-xl bg-transparent border-2 border-white rounded-md"
           type="text"
           value={notationInput}
           onChange={(e) => {
             sanitizeAndSetNotationInput(e.target.value);
           }}
         />
-      </div>
-
-      <div className="">
-        <div>algorigthms:</div>
-        <div className="flex flex-col">
-          {algorithms.map(({ algorithm, name }, idx) => (
-            <button
-              className="px-2 "
-              key={idx}
-              onClick={() => sanitizeAndSetNotationInput(algorithm)}
-            >
-              {name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="">
-        <div>turn time: {props.turnTime} s</div>
-        <input
-          className="w-full"
-          type="range"
-          value={props.turnTime}
-          min={0.05}
-          max={1}
-          step={0.05}
-          onChange={(e) => props.setTurnTime(parseFloat(e.target.value))}
-        ></input>
       </div>
     </div>
   );

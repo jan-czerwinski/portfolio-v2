@@ -29,7 +29,7 @@ const Rubiks = () => {
       style={getBgAndTextColorStyle(passedColor)}
       className="relative w-screen h-screen"
     >
-      <div className="absolute w-screen h-screen">
+      <div className="absolute z-10 w-screen h-screen ">
         <Canvas>
           <CameraControls />
           <ambientLight />

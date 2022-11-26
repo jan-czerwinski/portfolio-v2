@@ -51,7 +51,7 @@ const Home: NextPage = () => {
               </div>
             </>
           }
-          media={<RubiksCubePreview />}
+          media={<RubiksCubePreview color={color} />}
         />
       </ProjectSection>
     ),
