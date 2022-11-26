@@ -1,5 +1,13 @@
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { Euler, Matrix4, Object3D, Vector3 } from 'three';
 import { usePrevious } from '../../utils/usePrevious';
 import { reverseTurn, turnArrayToString, TurnType } from './CubeUtils';
@@ -162,12 +170,14 @@ const turnQueueReducer = (state: TurnType[], action: turnQueueAction) => {
 type RubiksCubeProps = {
   cubeState: TurnType[];
   turnTime: number;
+  setCubeState: Dispatch<SetStateAction<TurnType[]>>;
   dramaticRotation?: boolean;
 };
 const RubiksCube = ({
   dramaticRotation,
   turnTime,
   cubeState,
+  setCubeState,
 }: RubiksCubeProps) => {
   const prevCubeState = usePrevious(cubeState);
 
@@ -281,6 +291,9 @@ const RubiksCube = ({
       {[...Array(CUBIE_COUNT)].map((_, idx) => {
         return (
           <Cubie
+            move={(turn) =>
+              setCubeState((prevCubeState) => [...prevCubeState, turn])
+            }
             drawFaces={initialCubieProps.cubieDrawFaces[idx]}
             targetPosition={initialCubieProps.targetPositions[idx]}
             key={idx}

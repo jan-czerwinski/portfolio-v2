@@ -21,7 +21,11 @@ const cubeStateReducer = (state: TurnType[], action: CubeStateAction) => {
 };
 
 const turnTime = 0.2;
-const RubiksCubePreview = () => {
+
+type RubiksCubePreviewProps = {
+  color: string;
+};
+const RubiksCubePreview = ({ color }: RubiksCubePreviewProps) => {
   const [cubeState, dispatchCubeState] = useReducer(cubeStateReducer, []);
 
   const togglePermutation = () => {
@@ -51,25 +55,23 @@ const RubiksCubePreview = () => {
 
   return (
     <div
-      className="w-[30vw] h-[30vw] relative"
+      className="w-[30vw] h-[30vw] relative cursor-pointer"
       onMouseOver={() => {
         setIsMouseOver(true);
+      }}
+      onClick={() => {
+        router.push({ pathname: '/rubiks', query: { color } });
       }}
     >
       <Canvas className="">
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        <group
-          onClick={() => {
-            router.push('/rubiks');
-          }}
-        >
-          <RubiksCube
-            dramaticRotation={true}
-            cubeState={cubeState}
-            turnTime={turnTime}
-          />
-        </group>
+        <RubiksCube
+          setCubeState={() => {}}
+          dramaticRotation={true}
+          cubeState={cubeState}
+          turnTime={turnTime}
+        />
       </Canvas>
       {isMouseOver && (
         <span className="absolute z-30 top-12 left-12 ">

@@ -5,24 +5,47 @@ import { TurnType } from '../components/RubiksCube/CubeUtils';
 import RubiksCube from '../components/RubiksCube/RubiksCube';
 import CameraControls from '../components/CameraControls';
 import RubiksUi from '../components/RubiksCube/RubiksUi';
+import {
+  getBgAndTextColorStyle,
+  getOpposingBgStyle,
+} from '../utils/colorUtils';
+import { useRouter } from 'next/router';
+
+type RubiksRouter = ReturnType<typeof useRouter> & {
+  query: {
+    color: string;
+  };
+};
 
 const Rubiks = () => {
   const [cubeState, setCubeState] = useState<TurnType[]>([]);
   const [turnTime, setTurnTime] = useState(0.2);
+  const { query } = useRouter() as RubiksRouter;
+  const { color } = query;
+  const passedColor = color || '#FFFF';
 
   return (
-    <div className="relative w-screen h-screen bg-fuchsia-300">
+    <div
+      style={getBgAndTextColorStyle(passedColor)}
+      className="relative w-screen h-screen"
+    >
       <div className="absolute w-screen h-screen">
         <Canvas>
           <CameraControls />
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
-          <RubiksCube cubeState={cubeState} turnTime={turnTime} />
+          <RubiksCube
+            cubeState={cubeState}
+            turnTime={turnTime}
+            setCubeState={setCubeState}
+          />
         </Canvas>
       </div>
       <div className="absolute">
         <RubiksUi
-          setCubeState={(turns: TurnType[]) => setCubeState(turns)}
+          color={passedColor}
+          cubeState={cubeState}
+          setCubeState={setCubeState}
           turnTime={turnTime}
           setTurnTime={setTurnTime}
         />

@@ -1,9 +1,23 @@
-import { Dispatch, SetStateAction, useState } from 'react';
-import { turnArrayToString, TurnType } from './CubeUtils';
-import { convertStringToTurnArray } from './CubeUtils';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { getContrastColor } from '../../utils/colorUtils';
+import {
+  convertStringToTurnArray,
+  getAllPossibleTurnsSet,
+  getAllPossibleTurnTypesArray,
+  turnArrayToString,
+  TurnType,
+} from './CubeUtils';
 
 type RubiksUiProps = {
-  setCubeState: (turns: TurnType[]) => void;
+  color: string;
+  cubeState: TurnType[];
+  setCubeState: Dispatch<SetStateAction<TurnType[]>>;
   turnTime: number;
   setTurnTime: (time: number) => void;
 };
@@ -33,28 +47,45 @@ const algorithms: AlgorithmType[] = [
 const RubiksUi = (props: RubiksUiProps) => {
   const [notationInput, setNotationInput] = useState('');
 
+  useEffect(() => {
+    setNotationInput(turnArrayToString(props.cubeState));
+  }, [props.cubeState]);
+
   const sanitizeAndSetNotationInput = (value: string) => {
     value = value.toUpperCase().replace(/\s+/g, ''); //delete whitespace
 
-    const validateInput = value.match(/[RLFBUD'2 ]/g);
+    const validateInput = value.match(/[RLFBUDI'2 ]/g);
     if (validateInput !== null) value = validateInput.join('');
 
     setNotationInput(value);
 
-    value = value.replaceAll(/['I]/g, 'i'); // example: RI => Ri, L' => Li
+    value = value.replaceAll(/['I]/g, 'i'); // example: RI => Ri, L' => Lis
     const cubeState = convertStringToTurnArray(value);
     props.setCubeState(cubeState);
   };
 
-  return (
-    <div className="z-10 flex flex-col px-4 space-y-8 text-2xl text-center text-white bg-fuchsia-400 w-96">
-      {/* <div className="flex items-center content-center justify-between"></div> */}
+  const allTurns = getAllPossibleTurnTypesArray();
 
-      <div>
-        <div>input: </div>
-        <div className="text-md">
-          R R&apos; R2 L L&apos; L2 F F&apos; F2 B B&apos; B2 U U&apos; U2 D
-          D&apos; D2
+  return (
+    <div
+      style={{ color: getContrastColor(props.color) }}
+      className="z-10 flex w-screen px-4 my-auto space-y-8 text-2xl text-center justify-evenly"
+    >
+      <div className="mb-4 ">
+        <div className="my-2">all moves: </div>
+        <div className="grid grid-cols-6 gap-1 mb-2 place-content-center text-md">
+          {allTurns.map((turn, idx) => (
+            <button
+              key={idx}
+              className="rounded-md hover:outline"
+              onClick={
+                () => props.setCubeState((turns) => [...turns, turn])
+                // sanitizeAndSetNotationInput(`${notationInput} ${turn}`)
+              }
+            >
+              {`${turn.direction}${turn.modifier}`}
+            </button>
+          ))}
         </div>
         <input
           className="w-full bg-transparent border-2 border-white rounded-md"
@@ -66,7 +97,22 @@ const RubiksUi = (props: RubiksUiProps) => {
         />
       </div>
 
-      <div>
+      <div className="">
+        <div>algorigthms:</div>
+        <div className="flex flex-col">
+          {algorithms.map(({ algorithm, name }, idx) => (
+            <button
+              className="px-2 "
+              key={idx}
+              onClick={() => sanitizeAndSetNotationInput(algorithm)}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="">
         <div>turn time: {props.turnTime} s</div>
         <input
           className="w-full"
@@ -78,17 +124,6 @@ const RubiksUi = (props: RubiksUiProps) => {
           onChange={(e) => props.setTurnTime(parseFloat(e.target.value))}
         ></input>
       </div>
-      <ul>
-        {algorithms.map(({ algorithm, name }, idx) => (
-          <button
-            className="w-full px-2"
-            key={idx}
-            onClick={() => sanitizeAndSetNotationInput(algorithm)}
-          >
-            {name}
-          </button>
-        ))}
-      </ul>
     </div>
   );
 };

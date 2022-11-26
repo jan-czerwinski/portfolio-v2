@@ -106,7 +106,6 @@ export const convertStringToTurnArray = (text: string): TurnType[] => {
     )
       ? text[idx + 1]
       : '';
-
     const turn: TurnType = {
       modifier: modifier as TurnModifierType,
       direction: direction as TurnDirectionType,

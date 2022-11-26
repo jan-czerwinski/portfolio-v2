@@ -46,7 +46,7 @@ const Home: NextPage = () => {
                 <LinkButton
                   backgroundColor={color}
                   text="👉 click me 👉"
-                  href="/rubiks"
+                  href={{ pathname: '/rubiks', query: { color } }}
                 />
               </div>
             </>
