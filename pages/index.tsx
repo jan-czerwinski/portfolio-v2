@@ -1,15 +1,15 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useEffect, useMemo, useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import RubiksCubePreview from '../components/RubiksCube/RubiksCubePreview';
-import ColumnSection from '../components/ui/ColumnSection';
-import GitHubIcon from '../components/ui/GitHubIcon';
-import LinkButton from '../components/ui/LinkButton';
-import ProjectSection from '../components/ui/ProjectSection';
-import COLOR_PALLETES from 'nice-color-palettes';
-import { getBgAndTextColorStyle, getContrastColor } from '../utils/colorUtils';
+import type { NextPage } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import COLOR_PALLETES from "nice-color-palettes";
+import { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
+import RubiksCubePreview from "../components/RubiksCube/RubiksCubePreview";
+import ColumnSection from "../components/ui/ColumnSection";
+import GitHubIcon from "../components/ui/GitHubIcon";
+import LinkButton from "../components/ui/LinkButton";
+import ProjectSection from "../components/ui/ProjectSection";
+import { getBgAndTextColorStyle, getContrastColor } from "../utils/colorUtils";
 
 const Home: NextPage = () => {
   const [sectionColors, setSectionColors] = useState<string[]>();
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
                 <LinkButton
                   backgroundColor={color}
                   text="👉 click me 👉"
-                  href={{ pathname: '/rubiks', query: { color } }}
+                  href={{ pathname: "/rubiks", query: { color } }}
                 />
               </div>
             </>
@@ -306,6 +306,15 @@ const Home: NextPage = () => {
         style={getBgAndTextColorStyle(sectionColors[0])}
       >
         <h1 className="text-5xl italic font-bold">🔥 Jan Czerwiński 🔥</h1>
+        <div className="opacity-30">
+          <Image
+            src={"/me_cropped.png"}
+            alt="me face"
+            width={517}
+            className="grayscale"
+            height={483}
+          />
+        </div>
         <h3 className="flex justify-end w-full mt-1">
           refresh the page if you don&apos;t like the colors...
         </h3>
@@ -314,7 +323,7 @@ const Home: NextPage = () => {
       {Sections.hackathonBot(sectionColors[2])}
       {Sections.wordClock(sectionColors[3])}
       {Sections.maze(sectionColors[4])}
-      {Sections.auotlycus(sectionColors[5])}
+      {/* {Sections.auotlycus(sectionColors[5])} */}
 
       {/* 
       <ProjectSection
