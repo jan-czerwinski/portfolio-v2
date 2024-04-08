@@ -1,5 +1,5 @@
-import Link, { LinkProps } from 'next/link';
-import { getBgAndTextColorStyle } from '../../utils/colorUtils';
+import Link, { LinkProps } from "next/link";
+import { getBgAndTextColorStyle } from "../../utils/colorUtils";
 
 type LinkButtonProps = {
   text: string;

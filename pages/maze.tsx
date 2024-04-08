@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { map2D } from '../utils/map2D';
+import { useEffect, useRef, useState } from "react";
+import { map2D } from "../utils/map2D";
 
-type CellState = 'active' | 'visited' | 'default';
+type CellState = "active" | "visited" | "default";
 type Cell = {
   edges: {
     top: boolean;
@@ -22,7 +22,7 @@ const generateEmptyMaze = (rows: number, cols: number): Cell[][] => {
       const newCell = {
         edges: { top: true, bottom: true, right: true, left: true },
         visited: false,
-        state: 'default',
+        state: "default",
         distance: Infinity,
       };
       grid[x][y] = newCell;
@@ -105,7 +105,7 @@ const Maze = () => {
 
     let curr: Coords | undefined = { x: 0, y: 0 };
     newMaze[curr.y][curr.x].visited = true;
-    newMaze[curr.y][curr.x].state = 'active';
+    newMaze[curr.y][curr.x].state = "active";
 
     stack.push(curr);
 
@@ -114,11 +114,11 @@ const Maze = () => {
 
       if (delay > 0) await timer.current();
 
-      newMaze[curr.y][curr.x].state = 'visited';
+      newMaze[curr.y][curr.x].state = "visited";
       curr = stack.pop();
       if (!curr) break;
 
-      newMaze[curr.y][curr.x].state = 'active';
+      newMaze[curr.y][curr.x].state = "active";
 
       const unvisitedNeighboursIdxs = getUnvisitedNeighbourIdxs(curr, newMaze);
       if (unvisitedNeighboursIdxs.length > 0) {
@@ -153,7 +153,7 @@ const Maze = () => {
       map2D(newMaze, (cell) => ({
         ...cell,
         visited: false,
-        state: 'default',
+        state: "default",
       })) as Cell[][]
     );
     setActive(false);
@@ -164,14 +164,14 @@ const Maze = () => {
     const { A, B } = pathPoints;
     if (!A || !B)
       //TODO make it nicer than alert
-      return alert('You have to pick points A and B by clicking on the maze');
+      return alert("You have to pick points A and B by clicking on the maze");
 
     setActive(true);
     let newMaze = map2D(maze, (cell) => ({
       ...cell,
       visited: false,
       distance: Infinity,
-      state: 'default',
+      state: "default",
     })) as Cell[][];
 
     setMaze([...newMaze]);
@@ -209,7 +209,7 @@ const Maze = () => {
         }
       }
       if (min === Infinity) {
-        alert('There is no valid path.');
+        alert("There is no valid path.");
         setActive(false);
         return;
       }
@@ -240,7 +240,7 @@ const Maze = () => {
       let min = Infinity;
       let minCoords: Coords = { x: -1, y: -1 };
       for (let coords of neighbourIdxs) {
-        console.log(newMaze[coords.y][coords.x]);
+        // console.log(newMaze[coords.y][coords.x]);
         if (newMaze[coords.y][coords.x].distance < min) {
           min = newMaze[coords.y][coords.x].distance;
           minCoords = coords;
@@ -248,7 +248,7 @@ const Maze = () => {
       }
 
       currentCoords = minCoords;
-      newMaze[currentCoords.y][currentCoords.x].state = 'active';
+      newMaze[currentCoords.y][currentCoords.x].state = "active";
       setMaze([...newMaze]);
     }
   };
@@ -264,21 +264,21 @@ const Maze = () => {
       (pathPoints.A && coordsEqual(coords, pathPoints.A)) ||
       (pathPoints.B && coordsEqual(coords, pathPoints.B))
     )
-      return 'bg-sky-300';
+      return "bg-black/80";
 
     if (active && maze[coords.y][coords.x].distance !== Infinity)
-      return 'bg-rose-700';
+      return "bg-black/70";
 
     switch (cellState) {
-      case 'active':
-        return 'bg-sky-300';
-      case 'visited':
-        return 'bg-rose-300';
-      case 'default':
-        return 'bg-white';
+      case "active":
+        return "bg-black/80";
+      case "visited":
+        return "bg-black/40";
+      case "default":
+        return "bg-white";
       default:
-        console.error('undefined cell state');
-        return 'bg-white';
+        console.error("undefined cell state");
+        return "bg-white";
     }
   };
 
@@ -295,12 +295,12 @@ const Maze = () => {
           <div
             className={`
           border-black
-          hover:bg-yellow-600
+          hover:bg-black/60
           text-center
-          ${cell.edges.top && 'border-t'} 
-          ${cell.edges.bottom && 'border-b'} 
-          ${cell.edges.right && 'border-r'} 
-          ${cell.edges.left && 'border-l'} 
+          ${cell.edges.top && "border-t"} 
+          ${cell.edges.bottom && "border-b"} 
+          ${cell.edges.right && "border-r"} 
+          ${cell.edges.left && "border-l"} 
           ${getCellColor(cell.state, { x, y })}`}
             style={{
               opacity: active ? getOpacityFromDistance(cell.distance) : 1,
@@ -308,19 +308,19 @@ const Maze = () => {
             key={`${x}-${y}`}
             onClick={() => {
               pickPathPoint({ x, y });
-              console.log(x, y);
+              // console.log(x, y);
             }}
           >
-            <div className="object-scale-down tracking-tighter">
-              {pathPoints.A && coordsEqual({ x, y }, pathPoints.A) && 'A'}
-              {pathPoints.B && coordsEqual({ x, y }, pathPoints.B) && 'B'}
+            <div className="object-scale-down text-white text-2xl mt-1 tracking-tighter">
+              {pathPoints.A && coordsEqual({ x, y }, pathPoints.A) && "A"}
+              {pathPoints.B && coordsEqual({ x, y }, pathPoints.B) && "B"}
               {/* {cell.distance !== Infinity && cell.distance} */}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-sky-300 w-[calc(100vw-100vh)] p-8 flex flex-col space-y-4">
+      <div className="bg-black w-[calc(100vw-100vh)] p-8 flex flex-col space-y-4">
         <div className="flex items-center justify-between ">
           <div className="text-xl text-white ">frame delay: {delay}ms</div>
           <input

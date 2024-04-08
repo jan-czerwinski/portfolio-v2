@@ -1,18 +1,23 @@
+import clsx from "clsx";
+
 export const getContrastColor = (bgColor: string) => {
-  return parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2
-    ? '#000'
-    : '#fff';
+  if (!bgColor) return "#000";
+  if (bgColor === "#fff" || bgColor === "#000") {
+    return bgColor === "#fff" ? "#000" : "#fff";
+  }
+
+  // console.log(parseInt(bgColor.replace("#", ""), 16) > 0xffffff / 2);
+  return parseInt(bgColor.replace("#", ""), 16) > 0xffffff / 2
+    ? "#000"
+    : "#fff";
 };
 
-export const getBgAndTextColorStyle = (
-  bgColor: string,
-  background?: boolean,
-  font?: boolean,
-  border?: boolean
-) => {
+export const getBlackWhiteOppostie = (color: string) =>
+  clsx(color === "#FFF" ? "text-black" : "text-white");
+
+export const getBgAndTextColorStyle = (bgColor: string) => {
   return {
     backgroundColor: bgColor,
-    color: getContrastColor(bgColor),
     borderColor: getContrastColor(bgColor),
   };
 };

@@ -1,15 +1,11 @@
-import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
-import { TurnType } from '../components/RubiksCube/CubeUtils';
+import { Canvas } from "@react-three/fiber";
+import { useState } from "react";
+import { TurnType } from "../components/RubiksCube/CubeUtils";
 
-import RubiksCube from '../components/RubiksCube/RubiksCube';
-import CameraControls from '../components/CameraControls';
-import RubiksUi from '../components/RubiksCube/RubiksUi';
-import {
-  getBgAndTextColorStyle,
-  getOpposingBgStyle,
-} from '../utils/colorUtils';
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import CameraControls from "../components/CameraControls";
+import RubiksCube from "../components/RubiksCube/RubiksCube";
+import RubiksUi from "../components/RubiksCube/RubiksUi";
 
 type RubiksRouter = ReturnType<typeof useRouter> & {
   query: {
@@ -22,12 +18,12 @@ const Rubiks = () => {
   const [turnTime, setTurnTime] = useState(0.2);
   const { query } = useRouter() as RubiksRouter;
   const { color } = query;
-  const passedColor = color || '#FFFF';
+  const passedColor = color || "#FFFF";
 
   return (
     <div
-      style={getBgAndTextColorStyle(passedColor)}
-      className="relative w-screen h-screen"
+      // style={getBgAndTextColorStyle(passedColor)}
+      className="relative w-screen h-screen bg-black"
     >
       <div className="absolute z-10 w-screen h-screen ">
         <Canvas>
