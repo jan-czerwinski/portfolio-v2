@@ -54,7 +54,7 @@ export const EntrySection = ({ sectionColors }: EntrySectionProps) => {
             animationIdx={1}
             nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
           >
-            I am a Mobile and Web fullstack developer
+            a mobile|web fullstack developer
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
@@ -62,7 +62,7 @@ export const EntrySection = ({ sectionColors }: EntrySectionProps) => {
             withAnimation
             nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
           >
-            Welcome to my website! Enjoy
+            welcome to my website! enjoy
           </CustomText>
         </div>
         {/* <button
