@@ -63,9 +63,9 @@ export const sections = {
           <div className={getBlackWhiteOppostie(color)}>
             <div>
               An ios cad app. It uses SwiftUi and makes heavy use of gestures
-              and the apple pencil. I can't say much about it, but it's a
-              project I've been working on for a almost a year and I'm very
-              excited to reveal soon.
+              and the apple pencil. I can&apos;t say much about it, but
+              it&apos;s a project I&apos;ve been working on for a almost a year
+              and I&apos;m very excited to reveal soon.
             </div>
             <div className="flex justify-end w-full py-5 space-x-8">
               <TechIcon name="firebase" />
@@ -242,9 +242,9 @@ export const sections = {
               creates short videos and uploads them to youtube!
             </div>
             <div className="flex justify-end p-2 ">
-              <GitHubIcon
+              <TechIcon
+                name="github"
                 link="https://github.com/jan-czerwinski/autolycus"
-                color={getContrastColor(color)}
               />
             </div>
           </>
@@ -273,8 +273,8 @@ export const sections = {
           <div className={getBlackWhiteOppostie(color)}>
             <div>React Game of Life implementation.</div>
             <div className="flex justify-center w-full py-5 space-x-8">
-              <GitHubIcon
-                color={getContrastColor(color)}
+              <TechIcon
+                name="github"
                 link="https://github.com/jan-czerwinski/portfolio-v2"
               />
               <LinkButton
@@ -322,9 +322,9 @@ export const sections = {
               has taught me a lot about react optimization.
             </div>
             <div className="flex justify-center w-full py-5 space-x-8">
-              <GitHubIcon
+              <TechIcon
+                name="github"
                 link="https://github.com/jan-czerwinski/portfolio-v2"
-                color={getContrastColor(color)}
               />
               <LinkButton
                 backgroundColor={color}
