@@ -54,7 +54,7 @@ export const EntrySection = ({ sectionColors }: EntrySectionProps) => {
             animationIdx={1}
             nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
           >
-            a mobile|web fullstack developer
+            a mobile&&web fullstack developer
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
