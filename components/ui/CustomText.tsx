@@ -8,6 +8,7 @@ type CustomTextProps = {
   currentIdx?: number;
   nextAnimation?: () => void;
   className?: string;
+  withBeepingAtEnd?: boolean;
 };
 
 export const CustomText = ({
@@ -17,13 +18,23 @@ export const CustomText = ({
   currentIdx,
   className,
   nextAnimation,
+  withBeepingAtEnd,
 }: CustomTextProps) => {
   const [text, setText] = useState("");
   const [time, setTime] = useState(0);
   const [beepingLine, setBeepingLine] = useState(false);
 
   const step = 60;
-  // random delays for realistic??? typing
+
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIsVisible((prev) => !prev);
+    }, 600);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     if (!withAnimation || animationIdx != currentIdx) return;
@@ -64,6 +75,20 @@ export const CustomText = ({
     <h1 className={clsx("text-2xl italic text-black font-bold", className)}>
       {withAnimation && animationIdx === currentIdx ? text : children}
       {withAnimation && animationIdx === currentIdx && <>|</>}
+      {withAnimation &&
+        !!animationIdx &&
+        !!currentIdx &&
+        animationIdx == currentIdx - 1 &&
+        withBeepingAtEnd && (
+          <span
+            className={clsx(
+              "transition-all duration-[150ms] ease-in-out",
+              isVisible ? "opacity-100" : "opacity-0"
+            )}
+          >
+            |
+          </span>
+        )}
     </h1>
   );
 };

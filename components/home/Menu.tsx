@@ -5,13 +5,13 @@ import { useMenuContext } from "../../utils/MenuContext";
 import { Ray } from "../ui/Ray";
 
 const rays = [
-  { rotate: "rotate-[15deg]", name: "menu to be done" },
-  { rotate: "rotate-[30deg]", name: "work in progress" },
-  { rotate: "rotate-[45deg]", name: "wip" },
-  { rotate: "rotate-[60deg]", name: "" },
-  { rotate: "rotate-[90deg]", name: "" },
-  // { rotate: 'rotate-[0deg]', name: 'example' }, // You can include this if needed
-  { rotate: "rotate-[75deg]", name: "" },
+  { className: "rotate-[15deg]", name: "menu to be done" },
+  { className: "rotate-[30deg]", name: "work in progress" },
+  { className: "rotate-[45deg]", name: "wip" },
+  { className: "rotate-[60deg]", name: "" },
+  { className: "rotate-[90deg]", name: "" },
+  // {classNameclassName: 'rotate-[0deg]', name: 'example' }, // You can include this if needed
+  { className: "rotate-[75deg]", name: "" },
 ];
 
 export const Menu = () => {
@@ -48,13 +48,8 @@ export const Menu = () => {
         menu
       </div> */}
       <div className="grid h-0 w-0">
-        {rays.map(({ rotate, name }) => (
-          <Ray
-            className={rotate}
-            animationIdx={animationIdx}
-            key={rotate}
-            name={name}
-          />
+        {rays.map((props) => (
+          <Ray animationIdx={animationIdx} key={props.name} {...props} />
         ))}
       </div>
       {/* <div className="group-hover:visible invisible grid place-content-center w-screen h-screen">
