@@ -5,8 +5,8 @@ import { getBgAndTextColorStyle } from "../utils/colorUtils";
 import { useInView } from "../utils/useInView";
 import { CustomText } from "./ui/CustomText";
 
-type EntrySectionProps = { sectionColors: string[] };
-export const EntrySection = ({ sectionColors }: EntrySectionProps) => {
+type EntrySectionProps = { color: string };
+export const EntrySection = ({ color }: EntrySectionProps) => {
   const [animationIdx, setAnimationIdx] = useState(0);
   const { inView } = useInView("entry_id");
   const { setMyStringState } = useMenuContext();
@@ -21,7 +21,7 @@ export const EntrySection = ({ sectionColors }: EntrySectionProps) => {
     <div
       className={`grid  w-full h-screen place-content-center snap-start sectionColors`}
       id="entry_id"
-      style={getBgAndTextColorStyle(sectionColors[0])}
+      style={getBgAndTextColorStyle(color)}
     >
       <div className="flex   ">
         <div className="w-[25vw] place-content-center mt-auto  ">

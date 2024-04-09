@@ -1,17 +1,46 @@
 import clsx from "clsx";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { useMenuContext } from "../../utils/MenuContext";
 import { Ray } from "../ui/Ray";
 
 const rays = [
-  { className: "rotate-[15deg]", name: "menu to be done" },
-  { className: "rotate-[30deg]", name: "work in progress" },
-  { className: "rotate-[45deg]", name: "wip" },
-  { className: "rotate-[60deg]", name: "" },
-  { className: "rotate-[90deg]", name: "" },
-  // {classNameclassName: 'rotate-[0deg]', name: 'example' }, // You can include this if needed
-  { className: "rotate-[75deg]", name: "" },
+  {
+    className: "rotate-[15deg]",
+    children: (
+      <Link passHref href={"/hobby-projects"}>
+        <div>hobby projects</div>
+      </Link>
+    ),
+  },
+  {
+    className: "rotate-[30deg]",
+    children: (
+      <Link passHref href={"/work-projects"}>
+        <div>work projects</div>
+      </Link>
+    ),
+  },
+  {
+    className: "rotate-[45deg]",
+    children: (
+      <Link passHref href={"/contact.pdf"}>
+        <div>📞 contact me</div>
+      </Link>
+    ),
+  },
+  { className: "rotate-[75deg]", children: "" },
+  { className: "rotate-[90deg]", children: "" },
+  // {classNameclassName: 'rotate-[0deg]', children: 'example' }, // You can include this if needed
+  {
+    className: "rotate-[60deg]",
+    children: (
+      <Link passHref href={"/jan_czerwinski_cv.pdf"}>
+        <div>📜 cv</div>
+      </Link>
+    ),
+  },
 ];
 
 export const Menu = () => {
@@ -29,7 +58,7 @@ export const Menu = () => {
   return (
     <div
       className={clsx(
-        "z-50 w-10 h-10 rounded-br-full  cursor-pointer group   hover:w-40 hover:h-40 transform bg-blue   duration-[1200ms] bg-blend-difference  ease-in-out fixed top-0 left-0 overflow-hidden",
+        "z-50 w-14 h-14 rounded-br-full  cursor-pointer group   hover:w-40 hover:h-40 transform bg-blue   duration-[1200ms] bg-blend-difference  ease-in-out fixed top-0 left-0 overflow-hidden",
         delayState === "#FFF"
           ? "text-white bg-black/70"
           : "text-black bg-white/70",
@@ -41,15 +70,15 @@ export const Menu = () => {
       }}
     >
       <IoMenu
-        size={24}
+        size={32}
         className="m-0.5 group-hover:scale-[200%] group-hover:m-4 transition-all duration-700 ease-in-out"
       />
       {/* <div className="group-hover:visible invisible ml-4 mt-4 text-2xl">
         menu
       </div> */}
       <div className="grid h-0 w-0">
-        {rays.map((props) => (
-          <Ray animationIdx={animationIdx} key={props.name} {...props} />
+        {rays.map((props, idx) => (
+          <Ray animationIdx={animationIdx} key={`ray_${idx}`} {...props} />
         ))}
       </div>
       {/* <div className="group-hover:visible invisible grid place-content-center w-screen h-screen">
