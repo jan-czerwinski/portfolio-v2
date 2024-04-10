@@ -1,6 +1,10 @@
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { getBlackWhiteOppostie } from "../../utils/colorUtils";
+import {
+  blackWhiteOpposite,
+  getBlackWhiteOppositTextClass,
+} from "../../utils/colorUtils";
 import RubiksCubePreview from "../RubiksCube/RubiksCubePreview";
 import ColumnSection from "../ui/ColumnSection";
 import LinkButton from "../ui/LinkButton";
@@ -16,14 +20,35 @@ export const sections = {
     >
       <ColumnSection
         backgroundColor={color}
-        columns="two"
+        columns="one"
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
-            <div>write something bout livereach</div>
-            <div className="flex justify-end w-full py-5 space-x-8">
+          <div
+            className={clsx(
+              "flex flex-col gap-4",
+              blackWhiteOpposite(color).text,
+              "text-2xl   pt-40"
+            )}
+          >
+            <div className="flex justify-center">
+              <LinkButton
+                href={"https://www.livereachmedia.com/"}
+                text={"website (i&apos;ve worked on the app, not the website)"}
+                color={color}
+              />
+            </div>
+
+            <div>
+              livereach - an ai driven security hub for security specialists.
+              Essentaily a webrtc camera hub with drawing tools, animated
+              statistics, walls of cameras etc. I&apos;ve implemented complex
+              frontend solutions involving canvas, Modeling relational
+              databases, and ommunicated with designers and the client to ensure
+              good user experience.
+            </div>
+
+            <div className="flex  justify-end w-full py-5 space-x-8">
               <TechIcon name="nextjs" />
-              {/* <TechIcon name="strapi" /> */}
               <TechIcon name="react" />
               <TechIcon name="typescript" />
             </div>
@@ -43,7 +68,9 @@ export const sections = {
         columns="two"
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div
+            className={clsx(getBlackWhiteOppositTextClass(color), "text-xl")}
+          >
             <div className="flex justify-end w-full py-5 space-x-8">
               <TechIcon name="react" />
               <TechIcon name="typescript" />
@@ -60,7 +87,7 @@ export const sections = {
         columns="two"
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={blackWhiteOpposite(color).text}>
             <div>
               An ios cad app. It uses SwiftUi and makes heavy use of gestures
               and the apple pencil. I can&apos;t say much about it, but
@@ -84,7 +111,7 @@ export const sections = {
         columns="two"
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
               Rubiks cube simulation made in three.js with react-three-fiber.
               You can preview different Rubik&apos;s cube algoritms by just
@@ -117,7 +144,7 @@ export const sections = {
         backgroundColor={color}
         columns="two"
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
               Word clock I designed and created. It&apos;s runing a nodejs
               bluetooth server on a RaspberryPi. It can be controlled via a
@@ -152,7 +179,7 @@ export const sections = {
         backgroundColor={color}
         columns="two"
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
               Maze generator and solver. It uses randomized DFS to generate the
               labirynth, and Dijkstra&apos;s algorithm to solve it.
@@ -202,7 +229,7 @@ export const sections = {
         columns="one"
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
               Python bot that grabs the screen using OpenCV, detects entities
               and plays an arkanoid-like game using a fuzzy logic algorithm
@@ -270,7 +297,7 @@ export const sections = {
         backgroundColor={color}
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div>React Game of Life implementation.</div>
             <div className="flex justify-center w-full py-5 space-x-8">
               <TechIcon
@@ -289,13 +316,44 @@ export const sections = {
       />
     </ProjectSection>
   ),
+  mandelbrot: (color: string) => (
+    <ProjectSection title="mandelbrot fractals" backgroundColor={color}>
+      <ColumnSection
+        backgroundColor={color}
+        columns="one"
+        copy={
+          <div className={getBlackWhiteOppositTextClass(color)}>
+            <div>
+              A multithreaded go fractal generation programm i made in a few
+              days to teach myself golang.{" "}
+            </div>
+            <div className="flex justify-center">
+              <TechIcon name={"go"} />
+            </div>
+          </div>
+        }
+        media={
+          <>
+            <iframe
+              width="746"
+              height="420"
+              src="https://www.youtube.com/embed/IV1eUcP1U20?si=5RWPICK0Shl4wL1P"
+              title="fractals go"
+              allowFullScreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </>
+        }
+      />
+    </ProjectSection>
+  ),
   coolFractal: (color: string) => (
     <ProjectSection backgroundColor={color} title="fractal cool">
       <ColumnSection
         backgroundColor={color}
         columns="two"
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div>click here for cool fractals:</div>
 
             <LinkButton
@@ -357,7 +415,7 @@ export const sections = {
         columns="one"
         noFrameMedia={true}
         copy={
-          <div className={getBlackWhiteOppostie(color)}>
+          <div className={getBlackWhiteOppositTextClass(color)}>
             <div></div>
             <div className="flex justify-end p-2 ">
               <TechIcon name="nextjs" />
@@ -371,7 +429,7 @@ export const sections = {
             </div>
           </div>
         }
-        media={<div>dupsko</div>}
+        // media={<div>dupsko</div>}
       />
     </ProjectSection>
   ),

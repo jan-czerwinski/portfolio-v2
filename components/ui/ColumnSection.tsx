@@ -1,13 +1,11 @@
-import {
-  getBgAndTextColorStyle,
-  getOpposingBgStyle,
-} from '../../utils/colorUtils';
+import { ReactNode } from "react";
+import { getOpposingBgStyle } from "../../utils/colorUtils";
 
 type ColumnSectionProps = {
-  copy: JSX.Element;
-  media?: JSX.Element;
+  copy: ReactNode;
+  media?: ReactNode;
   noFrameMedia?: boolean;
-  columns: 'one' | 'two';
+  columns: "one" | "two";
   backgroundColor: string;
 };
 
@@ -18,7 +16,7 @@ const ColumnSection = ({
   media,
   backgroundColor,
 }: ColumnSectionProps) => {
-  if (columns === 'one')
+  if (columns === "one")
     return (
       <div className="box-border w-full px-16">
         <div

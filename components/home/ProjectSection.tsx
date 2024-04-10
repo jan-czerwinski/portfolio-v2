@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import { useMenuContext } from "../../utils/MenuContext";
 import {
+  blackWhiteOpposite,
   getBgAndTextColorStyle,
-  getBlackWhiteOppostie,
 } from "../../utils/colorUtils";
 import { useInView } from "../../utils/useInView";
 
@@ -32,7 +32,7 @@ const ProjectSection = ({
       id={id}
       className={clsx(
         `h-screen transform skew-y-1 snap-start`,
-        getBlackWhiteOppostie(backgroundColor)
+        blackWhiteOpposite(backgroundColor).text
       )}
       style={getBgAndTextColorStyle(backgroundColor)}
     >

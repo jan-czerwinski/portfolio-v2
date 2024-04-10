@@ -1,4 +1,7 @@
+import clsx from "clsx";
+import { useState } from "react";
 import { FaReact } from "react-icons/fa";
+import { FaGolang } from "react-icons/fa6";
 import {
   SiCsharp,
   SiFirebase,
@@ -11,6 +14,7 @@ import {
   SiTypescript,
   SiXamarin,
 } from "react-icons/si";
+
 import { TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
 
 type TechIconProps = {
@@ -27,7 +31,8 @@ type TechIconProps = {
     | "xamarin"
     | "nextjs"
     | "typescript"
-    | "gcp";
+    | "gcp"
+    | "go";
   link?: string;
 };
 export const TechIcon = ({ name, link }: TechIconProps) => {
@@ -74,9 +79,9 @@ export const TechIcon = ({ name, link }: TechIconProps) => {
       Icon = SiGooglecloud;
       break;
 
-    // case "":
-    //   Icon = ;
-    //   break;
+    case "go":
+      Icon = FaGolang;
+      break;
 
     // case "":
     //   Icon = ;
@@ -87,5 +92,25 @@ export const TechIcon = ({ name, link }: TechIconProps) => {
     //   break;
   }
 
-  return <Icon href={link} size={60} />;
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      className="relative cursor-pointer"
+      onMouseOver={() => setHovered(true)}
+      onMouseOut={() => setHovered(false)}
+    >
+      <Icon href={link} size={60} />
+
+      {hovered && (
+        <div
+          className={clsx(
+            "invisible absolute w-48   translate-y-4 translate-x-[calc(30px-50%)] bg-white/60 text-xl text-black  transform duration-300 ease-in-out",
+            hovered && " !visible"
+          )}
+        >
+          {name}
+        </div>
+      )}
+    </div>
+  );
 };

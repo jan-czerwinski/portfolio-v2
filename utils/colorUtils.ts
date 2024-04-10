@@ -12,8 +12,14 @@ export const getContrastColor = (bgColor: string) => {
     : "#fff";
 };
 
-export const getBlackWhiteOppostie = (color: string) =>
+export const getBlackWhiteOppositTextClass = (color: string) =>
   clsx(color === "#FFF" ? "text-black" : "text-white");
+
+export const blackWhiteOpposite = (color: string) => ({
+  text: clsx(color === "#FFF" ? "text-black" : "text-white"),
+  bg: clsx(color === "#FFF" ? "bg-black" : "bg-white"),
+  bgopacity40: clsx(color === "#FFF" ? "bg-black/40" : "bg-white/40"),
+});
 
 export const getBgAndTextColorStyle = (bgColor: string) => {
   return {
