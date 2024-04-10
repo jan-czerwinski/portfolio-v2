@@ -127,7 +127,7 @@ export const sections = {
                 link="https://github.com/jan-czerwinski/portfolio-v2"
               />
               <LinkButton
-                backgroundColor={color}
+                color={color}
                 text="👉 click me 👉"
                 href={{ pathname: "/rubiks", query: { color } }}
               />
@@ -193,7 +193,7 @@ export const sections = {
                 link="https://github.com/jan-czerwinski/portfolio-v2"
               />
               <LinkButton
-                backgroundColor={color}
+                color={color}
                 text="🐂 click me to see a maze 🐂"
                 href="/maze"
               />
@@ -305,7 +305,7 @@ export const sections = {
                 link="https://github.com/jan-czerwinski/portfolio-v2"
               />
               <LinkButton
-                backgroundColor="bg-blue-400"
+                color="bg-blue-400"
                 text="💖 game of life 💖"
                 href="/gameoflife"
               />
@@ -357,7 +357,7 @@ export const sections = {
             <div>click here for cool fractals:</div>
 
             <LinkButton
-              backgroundColor={color}
+              color={color}
               text="cool fractal big resolution"
               href="/big_fractal"
             />
@@ -385,7 +385,7 @@ export const sections = {
                 link="https://github.com/jan-czerwinski/portfolio-v2"
               />
               <LinkButton
-                backgroundColor={color}
+                color={color}
                 text="👎 weird thumb fractal thing 👍"
                 href="/thumb"
               />

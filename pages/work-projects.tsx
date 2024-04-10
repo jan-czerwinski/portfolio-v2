@@ -10,8 +10,8 @@ const WorkProjects = () => {
         <div className="flex flex-col gap-12 justify-center  items-center w-screen bg-gree grid-cols-3 text-center text-3xl ">
           <div className="h-20"></div>
           <div className="w-[1000px] ">
-            Those are the things I've been working on. They taught me a broad
-            skillset in mobile and fullstack development. i used those
+            Those are the things I&apos;ve been working on. They taught me a
+            broad skillset in mobile and fullstack development. i used those
             technologies profesionally:
           </div>
           <div className="flex gap-4">
