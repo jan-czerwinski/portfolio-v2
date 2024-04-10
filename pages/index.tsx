@@ -3,7 +3,6 @@ import { isMobile } from "react-device-detect";
 import { EntrySection } from "../components/EntrySection";
 import { Layout } from "../components/Layout";
 import { Sections } from "../components/Sections";
-import ProjectSection from "../components/home/ProjectSection";
 import { sections } from "../components/home/Sections";
 
 const Home: NextPage = () => {
@@ -26,17 +25,11 @@ const Home: NextPage = () => {
     <Layout>
       <EntrySection color={"#FFF"} />
       <Sections allowList={whiteList} />
-      <ProjectSection
-        backgroundColor="bg-pink-300"
-        title="Thank you for visiting my page!"
-      >
-        <div className="grid items-center justify-center w-full grid-cols-3 text-center">
-          <div>frog1</div>
+      {/* <ProjectSection backgroundColor="#FFF" title="">
+        <div className="flex justify-center  items-center w-screen bg-gree grid-cols-3 text-center text-4xl ">
           <div>Thank you for visiting my page!</div>
-
-          <div>frog2</div>
         </div>
-      </ProjectSection>
+      </ProjectSection> */}
     </Layout>
   );
 };

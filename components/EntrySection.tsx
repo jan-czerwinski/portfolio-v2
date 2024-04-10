@@ -61,9 +61,17 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
             animationIdx={2}
             withAnimation
             nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
-            withBeepingAtEnd
           >
             welcome to my website! enjoy
+          </CustomText>
+          <CustomText
+            currentIdx={animationIdx}
+            animationIdx={3}
+            withAnimation
+            nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
+            withBeepingAtEnd
+          >
+            its a work in progress, some things might not work! sorry
           </CustomText>
         </div>
         {/* <button
