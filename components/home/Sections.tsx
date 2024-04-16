@@ -46,13 +46,14 @@ export const sections = {
               databases, and ommunicated with designers and the client to ensure
               good user experience.
             </div>
-
-            <div className="flex  justify-end w-full py-5 space-x-8">
-              <TechIcon name="nextjs" />
-              <TechIcon name="react" />
-              <TechIcon name="typescript" />
-            </div>
           </div>
+        }
+        techIcons={
+          <>
+            <TechIcon name="nextjs" />
+            <TechIcon name="react" />
+            <TechIcon name="typescript" />
+          </>
         }
       />
     </ProjectSection>
@@ -67,15 +68,16 @@ export const sections = {
         backgroundColor={color}
         columns="two"
         noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon name="react" />
+            <TechIcon name="typescript" />
+          </>
+        }
         copy={
           <div
             className={clsx(getBlackWhiteOppositTextClass(color), "text-xl")}
-          >
-            <div className="flex justify-end w-full py-5 space-x-8">
-              <TechIcon name="react" />
-              <TechIcon name="typescript" />
-            </div>
-          </div>
+          ></div>
         }
       />
     </ProjectSection>
@@ -86,21 +88,29 @@ export const sections = {
         backgroundColor={color}
         columns="two"
         noFrameMedia={true}
+        techIcons={
+          <>
+            {" "}
+            <TechIcon name="firebase" />
+            <TechIcon name="swift" />
+          </>
+        }
         copy={
           <div className={blackWhiteOpposite(color).text}>
             <div>
               An ios cad app. It uses SwiftUi and makes heavy use of gestures
               and the apple pencil. I can&apos;t say much about it, but
               it&apos;s a project I&apos;ve been working on for a almost a year
-              and I&apos;m very excited to reveal soon.
-            </div>
-            <div className="flex justify-end w-full py-5 space-x-8">
-              <TechIcon name="firebase" />
-              <TechIcon name="swift" />
+              .
             </div>
           </div>
         }
-        // media={<RubiksCubePreview color={color} />}
+        media={
+          <div className="flex flex-col items-center gap-8 pb-32">
+            <TechIcon size={240} name="clock" />
+            <div className="text-2xl">coming soon...</div>
+          </div>
+        }
       />
     </ProjectSection>
   ),
@@ -110,6 +120,18 @@ export const sections = {
         backgroundColor={color}
         columns="two"
         noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon name="threejs" />
+            <TechIcon name="react" />
+            <TechIcon name="typescript" />
+
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/portfolio-v2"
+            />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
@@ -118,17 +140,9 @@ export const sections = {
               pasting them into the input!
             </div>
             <div className="flex justify-end w-full py-5 space-x-8">
-              <TechIcon name="threejs" />
-              <TechIcon name="react" />
-              <TechIcon name="typescript" />
-
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/portfolio-v2"
-              />
               <LinkButton
                 color={color}
-                text="👉 click me 👉"
+                text="see the cube"
                 href={{ pathname: "/rubiks", query: { color } }}
               />
             </div>
@@ -143,6 +157,17 @@ export const sections = {
       <ColumnSection
         backgroundColor={color}
         columns="two"
+        techIcons={
+          <>
+            <TechIcon name="python" />
+            <TechIcon name="csharp" />
+            <TechIcon name="xamarin" />
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/clock"
+            />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
@@ -150,15 +175,6 @@ export const sections = {
               bluetooth server on a RaspberryPi. It can be controlled via a
               python desktop app or a Xamarin Forms mobile app. It even has a
               snake gamemode!
-            </div>
-            <div className="flex justify-end p-2 gap-4 ">
-              <TechIcon name="python" />
-              <TechIcon name="csharp" />
-              <TechIcon name="xamarin" />
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/clock"
-              />
             </div>
           </div>
         }
@@ -178,6 +194,16 @@ export const sections = {
       <ColumnSection
         backgroundColor={color}
         columns="two"
+        techIcons={
+          <>
+            <TechIcon name="react" />
+            <TechIcon name="typescript" />
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/portfolio-v2"
+            />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
@@ -185,16 +211,9 @@ export const sections = {
               labirynth, and Dijkstra&apos;s algorithm to solve it.
             </div>
             <div className="flex justify-end w-full py-5 space-x-8">
-              <TechIcon name="react" />
-              <TechIcon name="typescript" />
-
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/portfolio-v2"
-              />
               <LinkButton
                 color={color}
-                text="🐂 click me to see a maze 🐂"
+                text="see the maze generation"
                 href="/maze"
               />
             </div>
@@ -228,6 +247,16 @@ export const sections = {
         backgroundColor={color}
         columns="one"
         noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon name="opencv" />
+            <TechIcon name="python" />
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/hackathon-2022-bot"
+            />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
@@ -235,14 +264,6 @@ export const sections = {
               and plays an arkanoid-like game using a fuzzy logic algorithm
               we&apos;ve created. It was one of the 3 tasks during a 24 hour
               Univeristy Of Technology hackathon - we&apos;ve won 3rd place.
-            </div>
-            <div className="flex justify-end p-2 ">
-              <TechIcon name="opencv" />
-              <TechIcon name="python" />
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/hackathon-2022-bot"
-              />
             </div>
           </div>
         }
@@ -262,18 +283,21 @@ export const sections = {
       <ColumnSection
         backgroundColor={color}
         columns="two"
+        techIcons={
+          <>
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/autolycus"
+            />
+          </>
+        }
         copy={
           <>
             <div>
               Python bot that scrapes reddit for images, reads text from them,
               creates short videos and uploads them to youtube!
             </div>
-            <div className="flex justify-end p-2 ">
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/autolycus"
-              />
-            </div>
+            <div className="flex justify-end p-2 "></div>
           </>
         }
         media={
@@ -296,14 +320,18 @@ export const sections = {
         columns="two"
         backgroundColor={color}
         noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/portfolio-v2"
+            />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>React Game of Life implementation.</div>
             <div className="flex justify-center w-full py-5 space-x-8">
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/portfolio-v2"
-              />
               <LinkButton
                 color="bg-blue-400"
                 text="💖 game of life 💖"
@@ -321,14 +349,12 @@ export const sections = {
       <ColumnSection
         backgroundColor={color}
         columns="one"
+        techIcons={<>{/* <TechIcon name={"go"} /> */}</>}
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
               A multithreaded go fractal generation programm i made in a few
               days to teach myself golang.{" "}
-            </div>
-            <div className="flex justify-center">
-              <TechIcon name={"go"} />
             </div>
           </div>
         }
@@ -372,6 +398,14 @@ export const sections = {
         backgroundColor={color}
         columns="one"
         noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/portfolio-v2"
+            />
+          </>
+        }
         copy={
           <>
             <div>
@@ -380,10 +414,6 @@ export const sections = {
               has taught me a lot about react optimization.
             </div>
             <div className="flex justify-center w-full py-5 space-x-8">
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/portfolio-v2"
-              />
               <LinkButton
                 color={color}
                 text="👎 weird thumb fractal thing 👍"
@@ -414,22 +444,56 @@ export const sections = {
         backgroundColor={color}
         columns="one"
         noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon name="nextjs" />
+            <TechIcon name="react" />
+            <TechIcon name="typescript" />
+
+            <TechIcon
+              name="github"
+              link="https://github.com/jan-czerwinski/hackathon-2022-bot"
+            />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div></div>
-            <div className="flex justify-end p-2 ">
-              <TechIcon name="nextjs" />
-              <TechIcon name="react" />
-              <TechIcon name="typescript" />
-
-              <TechIcon
-                name="github"
-                link="https://github.com/jan-czerwinski/hackathon-2022-bot"
-              />
-            </div>
+            <div className="flex justify-end p-2 "></div>
           </div>
         }
         // media={<div>dupsko</div>}
+      />
+    </ProjectSection>
+  ),
+  highlights: (color: string) => (
+    <ProjectSection
+      key="highlights"
+      backgroundColor={color}
+      title="highlights ai"
+    >
+      <ColumnSection
+        backgroundColor={color}
+        columns="one"
+        noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon name="nextjs" />
+            <TechIcon name="react" />
+            <TechIcon name="typescript" />
+            <TechIcon name="strapi" />
+          </>
+        }
+        copy={
+          <div
+            className={clsx(
+              getBlackWhiteOppositTextClass(color),
+              "grid place-content-center h-full"
+            )}
+          >
+            <div>HIghlights ai very cool project important stuff about llm</div>
+          </div>
+        }
       />
     </ProjectSection>
   ),

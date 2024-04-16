@@ -25,7 +25,7 @@ const WorkProjects = () => {
         </div>
       </ProjectSection>
       <Sections
-        allowList={["cadaway", "livereach", "healthNation", "mandelbrot"]}
+        allowList={["cadaway", "highlights", "livereach", "healthNation"]}
       />
     </Layout>
   );

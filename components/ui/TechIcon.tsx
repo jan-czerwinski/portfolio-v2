@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { FaReact } from "react-icons/fa";
-import { FaGolang } from "react-icons/fa6";
+import { LuClock1 } from "react-icons/lu";
 import {
   SiCsharp,
   SiFirebase,
@@ -9,103 +9,65 @@ import {
   SiGooglecloud,
   SiOpencv,
   SiPython,
+  SiStrapi,
   SiSvelte,
   SiSwift,
   SiTypescript,
   SiXamarin,
 } from "react-icons/si";
-
 import { TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
+import { useColorContext } from "../../utils/ColorContext";
+import { blackWhiteOpposite } from "../../utils/colorUtils";
+
+const iconComponents = {
+  react: FaReact,
+  svelte: SiSvelte,
+  swift: SiSwift,
+  firebase: SiFirebase,
+  github: SiGithub,
+  python: SiPython,
+  threejs: TbBrandThreejs,
+  opencv: SiOpencv,
+  xamarin: SiXamarin,
+  csharp: SiCsharp,
+  nextjs: TbBrandNextjs,
+  typescript: SiTypescript,
+  gcp: SiGooglecloud,
+  // go: FaGolang,
+  strapi: SiStrapi,
+  clock: LuClock1,
+};
+
+type TechIconType = keyof typeof iconComponents;
 
 type TechIconProps = {
-  name:
-    | "react"
-    | "svelte"
-    | "swift"
-    | "firebase"
-    | "github"
-    | "python"
-    | "threejs"
-    | "opencv"
-    | "csharp"
-    | "xamarin"
-    | "nextjs"
-    | "typescript"
-    | "gcp"
-    | "go";
   link?: string;
+  name: TechIconType;
+  size?: number;
 };
-export const TechIcon = ({ name, link }: TechIconProps) => {
-  let Icon = null;
-  switch (name) {
-    case "react":
-      Icon = FaReact;
-      break;
-    case "svelte":
-      Icon = SiSvelte;
-      break;
-    case "swift":
-      Icon = SiSwift;
-      break;
-    case "firebase":
-      Icon = SiFirebase;
-      break;
-    case "github":
-      Icon = SiGithub;
-      break;
-    case "python":
-      Icon = SiPython;
-      break;
-    case "threejs":
-      Icon = TbBrandThreejs;
-      break;
-    case "opencv":
-      Icon = SiOpencv;
-      break;
-    case "xamarin":
-      Icon = SiXamarin;
-      break;
-    case "csharp":
-      Icon = SiCsharp;
-      break;
-    case "nextjs":
-      Icon = TbBrandNextjs;
-      break;
-    case "typescript":
-      Icon = SiTypescript;
-      break;
-
-    case "gcp":
-      Icon = SiGooglecloud;
-      break;
-
-    case "go":
-      Icon = FaGolang;
-      break;
-
-    // case "":
-    //   Icon = ;
-    //   break;
-
-    // case "":
-    //   Icon = ;
-    //   break;
-  }
+export const TechIcon = ({ name, link, size }: TechIconProps) => {
+  const Icon = iconComponents[name];
+  const defaultSize = 60;
 
   const [hovered, setHovered] = useState(false);
+
+  const { color } = useColorContext();
   return (
     <div
-      className="relative cursor-pointer"
-      onMouseOver={() => setHovered(true)}
-      onMouseOut={() => setHovered(false)}
+      className={clsx(
+        "relative cursor-pointer",
+        blackWhiteOpposite(color).text
+      )}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <Icon href={link} size={60} />
-
+      <Icon href={link} size={size || defaultSize} />
       {hovered && (
         <div
           className={clsx(
-            "invisible absolute w-48   translate-y-4 translate-x-[calc(30px-50%)] bg-white/60 text-xl text-black  transform duration-300 ease-in-out",
-            hovered && " !visible"
+            "absolute w-48 hover:border-2 hover:border-red-600  text-center translate-y-4 -translate-x-1/2  text-xl  transform duration-300 ease-in-out ",
+            "top-full left-1/2",
+            color === "#000" ? "bg-white text-black" : "bg-black text-white"
           )}
         >
           {name}

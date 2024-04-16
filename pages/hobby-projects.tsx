@@ -5,7 +5,14 @@ const HobbyProjects = () => {
   return (
     <Layout>
       <Sections
-        allowList={["rubiks", "hackathonBot", "maze", "website", "wordClock"]}
+        allowList={[
+          "rubiks",
+          "hackathonBot",
+          "mandelbrot",
+          // "maze",
+          "wordClock",
+          "website",
+        ]}
       />
     </Layout>
   );

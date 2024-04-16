@@ -1,22 +1,22 @@
-import { Canvas } from '@react-three/fiber';
-import { useRouter } from 'next/router';
-import { useEffect, useReducer, useState } from 'react';
-import { convertStringToTurnArray, TurnType } from './CubeUtils';
-import RubiksCube from './RubiksCube';
+import { Canvas } from "@react-three/fiber";
+import { useRouter } from "next/router";
+import { useEffect, useReducer, useState } from "react";
+import { TurnType, convertStringToTurnArray } from "./CubeUtils";
+import RubiksCube from "./RubiksCube";
 
-const permutationT = 'R U Ri Ui Ri F R2 Ui Ri Ui R U Ri Fi';
+const permutationT = "R U Ri Ui Ri F R2 Ui Ri Ui R U Ri Fi";
 const permutationTArray = convertStringToTurnArray(permutationT);
 
 type CubeStateAction = {
-  type: 'toggle';
+  type: "toggle";
 };
 const cubeStateReducer = (state: TurnType[], action: CubeStateAction) => {
   switch (action.type) {
-    case 'toggle':
+    case "toggle":
       return state.length === 0 ? permutationTArray : [];
 
     default:
-      throw new Error('invalid action type for cubeStateReducer');
+      throw new Error("invalid action type for cubeStateReducer");
   }
 };
 
@@ -29,7 +29,7 @@ const RubiksCubePreview = ({ color }: RubiksCubePreviewProps) => {
   const [cubeState, dispatchCubeState] = useReducer(cubeStateReducer, []);
 
   const togglePermutation = () => {
-    dispatchCubeState({ type: 'toggle' });
+    dispatchCubeState({ type: "toggle" });
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const RubiksCubePreview = ({ color }: RubiksCubePreviewProps) => {
         setIsMouseOver(true);
       }}
       onClick={() => {
-        router.push({ pathname: '/rubiks', query: { color } });
+        router.push({ pathname: "/rubiks", query: { color } });
       }}
     >
       <Canvas className="">
@@ -74,9 +74,7 @@ const RubiksCubePreview = ({ color }: RubiksCubePreviewProps) => {
         />
       </Canvas>
       {isMouseOver && (
-        <span className="absolute z-30 top-12 left-12 ">
-          click cube to play around!!!
-        </span>
+        <span className="absolute z-30 top-16 left-16 ">click here</span>
       )}
     </div>
   );

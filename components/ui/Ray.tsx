@@ -23,7 +23,7 @@ export const Ray = ({ animationIdx, className, children, link }: RayProps) => {
         onMouseOver={() => setHovered(true)}
         onMouseOut={() => setHovered(false)}
         className={clsx(
-          " ml-[30%] pl-10 transform  transition-all  duration-700   -translate-y-8 text-white text-3xl hover:text-emerald-600  ",
+          " ml-[20%] pl-10 transform  transition-all  duration-700   -translate-y-10 text-white text-3xl hover:text-emerald-600  ",
           hovered && "-translate-x-6"
         )}
       >

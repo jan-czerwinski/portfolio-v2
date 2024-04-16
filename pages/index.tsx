@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     "rubiks",
     "hackathonBot",
     "wordClock",
-    "maze",
+    // "maze",
   ];
   return (
     <Layout>

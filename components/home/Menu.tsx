@@ -23,9 +23,9 @@ const rays = [
     ),
   },
   {
-    className: "rotate-[45deg]",
+    className: "rotate-[60deg]",
     children: (
-      <Link passHref href={"/contact.pdf"}>
+      <Link passHref href={"/contact"}>
         <div>📞 contact me</div>
       </Link>
     ),
@@ -34,7 +34,7 @@ const rays = [
   { className: "rotate-[90deg]", children: "" },
   // {classNameclassName: 'rotate-[0deg]', children: 'example' }, // You can include this if needed
   {
-    className: "rotate-[60deg]",
+    className: "rotate-[45deg]",
     children: (
       <Link passHref href={"/jan_czerwinski_cv.pdf"}>
         <div>📜 cv</div>
