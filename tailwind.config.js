@@ -19,6 +19,15 @@ module.exports = {
             height: {
                 full: '100%',
             },
+
+            fontSize: {
+                '1.5xl': ['22px', {
+                    fontSize: '22px',
+                    lineHeight: '30px',
+                }],
+
+            }
+
         },
     },
     plugins: [],

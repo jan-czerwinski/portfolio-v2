@@ -4,11 +4,11 @@ import { sections } from "./home/Sections";
 
 type SectionKey = keyof typeof sections;
 
-type SectionsProps = {
+type SectionListProps = {
   allowList: SectionKey[];
 };
 
-export const Sections = ({ allowList }: SectionsProps) => {
+export const SectionList = ({ allowList }: SectionListProps) => {
   const [sectionColors, setSectionColors] = useState<string[]>();
 
   useEffect(() => {

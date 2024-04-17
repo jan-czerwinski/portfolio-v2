@@ -5,6 +5,7 @@ import {
   blackWhiteOpposite,
   getBlackWhiteOppositTextClass,
 } from "../../utils/colorUtils";
+import { CompanyCard } from "../CompanyCard";
 import RubiksCubePreview from "../RubiksCube/RubiksCubePreview";
 import ColumnSection from "../ui/ColumnSection";
 import LinkButton from "../ui/LinkButton";
@@ -13,38 +14,35 @@ import ProjectSection from "./ProjectSection";
 
 export const sections = {
   livereach: (color: string) => (
-    <ProjectSection
-      key="livereachai"
-      backgroundColor={color}
-      title="livereach.ai"
-    >
+    <ProjectSection backgroundColor={color} title="livereach.ai">
       <ColumnSection
         backgroundColor={color}
-        columns="one"
-        noFrameMedia={true}
+        columns="two"
+        noFrameMedia={false}
         copy={
           <div
             className={clsx(
-              "flex flex-col gap-4",
+              "flex flex-col gap-6",
               blackWhiteOpposite(color).text,
-              "text-2xl   pt-40"
+              "text-1.5xl "
             )}
           >
-            <div className="flex justify-center">
-              <LinkButton
-                href={"https://www.livereachmedia.com/"}
-                text={"website (i&apos;ve worked on the app, not the website)"}
-                color={color}
-              />
-            </div>
-
             <div>
               livereach - an ai driven security hub for security specialists.
               Essentaily a webrtc camera hub with drawing tools, animated
-              statistics, walls of cameras etc. I&apos;ve implemented complex
-              frontend solutions involving canvas, Modeling relational
-              databases, and ommunicated with designers and the client to ensure
-              good user experience.
+              statistics, walls of cameras etc. I&apos;ve implemented the webrtc
+              protol, camera walls, canvas graphing tools with data preparation
+              for the ai and many more features. I was in constant contact with
+              the client. <br />
+              (I&apos;ve worked on the app, not the website)
+            </div>
+
+            <div className="flex justify-center">
+              <LinkButton
+                href={"https://www.livereachmedia.com/"}
+                text={"website "}
+                color={color}
+              />
             </div>
           </div>
         }
@@ -55,15 +53,72 @@ export const sections = {
             <TechIcon name="typescript" />
           </>
         }
+        media={
+          <video
+            autoPlay
+            loop
+            className=" bg-red-400 rounded-md flex w-full"
+            height="399"
+            width="482"
+          >
+            <source src="/livereach.mp4" type="video/mp4" />
+          </video>
+        }
+      />
+    </ProjectSection>
+  ),
+  uxPin: (color: string) => (
+    <ProjectSection backgroundColor={color} title="uxpin">
+      <ColumnSection
+        backgroundColor={color}
+        columns="two"
+        noFrameMedia={true}
+        copy={
+          <div
+            className={clsx(
+              "flex flex-col gap-4",
+              blackWhiteOpposite(color).text,
+              "text-2xl "
+            )}
+          >
+            <CompanyCard
+              dates="2021.08 - 2022.03"
+              companyName="UxPin"
+              position="Full Stack Web Engineer"
+            />
+
+            <div>
+              I&apos;ve worked on a design system, a component library, and
+              various features for the UxPin editor. I&apos;ve implemented
+              complex frontend solutions involving canvas, Modeling relational
+              databases, and ommunicated with designers and the client to ensure
+              good user experience.
+            </div>
+          </div>
+        }
+        techIcons={
+          <>
+            {/* <TechIcon name="ruby" /> */}
+            <TechIcon name="python" />
+            <TechIcon name="typescript" />
+          </>
+        }
+        media={
+          <video
+            autoPlay
+            className=""
+            loop
+            muted
+            poster="https://cdn.buttercms.com/IYPoThrRiydGW71WuqFo"
+          >
+            <source src="/uxpin.webm" />
+          </video>
+        }
       />
     </ProjectSection>
   ),
   healthNation: (color: string) => (
-    <ProjectSection
-      key="healthNation"
-      backgroundColor={color}
-      title="Health Nation"
-    >
+    <ProjectSection backgroundColor={color} title="Health Nation">
       <ColumnSection
         backgroundColor={color}
         columns="two"
@@ -77,13 +132,15 @@ export const sections = {
         copy={
           <div
             className={clsx(getBlackWhiteOppositTextClass(color), "text-xl")}
-          ></div>
+          >
+            <div className="font-semibold">2019.08 - 2021.08</div>
+          </div>
         }
       />
     </ProjectSection>
   ),
   cadaway: (color: string) => (
-    <ProjectSection key="cadaway" backgroundColor={color} title="cadaway">
+    <ProjectSection backgroundColor={color} title="cadaway">
       <ColumnSection
         backgroundColor={color}
         columns="two"
@@ -106,8 +163,8 @@ export const sections = {
           </div>
         }
         media={
-          <div className="flex flex-col items-center gap-8 pb-32">
-            <TechIcon size={240} name="clock" />
+          <div className="flex flex-col items-center gap-2">
+            <TechIcon size={240} name="clock" disablePopup />
             <div className="text-2xl">coming soon...</div>
           </div>
         }
@@ -115,7 +172,7 @@ export const sections = {
     </ProjectSection>
   ),
   rubiks: (color: string) => (
-    <ProjectSection key="rubiks" backgroundColor={color} title="rubik's">
+    <ProjectSection backgroundColor={color} title="rubik's">
       <ColumnSection
         backgroundColor={color}
         columns="two"
@@ -153,14 +210,14 @@ export const sections = {
     </ProjectSection>
   ),
   wordClock: (color: string) => (
-    <ProjectSection key="wordClock" backgroundColor={color} title="word clock">
+    <ProjectSection backgroundColor={color} title="word clock">
       <ColumnSection
         backgroundColor={color}
         columns="two"
         techIcons={
           <>
             <TechIcon name="python" />
-            <TechIcon name="csharp" />
+            <TechIcon name="c_sharp" />
             <TechIcon name="xamarin" />
             <TechIcon
               name="github"
@@ -190,7 +247,7 @@ export const sections = {
     </ProjectSection>
   ),
   maze: (color: string) => (
-    <ProjectSection key="maze" backgroundColor={color} title="maze">
+    <ProjectSection backgroundColor={color} title="maze">
       <ColumnSection
         backgroundColor={color}
         columns="two"
@@ -238,11 +295,7 @@ export const sections = {
     </ProjectSection>
   ),
   hackathonBot: (color: string) => (
-    <ProjectSection
-      key="hackathonBot"
-      backgroundColor={color}
-      title="hackathon bot"
-    >
+    <ProjectSection backgroundColor={color} title="hackathon bot">
       <ColumnSection
         backgroundColor={color}
         columns="one"
@@ -279,7 +332,7 @@ export const sections = {
     </ProjectSection>
   ),
   auotlycus: (color: string) => (
-    <ProjectSection key="autolycus" backgroundColor={color} title="autolycus">
+    <ProjectSection backgroundColor={color} title="autolycus">
       <ColumnSection
         backgroundColor={color}
         columns="two"
@@ -349,12 +402,16 @@ export const sections = {
       <ColumnSection
         backgroundColor={color}
         columns="one"
-        techIcons={<>{/* <TechIcon name={"go"} /> */}</>}
+        techIcons={
+          <>
+            <TechIcon name="go" />
+          </>
+        }
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
               A multithreaded go fractal generation programm i made in a few
-              days to teach myself golang.{" "}
+              days to teach myself golang.
             </div>
           </div>
         }
@@ -439,7 +496,7 @@ export const sections = {
     </ProjectSection>
   ),
   website: (color: string) => (
-    <ProjectSection key="website" backgroundColor={color} title="this website">
+    <ProjectSection backgroundColor={color} title="this website">
       <ColumnSection
         backgroundColor={color}
         columns="one"
@@ -467,11 +524,7 @@ export const sections = {
     </ProjectSection>
   ),
   highlights: (color: string) => (
-    <ProjectSection
-      key="highlights"
-      backgroundColor={color}
-      title="highlights ai"
-    >
+    <ProjectSection backgroundColor={color} title="highlights ai">
       <ColumnSection
         backgroundColor={color}
         columns="one"
@@ -488,10 +541,14 @@ export const sections = {
           <div
             className={clsx(
               getBlackWhiteOppositTextClass(color),
-              "grid place-content-center h-full"
+              "grid place-content-center h-full text-2xl"
             )}
           >
-            <div>HIghlights ai very cool project important stuff about llm</div>
+            Highlights AI simplifies trip planning: just input your destination,
+            and it effortlessly generates a detailed itinerary, using the Google
+            Maps API. Powered by LLMs like ChatGPT-4 and Claude 2, it ensures a
+            seamless and personalized travel experience. I&apos;ve worked on the
+            maps as well as the LLMs connection and parsing.
           </div>
         }
       />

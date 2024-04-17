@@ -1,10 +1,10 @@
 import { Layout } from "../components/Layout";
-import { Sections } from "../components/Sections";
+import { SectionList } from "../components/SectionList";
 
 const HobbyProjects = () => {
   return (
     <Layout>
-      <Sections
+      <SectionList
         allowList={[
           "rubiks",
           "hackathonBot",
