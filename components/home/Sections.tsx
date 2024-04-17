@@ -27,6 +27,12 @@ export const sections = {
               "text-1.5xl "
             )}
           >
+            <CompanyCard
+              dates="2022.03 - 2023.01"
+              companyName="Widelab"
+              position="Senior Full Stack Web Engineer"
+            />
+
             <div>
               livereach - an ai driven security hub for security specialists.
               Essentaily a webrtc camera hub with drawing tools, animated
@@ -40,7 +46,7 @@ export const sections = {
             <div className="flex justify-center">
               <LinkButton
                 href={"https://www.livereachmedia.com/"}
-                text={"website "}
+                text={"website"}
                 color={color}
               />
             </div>
@@ -133,7 +139,21 @@ export const sections = {
           <div
             className={clsx(getBlackWhiteOppositTextClass(color), "text-xl")}
           >
-            <div className="font-semibold">2019.08 - 2021.08</div>
+            <CompanyCard
+              dates="2019.08 - 2021.08"
+              companyName="Precise Lab"
+              position="Jr Fullstack Mobile/Web developer"
+            />
+          </div>
+        }
+        media={
+          <div className="max-w-full w-[420px]  h-[500px]  relative ">
+            <Image
+              src={"/healthnation.webp"}
+              layout="fill"
+              objectFit="contain"
+              alt="health nation ios app"
+            />
           </div>
         }
       />
@@ -147,18 +167,18 @@ export const sections = {
         noFrameMedia={true}
         techIcons={
           <>
-            {" "}
             <TechIcon name="firebase" />
             <TechIcon name="swift" />
           </>
         }
         copy={
           <div className={blackWhiteOpposite(color).text}>
+            <div className="text-2xl mb-4">self employed</div>
+
             <div>
               An ios cad app. It uses SwiftUi and makes heavy use of gestures
               and the apple pencil. I can&apos;t say much about it, but
-              it&apos;s a project I&apos;ve been working on for a almost a year
-              .
+              it&apos;s a project I&apos;ve been working on for a almost a year.
             </div>
           </div>
         }
@@ -544,11 +564,19 @@ export const sections = {
               "grid place-content-center h-full text-2xl"
             )}
           >
-            Highlights AI simplifies trip planning: just input your destination,
-            and it effortlessly generates a detailed itinerary, using the Google
-            Maps API. Powered by LLMs like ChatGPT-4 and Claude 2, it ensures a
-            seamless and personalized travel experience. I&apos;ve worked on the
-            maps as well as the LLMs connection and parsing.
+            <CompanyCard
+              dates="2021.08 - 2022.03"
+              companyName="Flyps"
+              position="Senior Full Stack Web Engineer"
+            />
+            <div>
+              Highlights AI simplifies trip planning: just input your
+              destination, and it effortlessly generates a detailed itinerary,
+              using the Google Maps API. Powered by LLMs like ChatGPT-4 and
+              Claude 2, it ensures a seamless and personalized travel
+              experience. I&apos;ve worked on the maps as well as the LLMs
+              connection and parsing.
+            </div>
           </div>
         }
       />

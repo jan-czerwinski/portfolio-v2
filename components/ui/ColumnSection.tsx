@@ -21,7 +21,7 @@ const ColumnSection = ({
 }: ColumnSectionProps) => {
   if (columns === "one")
     return (
-      <div className="box-border w-full px-16 flex flex-col gap-8 ">
+      <div className="box-border justify-center w-full px-16 flex flex-col gap-8 ">
         <div
           className="p-2 mx-auto  rounded-md w-fit "
           style={getOpposingBgStyle(backgroundColor)}
@@ -39,19 +39,24 @@ const ColumnSection = ({
     );
 
   return (
-    <div className="box-border grid place-content-center  w-full grid-cols-2 px-16  gap-4">
-      <div className="text-3xl text-center  flex flex-col justify-center ">
+    <div
+      className={clsx(
+        "box-border flex h-full    w-full  items-center justify-center  px-16  gap-4",
+        Math.random() >= 0.5 ? "flex-row-reverse" : "flex-row"
+      )}
+    >
+      <div className="text-3xl flex-grow flex-1 text-center  flex flex-col justify-center ">
         {copy}
       </div>
 
       <div
         className={clsx(
-          `flex flex-col  justify-center gap-10  w-full h-fit `,
+          `flex flex-col flex-grow flex-1 justify-center gap-10  w-full h-fit `,
           ""
         )}
       >
         <div
-          className="p-2 rounded-md"
+          className="flex p-2  rounded-md justify-center"
           style={noFrameMedia ? {} : getOpposingBgStyle(backgroundColor)}
         >
           {media}

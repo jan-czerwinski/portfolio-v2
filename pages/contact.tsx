@@ -4,7 +4,7 @@ const Contact = () => (
   <Layout>
     <div className="w-full h-full grid place-content-center text-center gap-4">
       <div className="text-2xl">
-        Let's collaborate and create something exceptional togheter!
+        Let&apos;s collaborate and create something exceptional togheter!
       </div>
       <div className="text-left flex flex-col gap-2">
         <a href="mailto:jan.ignacy.czerwinski@gmail.com">
