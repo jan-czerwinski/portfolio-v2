@@ -142,7 +142,7 @@ export const sections = {
             <CompanyCard
               dates="2019.08 - 2021.08"
               companyName="Precise Lab"
-              position="Jr Fullstack Mobile/Web developer"
+              position="Fullstack Mobile/Web developer"
             />
           </div>
         }

@@ -27,8 +27,8 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
       id="entry_id"
       style={getBgAndTextColorStyle(color)}
     >
-      <div className="flex   ">
-        <div className="w-[25vw] place-content-center mt-auto  ">
+      <div className="flex  gap-10 ">
+        <div className="w-[30vw] place-content-center mt-auto  ">
           <Image
             src={"/me_cropped.png"}
             alt="me face"
@@ -63,7 +63,7 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
             animationIdx={2}
             nextAnimation={nextAnimation}
           >
-            a mobile&&web fullstack developer
+            a mobile && web fullstack developer
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
