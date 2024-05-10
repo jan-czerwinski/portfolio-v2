@@ -540,7 +540,7 @@ export const sections = {
         }
         media={
           <iframe
-            width={600}
+            width={800}
             height={600}
             // className=""
             // src="https://jan-czerwinski.vercel.app/"

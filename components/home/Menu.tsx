@@ -51,15 +51,15 @@ const rays = [
 ];
 
 export const Menu = () => {
-  const { color: myStringState } = useMenuContext();
+  const { color } = useMenuContext();
   const [delayState, setDelayState] = useState("");
   const [transition, setTransition] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setDelayState(myStringState);
+      setDelayState(color);
     }, 200);
-  }, [myStringState]);
+  }, [color]);
 
   const [animationIdx, setAnimationIdx] = useState(0);
   return (

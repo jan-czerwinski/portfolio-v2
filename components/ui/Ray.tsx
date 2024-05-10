@@ -13,7 +13,7 @@ export const Ray = ({ animationIdx, className, children, link }: RayProps) => {
     <div
       id="rays"
       className={clsx(
-        " z-50 col-start-1 row-start-1 w-2   border-white transform  transition-all duration-1000 border-b h-0 fixed top-20 left-20 origin-left ",
+        " z-50 col-start-1 row-start-1 w-2   border-white transform  transition-all duration-1000 border-b h-0 absolute top-20 left-20 origin-left ",
         hovered && "border-2 duration-75",
         animationIdx === 1 ? "w-[150vmax]" : "invisible",
         className

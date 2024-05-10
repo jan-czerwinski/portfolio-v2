@@ -1,16 +1,12 @@
-// MyContext.tsx
 import React, { createContext, useContext, useState } from "react";
 
-// Define the shape of your context
 type MyContextType = {
   color: string;
   setColor: React.Dispatch<React.SetStateAction<string>>;
 };
 
-// Create the context
 const MenuContext = createContext<MyContextType | undefined>(undefined);
 
-// Create a custom hook to use the context
 export const useMenuContext = () => {
   const context = useContext(MenuContext);
   if (!context) {
@@ -19,7 +15,6 @@ export const useMenuContext = () => {
   return context;
 };
 
-// Create the provider component
 export const MenuContextProvider: React.FC = ({ children }) => {
   const [color, setColor] = useState<string>("");
   const value = { color, setColor };
