@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 
 // Define the shape of your context
 type MyContextType = {
-  myStringState: string;
-  setMyStringState: React.Dispatch<React.SetStateAction<string>>;
+  color: string;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // Create the context
@@ -21,7 +21,7 @@ export const useMenuContext = () => {
 
 // Create the provider component
 export const MenuContextProvider: React.FC = ({ children }) => {
-  const [myStringState, setMyStringState] = useState<string>("");
-  const value = { myStringState, setMyStringState };
+  const [color, setColor] = useState<string>("");
+  const value = { color, setColor };
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>;
 };

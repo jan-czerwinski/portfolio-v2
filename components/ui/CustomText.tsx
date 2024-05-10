@@ -72,7 +72,7 @@ export const CustomText = ({
     return null;
 
   return (
-    <h1 className={clsx("text-2xl italic text-black font-bold", className)}>
+    <h1 className={clsx("text-xl italic text-black font-bold", className)}>
       {withAnimation && animationIdx === currentIdx ? text : children}
       {withAnimation && animationIdx === currentIdx && <>|</>}
       {withAnimation &&

@@ -1,15 +1,15 @@
-import Image from 'next/image';
+import Image from "next/image";
+import { BlackOrWhite } from "../../utils/colorUtils";
 
 type GitHubIconProps = {
   link: string;
-  color: '#000' | '#fff';
+  color: BlackOrWhite;
 };
 const GitHubIcon = ({ link, color }: GitHubIconProps) => {
   const size = 60;
   return (
     <a href={link}>
       <Image
-        className={color === '#fff' ? 'invert' : ''}
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
         alt="github icon"
         width={size}

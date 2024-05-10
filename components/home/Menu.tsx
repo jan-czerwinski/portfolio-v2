@@ -7,7 +7,7 @@ import { Ray } from "../ui/Ray";
 
 const rays = [
   {
-    className: "rotate-[15deg]",
+    className: "rotate-[42deg]",
     children: (
       <Link passHref href={"/hobby-projects"}>
         <div>hobby projects</div>
@@ -23,28 +23,35 @@ const rays = [
     ),
   },
   {
-    className: "rotate-[60deg]",
+    className: "rotate-[66deg]",
     children: (
       <Link passHref href={"/contact"}>
-        <div>📞 contact me</div>
+        <div>contact me</div>
       </Link>
     ),
   },
-  { className: "rotate-[75deg]", children: "" },
-  { className: "rotate-[90deg]", children: "" },
+  {
+    className: "rotate-[18deg]",
+    children: (
+      <Link passHref href={"/"}>
+        <div>home</div>
+      </Link>
+    ),
+  },
+  // { className: "rotate-[90deg]", children: "" },
   // {classNameclassName: 'rotate-[0deg]', children: 'example' }, // You can include this if needed
   {
-    className: "rotate-[45deg]",
+    className: "rotate-[54deg]",
     children: (
       <Link passHref href={"/jan_czerwinski_cv.pdf"}>
-        <div>📜 cv</div>
+        <div>cv</div>
       </Link>
     ),
   },
 ];
 
 export const Menu = () => {
-  const { myStringState } = useMenuContext();
+  const { color: myStringState } = useMenuContext();
   const [delayState, setDelayState] = useState("");
   const [transition, setTransition] = useState(false);
 
@@ -76,7 +83,12 @@ export const Menu = () => {
       {/* <div className="group-hover:visible invisible ml-4 mt-4 text-2xl">
         menu
       </div> */}
-      <div className="grid h-0 w-0">
+      <div className="grid h-0 w-0 ">
+        <div
+          className={clsx(
+            "absolute w-2 h-2 top-20 left-20 rounded-full -translate-x-1/3 -translate-y-1/3  bg-white/90 "
+          )}
+        />
         {rays.map((props, idx) => (
           <Ray animationIdx={animationIdx} key={`ray_${idx}`} {...props} />
         ))}

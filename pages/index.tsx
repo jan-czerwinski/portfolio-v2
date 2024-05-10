@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { isMobile } from "react-device-detect";
 import { EntrySection } from "../components/EntrySection";
 import { Layout } from "../components/Layout";
+import { NavigationSection } from "../components/NavigationSection";
 import { sections } from "../components/home/Sections";
 
 const Home: NextPage = () => {
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <EntrySection color={"#FFF"} />
+      <NavigationSection color={"#000"} />
       {/* <SectionList allowList={whiteList} /> */}
       {/* <ProjectSection backgroundColor="#FFF" title="">
         <div className="flex justify-center  items-center w-screen bg-gree grid-cols-3 text-center text-4xl ">

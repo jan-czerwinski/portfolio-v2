@@ -205,7 +205,7 @@ export const sections = {
 
             <TechIcon
               name="github"
-              link="https://github.com/jan-czerwinski/portfolio-v2"
+              link="https://github.com/jan-czerwinski/portfolio-v2/blob/main/components/RubiksCube/RubiksCube.tsx"
             />
           </>
         }
@@ -214,7 +214,7 @@ export const sections = {
             <div>
               Rubiks cube simulation made in three.js with react-three-fiber.
               You can preview different Rubik&apos;s cube algoritms by just
-              pasting them into the input!
+              pasting them into the input.
             </div>
             <div className="flex justify-end w-full py-5 space-x-8">
               <LinkButton
@@ -251,7 +251,7 @@ export const sections = {
               Word clock I designed and created. It&apos;s runing a nodejs
               bluetooth server on a RaspberryPi. It can be controlled via a
               python desktop app or a Xamarin Forms mobile app. It even has a
-              snake gamemode!
+              snake gamemode.
             </div>
           </div>
         }
@@ -368,7 +368,7 @@ export const sections = {
           <>
             <div>
               Python bot that scrapes reddit for images, reads text from them,
-              creates short videos and uploads them to youtube!
+              creates short videos and uploads them to youtube.
             </div>
             <div className="flex justify-end p-2 "></div>
           </>
@@ -430,8 +430,8 @@ export const sections = {
         copy={
           <div className={getBlackWhiteOppositTextClass(color)}>
             <div>
-              A multithreaded go fractal generation programm i made in a few
-              days to teach myself golang.
+              A multithreaded go fractal generation program i made in a few days
+              to teach myself golang.
             </div>
           </div>
         }
@@ -526,10 +526,9 @@ export const sections = {
             <TechIcon name="nextjs" />
             <TechIcon name="react" />
             <TechIcon name="typescript" />
-
             <TechIcon
               name="github"
-              link="https://github.com/jan-czerwinski/hackathon-2022-bot"
+              link="https://github.com/jan-czerwinski/portfolio-v2"
             />
           </>
         }
@@ -538,6 +537,15 @@ export const sections = {
             <div></div>
             <div className="flex justify-end p-2 "></div>
           </div>
+        }
+        media={
+          <iframe
+            width={600}
+            height={600}
+            // className=""
+            // src="https://jan-czerwinski.vercel.app/"
+            src="https://jan-czerwinski.vercel.app/"
+          />
         }
         // media={<div>dupsko</div>}
       />
@@ -574,8 +582,9 @@ export const sections = {
               destination, and it effortlessly generates a detailed itinerary,
               using the Google Maps API. Powered by LLMs like ChatGPT-4 and
               Claude 2, it ensures a seamless and personalized travel
-              experience. I&apos;ve worked on the maps as well as the LLMs
-              connection and parsing.
+              experience. I was hired as a specialist on maps api. I&apos;ve
+              worked on that as well as the LLMs connection and parsing & much
+              more.
             </div>
           </div>
         }

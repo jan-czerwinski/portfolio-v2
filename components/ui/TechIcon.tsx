@@ -19,9 +19,10 @@ import {
   SiXamarin,
 } from "react-icons/si";
 
+import Link from "next/link";
 import { FaDigitalOcean } from "react-icons/fa";
 import { FaGolang } from "react-icons/fa6";
-import { SiFastapi, SiTailwindcss } from "react-icons/si";
+import { SiFastapi, SiTailwindcss, SiVercel } from "react-icons/si";
 import { TbBrandNextjs, TbBrandThreejs } from "react-icons/tb";
 import { useColorContext } from "../../utils/ColorContext";
 import { blackWhiteOpposite } from "../../utils/colorUtils";
@@ -53,7 +54,6 @@ const iconComponents = {
   digital_ocean: FaDigitalOcean,
   vercel: SiVercel,
 };
-import { SiVercel } from "react-icons/si";
 
 type TechIconType = keyof typeof iconComponents;
 
@@ -79,7 +79,14 @@ export const TechIcon = ({ name, link, size, disablePopup }: TechIconProps) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Icon href={link} size={size || defaultSize} />
+      {link ? (
+        <Link href={link} passHref>
+          <Icon size={size || defaultSize} />
+        </Link>
+      ) : (
+        <Icon size={size || defaultSize} />
+      )}
+
       {hovered && !disablePopup && (
         <div
           className={clsx(

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useMenuContext } from "../utils/MenuContext";
 import { getBgAndTextColorStyle } from "../utils/colorUtils";
 import { useInView } from "../utils/useInView";
@@ -8,14 +8,18 @@ import { CustomText } from "./ui/CustomText";
 type EntrySectionProps = { color: string };
 export const EntrySection = ({ color }: EntrySectionProps) => {
   const [animationIdx, setAnimationIdx] = useState(0);
+  const nextAnimation = useCallback(
+    () => setAnimationIdx((oldIdx) => oldIdx + 1),
+    []
+  );
   const { inView } = useInView("entry_id");
-  const { setMyStringState } = useMenuContext();
+  const { setColor } = useMenuContext();
 
   useEffect(() => {
     if (inView) {
-      setMyStringState("#FFF");
+      setColor("#FFF");
     }
-  }, [inView, setMyStringState]);
+  }, [inView, setColor]);
 
   return (
     <div
@@ -37,41 +41,46 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
             hi! my name is: Jan Czerwiński
           </h1> */}
         <div className="flex flex-col gap-2 mt-auto  border-b border-b-black  w-[60vw]">
-          <CustomText>hi!</CustomText>
-
-          <CustomText> my name is:</CustomText>
           <CustomText
             withAnimation
             animationIdx={0}
             currentIdx={animationIdx}
-            nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
+            nextAnimation={nextAnimation}
           >
-            jan czerwinski
+            hi!
+          </CustomText>
+          <CustomText
+            withAnimation
+            animationIdx={1}
+            currentIdx={animationIdx}
+            nextAnimation={nextAnimation}
+          >
+            my name is: jan czerwinski
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
             withAnimation
-            animationIdx={1}
-            nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
+            animationIdx={2}
+            nextAnimation={nextAnimation}
           >
             a mobile&&web fullstack developer
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
-            animationIdx={2}
+            animationIdx={3}
             withAnimation
-            nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
+            nextAnimation={nextAnimation}
           >
             welcome to my website! enjoy
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
-            animationIdx={3}
+            animationIdx={4}
             withAnimation
             nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
             withBeepingAtEnd
           >
-            its a work in progress, some things might not work! sorry
+            its a work in progress, some things might not work
           </CustomText>
         </div>
         {/* <button

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 
-export const getContrastColor = (bgColor: string) => {
+export type BlackOrWhite = "#000" | "#fff";
+
+export const getContrastColor = (bgColor: string): BlackOrWhite => {
   if (!bgColor) return "#000";
   if (bgColor === "#fff" || bgColor === "#000") {
     return bgColor === "#fff" ? "#000" : "#fff";
@@ -19,6 +21,7 @@ export const blackWhiteOpposite = (color: string) => ({
   text: clsx(color === "#FFF" ? "text-black" : "text-white"),
   bg: clsx(color === "#FFF" ? "bg-black" : "bg-white"),
   bgopacity40: clsx(color === "#FFF" ? "bg-black/40" : "bg-white/40"),
+  hex: color === "#FFF" ? "#000" : "#FFF",
 });
 
 export const getBgAndTextColorStyle = (bgColor: string) => {

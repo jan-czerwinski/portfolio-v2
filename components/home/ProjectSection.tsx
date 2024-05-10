@@ -20,13 +20,13 @@ const ProjectSection = ({
 }: ProjectSectionProps) => {
   const id = `${title}_id`;
   const { inView } = useInView(id);
-  const { setMyStringState } = useMenuContext();
+  const { setColor } = useMenuContext();
 
   useEffect(() => {
     if (inView) {
-      setMyStringState(backgroundColor);
+      setColor(backgroundColor);
     }
-  }, [inView, backgroundColor, setMyStringState]);
+  }, [inView, backgroundColor, setColor]);
 
   return (
     <ColorContextProvider defaultColor={backgroundColor}>
