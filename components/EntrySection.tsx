@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useMenuContext } from "../utils/MenuContext";
 import { getBgAndTextColorStyle } from "../utils/colorUtils";
@@ -28,7 +27,7 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
       style={getBgAndTextColorStyle(color)}
     >
       <div className="flex  gap-10 ">
-        <div className="w-[30vw] place-content-center mt-auto  ">
+        {/* <div className="w-[30vw] place-content-center mt-auto  ">
           <Image
             src={"/me_cropped.png"}
             alt="me face"
@@ -36,7 +35,7 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
             layout="responsive"
             height={483}
           />
-        </div>
+        </div> */}
         {/* <h1 className=" text-center text-2xl italic text-black font-bold">
             hi! my name is: Jan Czerwiński
           </h1> */}
@@ -55,7 +54,7 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
             currentIdx={animationIdx}
             nextAnimation={nextAnimation}
           >
-            my name is: jan czerwinski
+            my name is jan czerwiński
           </CustomText>
           <CustomText
             currentIdx={animationIdx}
@@ -73,24 +72,7 @@ export const EntrySection = ({ color }: EntrySectionProps) => {
           >
             welcome to my website! enjoy
           </CustomText>
-          <CustomText
-            currentIdx={animationIdx}
-            animationIdx={4}
-            withAnimation
-            nextAnimation={() => setAnimationIdx((oldIdx) => oldIdx + 1)}
-            withBeepingAtEnd
-          >
-            its a work in progress, some things might not work
-          </CustomText>
         </div>
-        {/* <button
-            onClick={() => {
-              console.log(sectionElements());
-            }}
-            className="text 2xl"
-          >
-            🐞🪲🐛 debug 🐞🪲🐛
-          </button> */}
       </div>
     </div>
   );

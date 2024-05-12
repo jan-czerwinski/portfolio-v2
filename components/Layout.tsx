@@ -17,7 +17,8 @@ export const Layout = ({ children }: LayoutProps) => {
   if (isMobile)
     return (
       <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
-        please view this page on desktop, it&apos;s not made for mobile devices
+        Sorry, this page is not yet available on mobile devices. I&apos;m
+        working on it, for now please view this website on your desktop.
       </div>
     );
 

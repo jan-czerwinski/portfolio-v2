@@ -66,9 +66,7 @@ export const Menu = () => {
     <div
       className={clsx(
         "z-50 w-14 h-14 rounded-br-full  cursor-pointer group   hover:w-40 hover:h-40 transform bg-blue   duration-[1200ms] bg-blend-difference  ease-in-out fixed top-0 left-0 overflow-hidden",
-        delayState === "#FFF"
-          ? "text-white bg-black/70"
-          : "text-black bg-white/70",
+        "text-white bg-black/70",
         transition && "!h-[150vmax] !w-[150vmax]"
       )}
       onClick={() => {
@@ -80,39 +78,17 @@ export const Menu = () => {
         size={32}
         className="m-0.5 group-hover:scale-[200%] group-hover:m-4 transition-all duration-700 ease-in-out"
       />
-      {/* <div className="group-hover:visible invisible ml-4 mt-4 text-2xl">
-        menu
-      </div> */}
+
       <div className="grid h-0 w-0 ">
-        <div
-          className={clsx(
-            "absolute w-2 h-2 top-20 left-20 rounded-full -translate-x-1/3 -translate-y-1/3  bg-white/90 "
-          )}
-        />
         {rays.map((props, idx) => (
-          <Ray animationIdx={animationIdx} key={`ray_${idx}`} {...props} />
+          <Ray
+            transition={transition}
+            animationIdx={animationIdx}
+            key={`ray_${idx}`}
+            {...props}
+          />
         ))}
       </div>
-      {/* <div className="group-hover:visible invisible grid place-content-center w-screen h-screen">
-      <div className="flex flex-col gap-20">
-      <CustomText
-            className="!text-white ml-60"
-            withAnimation
-            animationIdx={1}
-            currentIdx={animationIdx}
-          >
-            my work projects
-          </CustomText>
-          <CustomText
-            className="!text-white -ml-40 "
-            currentIdx={animationIdx}
-            withAnimation
-            animationIdx={1}
-          >
-            my hobby projects
-          </CustomText>
-      </div>
-      </div> */}
     </div>
   );
 };

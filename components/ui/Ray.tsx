@@ -5,9 +5,16 @@ type RayProps = {
   animationIdx: number;
   className: string;
   children: ReactNode;
+  transition?: boolean;
   link?: string;
 };
-export const Ray = ({ animationIdx, className, children, link }: RayProps) => {
+export const Ray = ({
+  animationIdx,
+  transition,
+  className,
+  children,
+  link,
+}: RayProps) => {
   const [hovered, setHovered] = useState(false);
   return (
     <div
@@ -23,8 +30,9 @@ export const Ray = ({ animationIdx, className, children, link }: RayProps) => {
         onMouseOver={() => setHovered(true)}
         onMouseOut={() => setHovered(false)}
         className={clsx(
-          " ml-[20%] pl-16 transform transition-all  duration-500   -translate-y-10  text-3xl   ",
-          hovered && "-translate-x-10"
+          "  pl-96 transform transition-all  duration-500   -translate-y-10  text-3xl   ",
+          hovered && "-translate-x-10",
+          !transition && "opacity-0"
         )}
       >
         {children}
