@@ -591,4 +591,32 @@ export const sections = {
       />
     </ProjectSection>
   ),
+  scrapers: (color: string) => (
+    <ProjectSection backgroundColor={color} title="scrapers">
+      <ColumnSection
+        backgroundColor={color}
+        columns="one"
+        noFrameMedia={true}
+        techIcons={
+          <>
+            <TechIcon name="python" />
+            <TechIcon name="selenium" />
+          </>
+        }
+        copy={
+          <div
+            className={clsx(
+              getBlackWhiteOppositTextClass(color),
+              "grid place-content-center h-full text-2xl"
+            )}
+          >
+            <div>
+              Numerous web scrapers I&apos;ve created. Some for personal use,
+              some for end to end testing my web apps.
+            </div>
+          </div>
+        }
+      />
+    </ProjectSection>
+  ),
 };

@@ -20,8 +20,8 @@ const HobbyProjects = () => {
           "rubiks",
           "hackathonBot",
           "mandelbrot",
-          // "maze",
           "wordClock",
+          "scrapers",
           "website",
         ]}
       />

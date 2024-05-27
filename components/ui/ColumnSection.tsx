@@ -22,12 +22,14 @@ const ColumnSection = ({
   if (columns === "one")
     return (
       <div className="box-border justify-center w-full px-16 flex flex-col gap-8 ">
-        <div
-          className="p-2 mx-auto  rounded-md w-fit "
-          style={getOpposingBgStyle(backgroundColor)}
-        >
-          {media}
-        </div>
+        {media && (
+          <div
+            className="p-2 mx-auto  rounded-md w-fit "
+            style={getOpposingBgStyle(backgroundColor)}
+          >
+            {media}
+          </div>
+        )}
 
         <div className="w-[1000px] flex flex-col justify-start  text-justify mx-auto text-3xl ">
           {copy}

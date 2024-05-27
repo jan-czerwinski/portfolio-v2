@@ -12,6 +12,7 @@ import {
   SiPython,
   SiRedux,
   SiRuby,
+  SiSelenium,
   SiStrapi,
   SiSvelte,
   SiSwift,
@@ -53,6 +54,7 @@ const iconComponents = {
   react_native: FaReact,
   digital_ocean: FaDigitalOcean,
   vercel: SiVercel,
+  selenium: SiSelenium,
 };
 
 type TechIconType = keyof typeof iconComponents;
