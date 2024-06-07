@@ -547,7 +547,7 @@ export const sections = {
             src="https://jan-czerwinski.vercel.app/"
           />
         }
-        // media={<div>dupsko</div>}
+        // media={<div></div>}
       />
     </ProjectSection>
   ),
