@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { isMobile } from "react-device-detect";
 import { getBgAndTextColorStyle } from "../utils/colorUtils";
+import { NotAvailableMobile } from "./NotAvailableMobile";
 import { Menu } from "./home/Menu";
 
 type LayoutProps = { children: ReactNode };
@@ -14,13 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
   //   // console.log({ mousePosition });
   // };
 
-  if (isMobile)
-    return (
-      <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
-        Sorry, this page is not yet available on mobile devices. I&apos;m
-        working on it, for now please view this website on your desktop.
-      </div>
-    );
+  if (isMobile) return <NotAvailableMobile />;
 
   return (
     <div

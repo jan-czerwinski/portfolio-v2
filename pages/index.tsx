@@ -1,18 +1,10 @@
 import type { NextPage } from "next";
-import { isMobile } from "react-device-detect";
 import { EntrySection } from "../components/EntrySection";
 import { Layout } from "../components/Layout";
 import { NavigationSection } from "../components/NavigationSection";
 import { sections } from "../components/home/Sections";
 
 const Home: NextPage = () => {
-  if (isMobile)
-    return (
-      <div className="grid w-full h-[100vh] bg-rose-400 text-white text-4xl text-center place-content-center">
-        please view this page on desktop, it&apos;s not made for mobile devices
-      </div>
-    );
-
   type SectionKey = keyof typeof sections;
   const whiteList: SectionKey[] = [
     "cadaway",
